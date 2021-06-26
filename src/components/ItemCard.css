@@ -1,0 +1,80 @@
+.itemcard{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius: .25rem;
+    position: relative;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.3);
+    background-color: white;
+    transform-style: preserve-3d;
+    transition: 150ms;
+    cursor:pointer;
+    transform: perspective(1000px) rotateY(var(--rotate-y,0)) translateY(var(--translate-y,0))
+}
+
+
+.itemcard:hover{
+    --translate-y: -2px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.itemcard.flip{
+    --rotate-y:180deg;
+
+}
+
+.itemcard .front{
+    backface-visibility: hidden;
+    padding: 1rem;
+}
+
+
+.itemcard .back{
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    position:absolute
+}
+
+.itemcard .front{
+    left:0;
+}
+
+
+.btn-behind-itemcard{
+    background-color: hsl(200,100%,50%);
+    color:white;
+    padding: .5em 1em;
+    border-radius: .3em;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-behind-itemcard:hover{
+    background-color: hsl(200,100%,40%);
+}
+
+.body-itemcard{
+    position:relative;
+}
+
+.btn-likable{
+    position:absolute;
+    top:0%;
+    left:0%;
+    z-index: 2;
+    
+}
+
+.btn-likable:hover{
+    --translate-y: -2px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0, .5);
+}
+
+.btn-likable.liked{
+    color:red;
+}
+
+.seeMoreModal{
+
+    color:purple;
+}

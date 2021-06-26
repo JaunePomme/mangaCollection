@@ -1,0 +1,13 @@
+.nav-list{
+    display:flex;
+    background-color: aquamarine;
+    align-items: center;
+}
+
+
+
+
+.current{
+    background-color:blueviolet;
+    
+}
