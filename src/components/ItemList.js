@@ -2,13 +2,13 @@ import React from 'react'
 import ItemCard from './ItemCard'
 import './ItemList.css'
 
-export default function ItemList({searchData}) {
+export default function ItemList({searchData, category}) {
     // console.log(searchData)
 
     return (
         <div className='manga-grid'>
             {searchData.map(searchDataItem=>(
-                <ItemCard key={searchDataItem.mal_id} searchDataItem={searchDataItem}/>
+                <ItemCard key={searchDataItem.mal_id} searchDataItem={searchDataItem} category={category}/>
             ))}
         </div>
     )

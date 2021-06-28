@@ -9,18 +9,20 @@ import PersonalReviews from './PersonalReviews'
 export default function LikedList() {
 
     const { currentUser } = useAuthentication();
-    const [likedData, setLikedData] = useState();
+    const [likedMangasData, setLikedMangasData] = useState();
+    const [likedAnimesData, setLikedAnimesData] = useState();
     const [reviewsData, setReviewsData] = useState();
     const [blabla, setBlabla] = useState([]);
 
     useEffect(() => {
-        async function handleRetrieve() {
-            var docRef = firestore.collection("liked").doc(currentUser.uid);
+        async function handleMangasRetrieve() {
+            var docRef = firestore.collection("likedMangas").doc(currentUser.uid);
 
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
-                    setLikedData(doc.data().likes);
+                    setLikedMangasData(doc.data().likes);
+                    // setLikedAnimesData(doc.data().likes);
                     setReviewsData(doc.data().reviews);
                 } else {
                     console.log("No such document");
@@ -30,7 +32,24 @@ export default function LikedList() {
             });
         }
 
-        handleRetrieve();
+        async function handleAnimesRetrieve() {
+            var docRef = firestore.collection("likedAnimes").doc(currentUser.uid);
+
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                    setLikedAnimesData(doc.data().likes);
+                    setReviewsData(doc.data().reviews);
+                } else {
+                    console.log("No such document");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+
+        handleMangasRetrieve();
+        handleAnimesRetrieve();
 
     }, [currentUser.uid])
 
@@ -57,12 +76,12 @@ export default function LikedList() {
             </button>
             {blabla}
             List of Liked Animes:
-            <AnimeLikedCard likedData={likedData} />
+            <AnimeLikedCard likedData={likedAnimesData} />
 
 
             <div className='item-grid'>
                 List of Liked Mangas:
-                <MangaLikedCard likedData={likedData} />
+                <MangaLikedCard likedData={likedMangasData} />
             </div>
 
             List of reviews:

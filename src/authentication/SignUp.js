@@ -27,12 +27,21 @@ export default function SignUp() {
                     var uid = userCredential.user.uid;
                     var mail = userCredential.user.email;
 
-                    firestore.collection('liked').doc(uid).set({
+                    firestore.collection('likedAnimes').doc(uid).set({
                         likes: [],
                         scores: [],
                         reviews: [],
                         scans: [],
                         episodes: [],
+                        ongoing: [],
+                        completed: [],
+                        plantowatch: []
+                    });
+                    firestore.collection('likedMangas').doc(uid).set({
+                        likes: [],
+                        scores: [],
+                        reviews: [],
+                        scans: [],
                         ongoing: [],
                         completed: [],
                         plantowatch: []

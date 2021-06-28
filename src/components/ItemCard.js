@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ItemCard.css'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,20 +6,23 @@ import { useAuthentication } from '../contexts/AuthenticationContext';
 import { firestore } from '../firebase';
 import firebase from 'firebase';
 
-//add onkeyboard 'enter' do search
 
-export default function ItemCard({ searchDataItem }) {
+
+export default function ItemCard({ searchDataItem, category }) {
     const [flip, setFlip] = useState(false)
     const urlString = '/manga-profile/' + searchDataItem.mal_id
     const [show, setShow] = useState(false);
     const [like, setLike] = useState(false);
     const { currentUser } = useAuthentication();
+    const [mangaOrNot, setMangaOrNot] = useState(true);
 
+    useEffect(()=>{
+        if(category==='anime') setMangaOrNot(false);
+    },[category])
 
-
-    async function handleLikeClick() {
+    async function handleMangaLikeClick() {
         setLike(!like);
-        var db = firestore.collection("liked").doc(currentUser.uid);
+        var db = firestore.collection("likedMangas").doc(currentUser.uid);
         const newItem = {
             mal_id: searchDataItem.mal_id,
             title: searchDataItem.title,
@@ -27,7 +30,10 @@ export default function ItemCard({ searchDataItem }) {
             synopsis: searchDataItem.synopsis,
             volumes: searchDataItem.volumes,
             chapters: searchDataItem.chapters,
-            score: searchDataItem.score
+            score: searchDataItem.score,
+            members: searchDataItem.members,
+            start_date: searchDataItem.start_date,
+            end_date: searchDataItem.end_date
 
         }
 
@@ -59,6 +65,50 @@ export default function ItemCard({ searchDataItem }) {
     }
 
 
+    async function handleAnimeLikeClick() {
+        console.log('dans la fonction')
+        setLike(!like);
+        var db = firestore.collection("likedAnimes").doc(currentUser.uid);
+        const newItem = {
+            mal_id: searchDataItem.mal_id,
+            title: searchDataItem.title,
+            image_url: searchDataItem.image_url,
+            synopsis: searchDataItem.synopsis,
+            episodes: searchDataItem.episodes,
+            type: searchDataItem.type,
+            score: searchDataItem.score,
+            rated: searchDataItem.rated,
+            members: searchDataItem.members,
+            start_date: searchDataItem.start_date,
+            end_date: searchDataItem.end_date
+
+        }
+
+        if (like) {
+            return db.update({
+                likes: firebase.firestore.FieldValue.arrayRemove(newItem),
+            })
+                .then(() => {
+                    console.log("Document removed!");
+
+                })
+                .catch((error) => {
+                    console.error("Error updating document: ", error);
+                });
+        }
+
+        return db.update({
+            likes: firebase.firestore.FieldValue.arrayUnion(newItem),
+        })
+            .then(() => {
+                console.log("Document added!");
+
+            })
+            .catch((error) => {
+                console.error("Error updating document: ", error);
+            });
+    }
+
     function handleSeeMore(searchDataItem) {
         console.log(searchDataItem)
     }
@@ -67,7 +117,9 @@ export default function ItemCard({ searchDataItem }) {
 
     return (
         <div className='body-itemcard'>
-            {currentUser && <button className={`btn-likable ${like ? 'liked' : ''} `} onClick={handleLikeClick}>
+
+            {currentUser && <button className={`btn-likable ${like ? 'liked' : ''} `}
+                onClick={(mangaOrNot) ? handleMangaLikeClick : handleAnimeLikeClick}>
                 <FontAwesomeIcon icon={'user'}></FontAwesomeIcon>
             </button>}
 

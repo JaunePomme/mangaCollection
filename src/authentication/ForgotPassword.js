@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 
@@ -7,6 +7,7 @@ export default function ForgotPassword() {
 
     const emailRef = useRef();
     const {resetPassword}=useAuthentication();
+
 
 
     async function handleSubmit(e) {

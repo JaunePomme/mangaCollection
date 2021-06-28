@@ -79,7 +79,7 @@ export default function Content() {
 
                 </div>
 
-                <ItemList searchData={searchData} />
+                <ItemList searchData={searchData} category={category} />
                 <div className='footer'>
                     Pagination
                 </div>
