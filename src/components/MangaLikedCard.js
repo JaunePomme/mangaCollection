@@ -51,6 +51,11 @@ export default function MangaLikedCard({ item, completedList }) {
     const [inputReview, setInputReview] = useState('');
     const [inputChapter, setInputChapter] = useState();
 
+
+    const handleChange = (event) => {
+        setStatus(event.target.value);
+    };
+
     const handleChangeCheckBox = (event) => {
         setChecked(event.target.checked);
     };
@@ -80,21 +85,39 @@ export default function MangaLikedCard({ item, completedList }) {
         console.log('handle close')
     };
     async function handleSave() {
-        console.log('modifications saved')
-        var db = firestore.collection("scans").doc(currentUser.uid).collection('manga').doc(item.title);
-        // var dbstatus=firestore.collection()
-        return db.set({
-            'chapter': inputChapter,
-        })
-            .then(() => {
-                console.log("Document added!");
-            })
-            .then(() => {
-                console.log("Document added!");
-            })
-            .catch((error) => {
-                console.error("Error updating document: ", error);
-            });
+
+        // var db = firestore.collection("scans").doc(currentUser.uid).collection('manga').doc(item.title);
+        // var dbstatus = firestore.collection('status').doc(currentUser.uid).collection('manga').doc(item.title);
+        // return dbstatus.set({
+        //     'status': status,
+        // })
+        //     .then(() => {
+        //         db.set({
+        //             'chapter': inputChapter
+        //         })
+        //         console.log(status)
+        //     })
+        //     .then(() => {
+        //         console.log("Document added!");
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error updating document: ", error);
+        //     });
+
+        // Get a new write batch
+        var batch = firestore.batch();
+
+        var nycRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(nycRef, { status: status });
+
+        var sfRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(sfRef, { "chapter": inputChapter });
+
+        batch.commit().then(() => {
+            console.log("Document added!");
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });;
 
     }
 
@@ -204,12 +227,9 @@ export default function MangaLikedCard({ item, completedList }) {
                                                     <Select
                                                         native
                                                         value={status}
-                                                        onChange={e => {
-                                                            setStatus(e.target.value)
-                                                        }}
+                                                        onChange={handleChange}
                                                         inputProps={{
                                                             name: 'status',
-
                                                         }}
                                                     >
                                                         <option aria-label="None" value="" />
@@ -226,7 +246,7 @@ export default function MangaLikedCard({ item, completedList }) {
                                                             step='1'
                                                             value={inputChapter}
                                                             onChange={e => setInputChapter(e.target.value)}
-                                                            placeholder='??'
+                                                            placeholder={0}
                                                             onKeyDown={(e) => {
                                                                 if (e.key === 'Enter') {
                                                                     handleSave();
