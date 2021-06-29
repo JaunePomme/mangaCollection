@@ -29,24 +29,26 @@ export default function SignUp() {
 
                     firestore.collection('likedAnimes').doc(uid).set({
                         likes: [],
-                        scores: [],
-                        reviews: [],
-                        scans: [],
-                        episodes: [],
-                        ongoing: [],
-                        completed: [],
-                        plantowatch: []
                     });
                     firestore.collection('likedMangas').doc(uid).set({
                         likes: [],
-                        scores: [],
-                        reviews: [],
-                        scans: [],
-                        ongoing: [],
-                        completed: [],
-                        plantowatch: []
                     });
-
+                    firestore.collection('reviews').doc(uid).set({
+                        id:[]
+                    });
+                    firestore.collection('scans').doc(uid).set({
+                        id:[]
+                    });
+                    firestore.collection('episodes').doc(uid).set({
+                        id:[]
+                    });
+                    firestore.collection('status').doc(uid).set({
+                        id:[]
+                    });
+                    firestore.collection('scores').doc(uid).set({
+                        id:[]
+                    });
+                    
                     firestore.collection('users').doc(uid).set({
                         pseudo: (localStorage.getItem('pseudo')),
                         email: mail,

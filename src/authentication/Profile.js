@@ -10,7 +10,6 @@ export default function Profile() {
     let history = useHistory();
     const { currentUser, logout } = useAuthentication();
     const [pseudo, setPseudo] = useState('');
-    const [data, setData] = useState([])
 
 
 //a checker
@@ -56,7 +55,7 @@ export default function Profile() {
 
            
             <div>
-                <LikedList  data={data} />
+                <LikedList />
 
             </div>
 

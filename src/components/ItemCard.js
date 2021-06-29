@@ -33,7 +33,7 @@ export default function ItemCard({ searchDataItem, category }) {
             score: searchDataItem.score,
             members: searchDataItem.members,
             start_date: searchDataItem.start_date,
-            end_date: searchDataItem.end_date
+            end_date: searchDataItem.end_date,
 
         }
 
@@ -80,7 +80,7 @@ export default function ItemCard({ searchDataItem, category }) {
             rated: searchDataItem.rated,
             members: searchDataItem.members,
             start_date: searchDataItem.start_date,
-            end_date: searchDataItem.end_date
+            end_date: searchDataItem.end_date,
 
         }
 

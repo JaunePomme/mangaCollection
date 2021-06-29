@@ -2,8 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { firestore } from '../firebase';
-import MangaLikedCard from './MangaLikedCard';
-import AnimeLikedCard from './AnimeLikedCard';
+import MangaLikedList from './MangaLikedList';
+import AnimeLikedList from './AnimeLikedList';
 import PersonalReviews from './PersonalReviews'
 
 export default function LikedList() {
@@ -14,6 +14,7 @@ export default function LikedList() {
     const [reviewsData, setReviewsData] = useState();
     const [blabla, setBlabla] = useState([]);
 
+
     useEffect(() => {
         async function handleMangasRetrieve() {
             var docRef = firestore.collection("likedMangas").doc(currentUser.uid);
@@ -22,8 +23,8 @@ export default function LikedList() {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
                     setLikedMangasData(doc.data().likes);
-                    // setLikedAnimesData(doc.data().likes);
                     setReviewsData(doc.data().reviews);
+
                 } else {
                     console.log("No such document");
                 }
@@ -65,9 +66,6 @@ export default function LikedList() {
 
     }
 
-
-
-
     return (
         <div>
 
@@ -76,12 +74,12 @@ export default function LikedList() {
             </button>
             {blabla}
             List of Liked Animes:
-            <AnimeLikedCard likedData={likedAnimesData} />
+            <AnimeLikedList likedData={likedAnimesData} />
 
 
             <div className='item-grid'>
                 List of Liked Mangas:
-                <MangaLikedCard likedData={likedMangasData} />
+                <MangaLikedList likedData={likedMangasData}  />
             </div>
 
             List of reviews:
