@@ -20,9 +20,9 @@ export default function Navigation() {
                     </li>
                 </NavLink>
 
-                <NavLink exact activeClassName='current' to={'/reviews'}>
+                {/* <NavLink exact activeClassName='current' to={'/reviews'}>
                     <li style={{ marginLeft: 25 }}> Reviews</li>
-                </NavLink>
+                </NavLink> */}
                 <NavLink exact activeClassName='current' to={'/profile'}>
                     <li style={{ marginLeft: 25 }}> Profile</li>
                 </NavLink>
