@@ -17,6 +17,39 @@ import firebase from 'firebase';
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { firestore } from '../firebase';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const valuesForScoring = [
+    {
+        value: 'Top-notch quality',
+        label: 'Top-notch quality (10/10)',
+    },
+    {
+        value: 'Very Good',
+        label: 'Very Good(8-9/10)',
+    },
+    {
+        value: 'Good',
+        label: 'Good (6-7/10)',
+    },
+    {
+        value: 'Watchable',
+        label: 'Watchable (5-6/10)',
+    },
+    {
+        value: 'Bad',
+        label: 'Bad (4-5/10)',
+    },
+    {
+        value: 'Don\'t watch it',
+        label: 'Don\'t watch it (below 4/10)',
+    },
+    {
+        value: 'Not decided yet',
+        label: 'Not decided yet',
+    },
+];
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -41,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MangaLikedCard({ item, completedList }) {
 
-
+    const [inputScoring, setInputScoring] = useState('');
     const [open, setOpen] = useState(false);
     const [openbis, setOpenbis] = useState(false);
     const classes = useStyles();
@@ -84,7 +117,7 @@ export default function MangaLikedCard({ item, completedList }) {
         setOpenbis(false);
         console.log('handle close')
     };
-    async function handleSave() {
+    function handleSave() {
 
         // var db = firestore.collection("scans").doc(currentUser.uid).collection('manga').doc(item.title);
         // var dbstatus = firestore.collection('status').doc(currentUser.uid).collection('manga').doc(item.title);
@@ -104,35 +137,40 @@ export default function MangaLikedCard({ item, completedList }) {
         //         console.error("Error updating document: ", error);
         //     });
 
-        // Get a new write batch
+
         var batch = firestore.batch();
 
-        var nycRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(nycRef, { status: status });
+        var statusRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(statusRef, { status: status });
 
-        var sfRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(sfRef, { "chapter": inputChapter });
+        var scansRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(scansRef, { "chapter": inputChapter });
 
         batch.commit().then(() => {
             console.log("Document added!");
         }).catch((error) => {
             console.error("Error updating document: ", error);
         });;
+        handleClose();
 
     }
 
-    async function handleReview() {
+    function handleReviewAndScore() {
         console.log('dans handleReview')
-        var db = firestore.collection("reviews").doc(currentUser.uid).collection('manga').doc(item.title);
-        return db.set({
-            'review': inputReview,
-        })
-            .then(() => {
-                console.log("Review added!");
-            })
-            .catch((error) => {
-                console.error("Error updating document: ", error);
-            });
+        var batch = firestore.batch();
+
+        var reviewsRef = firestore.collection("reviews").doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(reviewsRef, { 'review': inputReview, });
+
+        var scoresRef = firestore.collection('scores').doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.set(scoresRef, { 'score': inputScoring });
+
+        batch.commit().then(() => {
+            console.log("Document added!");
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });;
+        handleClosebis();
     }
 
 
@@ -294,8 +332,27 @@ export default function MangaLikedCard({ item, completedList }) {
                                                     value={inputReview}
                                                     placeholder="Write here..." />
                                                 <div>
-                                                    <button type='button' onClick={() => handleReview()}>
-                                                        Save Review
+
+                                                    <TextField
+                                                        id="outlined-select-scoring"
+                                                        select
+                                                        label="Select"
+                                                        value={inputScoring}
+                                                        onChange={(e) => setInputScoring(e.target.value)}
+                                                        helperText="Please select your scoring"
+                                                        variant="outlined"
+                                                    >
+                                                        {valuesForScoring.map((option) => (
+                                                            <MenuItem key={option.value} value={option.value}>
+                                                                {option.label}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
+
+                                                </div>
+                                                <div>
+                                                    <button type='button' onClick={() => handleReviewAndScore()}>
+                                                        Save the modifications
                                                     </button>
                                                 </div>
 
