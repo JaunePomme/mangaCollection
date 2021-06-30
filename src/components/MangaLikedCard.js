@@ -139,9 +139,13 @@ export default function MangaLikedCard({ item, completedList }) {
 
         var statusRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
         batch.set(statusRef, { status: inputStatus });
-        if(inputStatus==='Completed') setInputChapter(item.chapters);
+        
         var scansRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(scansRef, { "chapter": inputChapter });
+        if(inputChapter !=null) batch.set(scansRef, { "chapter": inputChapter });
+        if(inputStatus==='Completed') {
+            setInputChapter(item.chapters);
+            batch.set(scansRef, { "chapter": item.chapters });
+        }
 
         batch.commit().then(() => {
             console.log("Document added!");
@@ -219,7 +223,7 @@ export default function MangaLikedCard({ item, completedList }) {
             var docRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    console.log("Document data de handleScansRetrieve:", doc.data());
+                    console.log("Document data de handleStatusRetrieve:", doc.data());
                     setInputStatus(doc.data().status);
                 } else {
                     console.log("No such document");
@@ -283,7 +287,7 @@ export default function MangaLikedCard({ item, completedList }) {
                                 </button>
                             </Link>
                             <button type='button' className='btn-behind-mangacard' onClick={() => handleOpenbis()} >
-                                Give review et note
+                                Give review and score
                             </button>
                             <div>
                                 <button
