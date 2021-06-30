@@ -20,36 +20,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const valuesForScoring = [
-    {
-        value: 'Top-notch quality',
-        label: 'Top-notch quality (10/10)',
-    },
-    {
-        value: 'Very Good',
-        label: 'Very Good(8-9/10)',
-    },
-    {
-        value: 'Good',
-        label: 'Good (6-7/10)',
-    },
-    {
-        value: 'Watchable',
-        label: 'Watchable (5-6/10)',
-    },
-    {
-        value: 'Bad',
-        label: 'Bad (4-5/10)',
-    },
-    {
-        value: 'Don\'t watch it',
-        label: 'Don\'t watch it (below 4/10)',
-    },
-    {
-        value: 'Not decided yet',
-        label: 'Not decided yet',
-    },
-];
+
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -74,25 +45,51 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MangaLikedCard({ item, completedList }) {
 
-    const [inputScoring, setInputScoring] = useState('');
     const [open, setOpen] = useState(false);
     const [openbis, setOpenbis] = useState(false);
     const classes = useStyles();
     const [checked, setChecked] = useState(true);
-    const [status, setStatus] = useState('');
+    const [inputStatus, setInputStatus] = useState('');
     const { currentUser } = useAuthentication();
     const [inputReview, setInputReview] = useState('');
+    const [inputScoring, setInputScoring] = useState('');
+
     const [inputChapter, setInputChapter] = useState();
 
-
-    const handleChange = (event) => {
-        setStatus(event.target.value);
-    };
+    const valuesForScoring = [
+        {
+            value: 'Top-notch quality',
+            label: 'Top-notch quality (10/10)',
+        },
+        {
+            value: 'Very Good',
+            label: 'Very Good(8-9/10)',
+        },
+        {
+            value: 'Good',
+            label: 'Good (6-7/10)',
+        },
+        {
+            value: 'Watchable',
+            label: 'Watchable (5-6/10)',
+        },
+        {
+            value: 'Bad',
+            label: 'Bad (4-5/10)',
+        },
+        {
+            value: 'Don\'t watch it',
+            label: 'Don\'t watch it (below 4/10)',
+        },
+        {
+            value: 'Not decided yet',
+            label: 'Not decided yet',
+        },
+    ];
 
     const handleChangeCheckBox = (event) => {
         setChecked(event.target.checked);
     };
-
 
     function handleSeeMore(searchDataItem) {
         console.log(searchDataItem)
@@ -141,8 +138,8 @@ export default function MangaLikedCard({ item, completedList }) {
         var batch = firestore.batch();
 
         var statusRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(statusRef, { status: status });
-
+        batch.set(statusRef, { status: inputStatus });
+        if(inputStatus==='Completed') setInputChapter(item.chapters);
         var scansRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
         batch.set(scansRef, { "chapter": inputChapter });
 
@@ -174,6 +171,70 @@ export default function MangaLikedCard({ item, completedList }) {
     }
 
 
+
+    useEffect(() => {
+        function handleReviewsRetrieve() {
+            var docRef = firestore.collection("reviews").doc(currentUser.uid).collection('manga').doc(item.title);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data de handleReviewsRetrieve:", doc.data());
+                    setInputReview(doc.data().review);
+
+                } else {
+                    console.log("No such document");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+
+        function handleScoresRetrieve() {
+            var docRef = firestore.collection("scores").doc(currentUser.uid).collection('manga').doc(item.title);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data de handleScoresRetrieve:", doc.data());
+                    setInputScoring(doc.data().score);
+                } else {
+                    console.log("No such document");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+        function handleScansRetrieve() {
+            var docRef = firestore.collection("scans").doc(currentUser.uid).collection('manga').doc(item.title);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data de handleScansRetrieve:", doc.data());
+                    setInputChapter(doc.data().chapter);
+                } else {
+                    console.log("No such document");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+
+        function handleStatusRetrieve() {
+            var docRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
+            docRef.get().then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data de handleScansRetrieve:", doc.data());
+                    setInputStatus(doc.data().status);
+                } else {
+                    console.log("No such document");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+
+        handleStatusRetrieve();
+        handleScansRetrieve();
+        handleReviewsRetrieve();
+        handleScoresRetrieve();
+    }, [item.title, currentUser.uid])
+
     return (
         <div>
             <div key={item.mal_id}>
@@ -190,9 +251,12 @@ export default function MangaLikedCard({ item, completedList }) {
                                     alt={item.title}
                                     style={{ maxHeight: 200 }} />
                                 {inputReview}
+                                <div>
+                                    <strong>{inputScoring}</strong>
+                                </div>
                             </div>
                             <div>
-                                {status}
+                                {inputStatus}
                             </div>
                             Score: {item.score}/10
 
@@ -200,7 +264,7 @@ export default function MangaLikedCard({ item, completedList }) {
                                 volumes: {item.volumes}
                             </div>
                             <div className='manga-chapters'>
-                                chapters: {item.chapters}
+                                chapters I read: {inputChapter}/{item.chapters}
                             </div>
                         </div>
 
@@ -227,9 +291,9 @@ export default function MangaLikedCard({ item, completedList }) {
                                     className='btn-behind-mangacard'
                                     onClick={handleOpen}>
                                     Update {item.title}
-                                    <Fab color="secondary" aria-label="edit">
+                                    {/* <Fab color="secondary" aria-label="edit">
                                         <EditIcon />
-                                    </Fab>
+                                    </Fab> */}
                                 </button>
 
                                 <Modal
@@ -264,8 +328,10 @@ export default function MangaLikedCard({ item, completedList }) {
                                                     <InputLabel htmlFor="manga-status">Status</InputLabel>
                                                     <Select
                                                         native
-                                                        value={status}
-                                                        onChange={handleChange}
+                                                        value={inputStatus}
+                                                        onChange={(event) => {
+                                                            setInputStatus(event.target.value)
+                                                        }}
                                                         inputProps={{
                                                             name: 'status',
                                                         }}
@@ -277,7 +343,7 @@ export default function MangaLikedCard({ item, completedList }) {
                                                     </Select>
                                                 </FormControl>
                                                 <div>
-                                                    Chapters read: {(status === 'Completed') ? item.chapters :
+                                                    Chapters read: {(inputStatus === 'Completed') ? item.chapters :
                                                         <input
                                                             type='number'
                                                             min='0'
@@ -291,7 +357,6 @@ export default function MangaLikedCard({ item, completedList }) {
                                                                 }
                                                             }}>
 
-
                                                         </input>}/{item.chapters}
                                                 </div>
                                                 <div>
@@ -300,13 +365,10 @@ export default function MangaLikedCard({ item, completedList }) {
                                                     </button>
                                                 </div>
 
-
                                             </p>
                                         </div>
                                     </Fade>
                                 </Modal>
-
-
 
                                 <Modal
                                     aria-labelledby="transition-modal-title"

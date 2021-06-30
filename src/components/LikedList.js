@@ -11,19 +11,16 @@ export default function LikedList() {
     const { currentUser } = useAuthentication();
     const [likedMangasData, setLikedMangasData] = useState();
     const [likedAnimesData, setLikedAnimesData] = useState();
-    const [reviewsData, setReviewsData] = useState();
     const [blabla, setBlabla] = useState([]);
 
 
     useEffect(() => {
-        async function handleMangasRetrieve() {
+        function handleMangasRetrieve() {
             var docRef = firestore.collection("likedMangas").doc(currentUser.uid);
-
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
                     setLikedMangasData(doc.data().likes);
-                    setReviewsData(doc.data().reviews);
 
                 } else {
                     console.log("No such document");
@@ -33,14 +30,14 @@ export default function LikedList() {
             });
         }
 
-        async function handleAnimesRetrieve() {
+        function handleAnimesRetrieve() {
             var docRef = firestore.collection("likedAnimes").doc(currentUser.uid);
 
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     console.log("Document data:", doc.data());
                     setLikedAnimesData(doc.data().likes);
-                    setReviewsData(doc.data().reviews);
+                    
                 } else {
                     console.log("No such document");
                 }
@@ -72,7 +69,7 @@ export default function LikedList() {
             <button onClick={handleSortByScore}>
                 Sort by score
             </button>
-            {blabla}
+            
             List of Liked Animes:
             <AnimeLikedList likedData={likedAnimesData} />
 
