@@ -279,8 +279,8 @@ export default function MangaLikedCard({ item, completedList }) {
 
 
                             <Link to={{
-                                pathname: '/manga-profile/' + item.mal_id,
-                                state: { data: item, like: true }
+                                pathname: '/manga-profile/' + item.title,
+                                state: { data: item, like: true, type:'manga' }
                             }}>
                                 <button className='btn-behind-mangacard' onClick={() => handleSeeMore(item)} >
                                     See more

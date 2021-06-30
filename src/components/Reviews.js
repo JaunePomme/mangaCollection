@@ -1,28 +1,43 @@
-import React from 'react'
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import MemberReviewList from './MemberReviewList';
 
 
-export default function Reviews(){
+export default function Reviews() {
 
-    let {slug}=useParams();
-    return(
+
+    const [reviewList, setReviewList] = useState('');
+    let { title } = useParams();
+    let location = useLocation();
+    const type=location.state.type;
+    const id=location.state.id;
+
+    useEffect(() => {
+        const search = (type) => {
+            return axios.get(`https://api.jikan.moe/v3/${type}/${id}/reviews`)
+                .then(res => {
+                    setReviewList(res.data.reviews);
+                })
+                .catch((error) => {
+                    console.log("Error getting document:", error);
+                })
+        }
+        search(type,id);
+    },[id, type])
+
+
+
+
+    return (
         <div>
-            component : reviews
-            <p>Welcome to reviews class dear {slug} !</p>
-
             <FontAwesomeIcon icon={'user'}></FontAwesomeIcon>
-       
-        <Link to={{
-            pathname:'/users',
-            state:{
-                nomDeTruc:slug,
-            }
-        }}>
-        Clique pour test la location avec du state
-    
-        </Link>
+            <p>Welcome to reviews class dear {title} !</p>
+
+
+            <MemberReviewList reviewList={reviewList} />
+
         </div>
     )
 }

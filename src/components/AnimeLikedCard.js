@@ -240,6 +240,9 @@ export default function AnimeLikedCard({ item }) {
                             <div>
                                 {inputStatus}
                             </div>
+                            <div>
+                                {item.rated}
+                            </div>
                             Score: {item.score}/10
 
                             <div className='anime-episodes'>
@@ -254,8 +257,8 @@ export default function AnimeLikedCard({ item }) {
 
 
                             <Link to={{
-                                pathname: '/anime-profile/' + item.mal_id,
-                                state: { data: item, like: true }
+                                pathname: '/manga-profile/' + item.title,
+                                state: { data: item, like: true, type:'anime' }
                             }}>
                                 <button className='btn-behind-mangacard' onClick={() => handleSeeMore(item)} >
                                     See more
@@ -330,11 +333,7 @@ export default function AnimeLikedCard({ item }) {
                                                             value={inputEpisode}
                                                             onChange={e => setInputEpisode(e.target.value)}
                                                             placeholder={0}
-                                                            onKeyDown={(e) => {
-                                                                if (e.key === 'Enter') {
-                                                                    handleSave();
-                                                                }
-                                                            }}>
+                                                            >
 
                                                         </input>}/{item.episodes}
                                                 </div>

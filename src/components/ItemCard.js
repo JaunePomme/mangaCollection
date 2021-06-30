@@ -10,7 +10,8 @@ import firebase from 'firebase';
 
 export default function ItemCard({ searchDataItem, category }) {
     const [flip, setFlip] = useState(false)
-    const urlString = '/manga-profile/' + searchDataItem.mal_id
+    const urlString = '/manga-profile/' + searchDataItem.title
+    const reviewUrlString='reviews/'+ searchDataItem.title
     const [show, setShow] = useState(false);
     const [like, setLike] = useState(false);
     const { currentUser } = useAuthentication();
@@ -115,6 +116,7 @@ export default function ItemCard({ searchDataItem, category }) {
 
 
 
+
     return (
         <div className='body-itemcard'>
 
@@ -163,9 +165,14 @@ export default function ItemCard({ searchDataItem, category }) {
                         </button>
                     </Link>
 
-                    <button className='btn-behind-itemcard' >
-                        Update
-                    </button>
+                    <Link to={{
+                        pathname: reviewUrlString,
+                        state: { data: searchDataItem, like: like, type: category, id:searchDataItem.mal_id }
+                    }}>
+                        <button className='btn-behind-itemcard'  >
+                            Reviews
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

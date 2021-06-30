@@ -16,7 +16,6 @@ import PrivateRoute from './authentication/PrivateRoute';
 import ForgotPassword from './authentication/ForgotPassword'
 
 
-
 export default function App() {
 
   return (
@@ -34,9 +33,9 @@ export default function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/reviews' component={Reviews} />
-            <Route exact path='/reviews/:slug' component={Reviews} />
+            <Route exact path='/reviews/:title' component={Reviews} />
             <Route exact path='/forgot-password' component={ForgotPassword} />
-            <Route exact path='/manga-profile/:mal_id' component={MangaProfile} />
+            <Route exact path='/manga-profile/:title' component={MangaProfile} />
 
             {/* Private Routes */}
             <PrivateRoute exact path='/profile' component={Profile} />

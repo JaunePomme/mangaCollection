@@ -1,16 +1,18 @@
-import React from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import { useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './MangaProfile.css'
 
 
 export default function MangaProfile() {
 
-    let { mal_id } = useParams();
-    let location = useLocation();
-    console.log(location.state)
-    const data = location.state.data;
     
+    let location = useLocation();
+
+    
+    const data = location.state.data;
+    const mal_id=data.mal_id
+    const episodes=data.episodes
     const chapters = data.chapters;
     const image_url = data.image_url;
     const score = data.score;
@@ -22,6 +24,7 @@ export default function MangaProfile() {
     const like=location.state.like;
 
 
+   
     return (
         <div className='container'>
 
@@ -51,6 +54,10 @@ export default function MangaProfile() {
 
             <div>
                 Chapters: {chapters}
+
+            </div>
+            <div>
+                Episodes: {episodes}
 
             </div>
 
