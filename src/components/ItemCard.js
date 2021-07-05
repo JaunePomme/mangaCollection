@@ -23,46 +23,8 @@ export default function ItemCard({ searchDataItem, category }) {
 
     async function handleMangaLikeClick() {
         setLike(!like);
-        // var db = firestore.collection("likedMangas").doc(currentUser.uid);
         var db = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(searchDataItem.title)
-        // const newItem = {
-        //     mal_id: searchDataItem.mal_id,
-        //     title: searchDataItem.title,
-        //     image_url: searchDataItem.image_url,
-        //     synopsis: searchDataItem.synopsis,
-        //     volumes: searchDataItem.volumes,
-        //     chapters: searchDataItem.chapters,
-        //     score: searchDataItem.score,
-        //     members: searchDataItem.members,
-        //     start_date: searchDataItem.start_date,
-        //     end_date: searchDataItem.end_date,
-
-        // }
-
-        // if (like) {
-        //     return db.update({
-        //         likes: firebase.firestore.FieldValue.arrayRemove(newItem),
-        //     })
-        //         .then(() => {
-        //             console.log("Document removed!");
-
-        //         })
-        //         .catch((error) => {
-        //             console.error("Error updating document: ", error);
-        //         });
-        // }
-
-        // return db.update({
-        //     likes: firebase.firestore.FieldValue.arrayUnion(newItem),
-        // })
-        //     .then(() => {
-        //         console.log("Document added!");
-
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error updating document: ", error);
-        //     });
-
+        
         if (like) {
             var dbe = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(searchDataItem.title)
             return dbe.delete()
@@ -84,6 +46,7 @@ export default function ItemCard({ searchDataItem, category }) {
             chapters: searchDataItem.chapters,
             score: searchDataItem.score,
             personalScore: '',
+            status:'',
             members: searchDataItem.members,
             start_date: searchDataItem.start_date,
             end_date: searchDataItem.end_date,
@@ -165,6 +128,7 @@ export default function ItemCard({ searchDataItem, category }) {
             type: searchDataItem.type,
             score: searchDataItem.score,
             personalScore: '',
+            status:'',
             rated: searchDataItem.rated,
             members: searchDataItem.members,
             start_date: searchDataItem.start_date,

@@ -56,32 +56,32 @@ export default function AnimeLikedCard({ item }) {
 
     const valuesForScoring = [
         {
-            value: 'Top-notch quality',
+            value: +10,
             label: 'Top-notch quality (10/10)',
         },
         {
-            value: 'Very Good',
-            label: 'Very Good(8-9/10)',
+            value: +8,
+            label: 'Excellent (8-9/10)',
         },
         {
-            value: 'Good',
+            value: +7,
+            label: 'Very Good(7-8/10)',
+        },
+        {
+            value: +6,
             label: 'Good (6-7/10)',
         },
         {
-            value: 'Watchable',
+            value: +5,
             label: 'Watchable (5-6/10)',
         },
         {
-            value: 'Bad',
+            value: +4,
             label: 'Bad (4-5/10)',
         },
         {
-            value: 'Don\'t watch it',
+            value: +3,
             label: 'Don\'t watch it (below 4/10)',
-        },
-        {
-            value: 'Not decided yet',
-            label: 'Not decided yet',
         },
     ];
 
@@ -116,9 +116,11 @@ export default function AnimeLikedCard({ item }) {
 
         var batch = firestore.batch();
 
-        var statusRef = firestore.collection("status").doc(currentUser.uid).collection('anime').doc(item.title);
-        batch.set(statusRef, { status: inputStatus });
+        var statusRef = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(item.title);
+        batch.update(statusRef, { status: inputStatus });
+
         if (inputStatus === 'Completed') setInputEpisode(item.episodes);
+
         var episodesRef = firestore.collection('episodes').doc(currentUser.uid).collection('anime').doc(item.title);
         if(inputEpisode !=null) batch.set(episodesRef, { "episode": inputEpisode });
         if(inputStatus==='Completed') {
@@ -141,8 +143,8 @@ export default function AnimeLikedCard({ item }) {
         var reviewsRef = firestore.collection("reviews").doc(currentUser.uid).collection('anime').doc(item.title);
         batch.set(reviewsRef, { 'review': inputReview, });
 
-        var scoresRef = firestore.collection('scores').doc(currentUser.uid).collection('anime').doc(item.title);
-        batch.set(scoresRef, { 'score': inputScoring });
+        var scoresRef = firestore.collection('likedAnimes').doc(currentUser.uid).collection('anime').doc(item.title);
+        batch.update(scoresRef, { 'personalScore': inputScoring });
 
         batch.commit().then(() => {
             console.log("Document added!");
@@ -171,10 +173,10 @@ export default function AnimeLikedCard({ item }) {
         }
 
         function handleScoresRetrieve() {
-            var docRef = firestore.collection("scores").doc(currentUser.uid).collection('anime').doc(item.title);
+            var docRef = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    setInputScoring(doc.data().score);
+                    setInputScoring(doc.data().personalScore);
                 } else {
                     // console.log("No such document");
                 }
@@ -196,7 +198,7 @@ export default function AnimeLikedCard({ item }) {
         }
 
         function handleStatusRetrieve() {
-            var docRef = firestore.collection("status").doc(currentUser.uid).collection('anime').doc(item.title);
+            var docRef = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     setInputStatus(doc.data().status);

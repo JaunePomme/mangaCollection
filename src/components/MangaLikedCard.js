@@ -131,8 +131,8 @@ export default function MangaLikedCard({ item }) {
 
         var batch = firestore.batch();
 
-        var statusRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(statusRef, { status: inputStatus });
+        var statusRef = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title);
+        batch.update(statusRef, { status: inputStatus });
         
         var scansRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
         if(inputChapter !=null) batch.set(scansRef, { "chapter": inputChapter });
@@ -157,8 +157,8 @@ export default function MangaLikedCard({ item }) {
         var reviewsRef = firestore.collection("reviews").doc(currentUser.uid).collection('manga').doc(item.title);
         batch.set(reviewsRef, { 'review': inputReview, });
 
-        var scoresRef = firestore.collection('scores').doc(currentUser.uid).collection('manga').doc(item.title);
-        batch.set(scoresRef, { 'score': inputScoring });
+        var scoresRef=firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
+        batch.update(scoresRef, { 'personalScore': inputScoring });
 
         batch.commit().then(() => {
             console.log("Document added!");
@@ -187,10 +187,11 @@ export default function MangaLikedCard({ item }) {
         }
 
         function handleScoresRetrieve() {
-            var docRef = firestore.collection("scores").doc(currentUser.uid).collection('manga').doc(item.title);
-            docRef.get().then((doc) => {
+            // var docRef = firestore.collection("scores").doc(currentUser.uid).collection('manga').doc(item.title);
+            var scoreRef=firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
+            scoreRef.get().then((doc) => {
                 if (doc.exists) {
-                    setInputScoring(doc.data().score);
+                    setInputScoring(doc.data().personalScore);
                     // console.log(doc.data().score);
                 } else {
                     // console.log("No such document!");
@@ -213,7 +214,7 @@ export default function MangaLikedCard({ item }) {
         }
 
         function handleStatusRetrieve() {
-            var docRef = firestore.collection("status").doc(currentUser.uid).collection('manga').doc(item.title);
+            var docRef = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
                     setInputStatus(doc.data().status);
