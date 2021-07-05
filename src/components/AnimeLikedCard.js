@@ -159,11 +159,11 @@ export default function AnimeLikedCard({ item }) {
             var docRef = firestore.collection("reviews").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    console.log("Document data de handleReviewsRetrieve:", doc.data());
+                    // console.log("Document data de handleReviewsRetrieve:", doc.data());
                     setInputReview(doc.data().review);
 
                 } else {
-                    console.log("No such document");
+                    // console.log("No such document");
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
@@ -174,10 +174,9 @@ export default function AnimeLikedCard({ item }) {
             var docRef = firestore.collection("scores").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    console.log("Document data de handleScoresRetrieve:", doc.data());
                     setInputScoring(doc.data().score);
                 } else {
-                    console.log("No such document");
+                    // console.log("No such document");
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
@@ -187,10 +186,9 @@ export default function AnimeLikedCard({ item }) {
             var docRef = firestore.collection("episodes").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    console.log("Document data de handleEpisodesRetrieve:", doc.data());
                     setInputEpisode(doc.data().episode);
                 } else {
-                    console.log("No such document");
+                    // console.log("No such document");
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
@@ -201,10 +199,9 @@ export default function AnimeLikedCard({ item }) {
             var docRef = firestore.collection("status").doc(currentUser.uid).collection('anime').doc(item.title);
             docRef.get().then((doc) => {
                 if (doc.exists) {
-                    console.log("Document data de handleStatusRetrieve:", doc.data());
                     setInputStatus(doc.data().status);
                 } else {
-                    console.log("No such document");
+                    // console.log("No such document");
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);

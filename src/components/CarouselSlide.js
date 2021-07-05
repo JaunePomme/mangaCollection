@@ -1,8 +1,5 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
-import image1 from '../pictures/1.jpg'
-import image2 from '../pictures/2.jpg'
-import image3 from '../pictures/3.jpg'
 
 
 export default function CarouselSlide({mangas}) {
@@ -12,7 +9,7 @@ export default function CarouselSlide({mangas}) {
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
-            src={image1}
+            // src={image1}
             alt="First slide"
           />
           <Carousel.Caption>
@@ -23,7 +20,7 @@ export default function CarouselSlide({mangas}) {
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
-            src={image2}
+            // src={image2}
             alt="Second slide"
           />
           <Carousel.Caption>
@@ -34,7 +31,7 @@ export default function CarouselSlide({mangas}) {
         <Carousel.Item interval={1000}>
           <img
             className="d-block w-100"
-            src={image3}
+            // src={image3}
             alt="Third slide"
           />
           <Carousel.Caption>

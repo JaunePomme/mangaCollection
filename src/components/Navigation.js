@@ -4,7 +4,7 @@ import './Navigation.css'
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthentication } from '../contexts/AuthenticationContext';
-
+import FirebaseReviews from './FirebaseReviews';
 
 export default function Navigation() {
 
@@ -20,9 +20,9 @@ export default function Navigation() {
                     </li>
                 </NavLink>
 
-                {/* <NavLink exact activeClassName='current' to={'/reviews'}>
-                    <li style={{ marginLeft: 25 }}> Reviews</li>
-                </NavLink> */}
+                <NavLink exact activeClassName='current' to={'/firebasereviews'}>
+                    <li style={{ marginLeft: 25 }}> FireBaseReviews</li>
+                </NavLink>
                 <NavLink exact activeClassName='current' to={'/profile'}>
                     <li style={{ marginLeft: 25 }}> Profile</li>
                 </NavLink>

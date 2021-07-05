@@ -4,72 +4,64 @@ import { useAuthentication } from '../contexts/AuthenticationContext';
 import { firestore } from '../firebase';
 import MangaLikedList from './MangaLikedList';
 import AnimeLikedList from './AnimeLikedList';
-import PersonalReviews from './PersonalReviews'
+import Sorting from './Sorting';
 
 export default function LikedList() {
 
     const { currentUser } = useAuthentication();
-    const [likedMangasData, setLikedMangasData] = useState();
-    const [likedAnimesData, setLikedAnimesData] = useState();
-    const [blabla, setBlabla] = useState([]);
+    const [likedMangasData, setLikedMangasData] = useState([]);
+    const [likedAnimesData, setLikedAnimesData] = useState([]);
 
 
     useEffect(() => {
-        function handleMangasRetrieve() {
-            var docRef = firestore.collection("likedMangas").doc(currentUser.uid);
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data());
-                    setLikedMangasData(doc.data().likes);
-
-                } else {
-                    console.log("No such document");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-        }
 
         function handleAnimesRetrieve() {
-            var docRef = firestore.collection("likedAnimes").doc(currentUser.uid);
+            firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
+                .get()
+                .then((querySnapshot) => {
+                    const newAnimeList = []
+                    querySnapshot.forEach((doc) => {
+                        newAnimeList.push(doc.data())
+                    });
+                    setLikedAnimesData(newAnimeList)
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
+        }
 
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data());
-                    setLikedAnimesData(doc.data().likes);
-                    
-                } else {
-                    console.log("No such document");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
+        function handleMangasRetrieve() {
+            firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
+                .get()
+                .then((querySnapshot) => {
+                    const newMangaList = []
+                    querySnapshot.forEach((doc) => {
+                        newMangaList.push(doc.data())
+                    });
+                    setLikedMangasData(newMangaList)
+                })
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                });
         }
 
         handleMangasRetrieve();
         handleAnimesRetrieve();
-
+        
     }, [currentUser.uid])
 
-//todo
-    function handleSortByScore() {
 
-        // likedData.map(item => {
-        //     console.log(item.score);
-        //     setBlabla(prevblabla => [...prevblabla, item.score])
-        //     return blabla.sort(function (a, b) { return a - b; });
-        //     // return blabla.sort();
-        // })
-
-    }
-
+ 
+    
     return (
         <div>
 
-            <button onClick={handleSortByScore}>
-                Sort by score
-            </button>
-            
+            <Sorting 
+            likedMangasData={likedMangasData} 
+            likedAnimesData={likedAnimesData} 
+            setLikedMangasData={setLikedMangasData} 
+            setLikedAnimesData={setLikedAnimesData} />
+
             List of Liked Animes:
             <AnimeLikedList likedData={likedAnimesData} />
 
@@ -78,9 +70,6 @@ export default function LikedList() {
                 List of Liked Mangas:
                 <MangaLikedList likedData={likedMangasData}  />
             </div>
-
-            List of reviews:
-            <PersonalReviews />
 
 
         </div>

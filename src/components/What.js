@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function PersonalReviews() {
+export default function What({item}) {
     return (
         <div>
-            my reviews:
+            oh
             
         </div>
     )

@@ -12,6 +12,7 @@ export default function SignUp() {
     const { signup, currentUser } = useAuthentication();
     const history = useHistory();
     const [error, setError] = useState('');
+    // const [count,setCount]=useState(0);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -49,6 +50,10 @@ export default function SignUp() {
                         id:[]
                     });
                     
+                    // firestore.collection('pseudos').doc(count).set({
+                    //     id:[]
+                    // });
+
                     firestore.collection('users').doc(uid).set({
                         pseudo: (localStorage.getItem('pseudo')),
                         email: mail,

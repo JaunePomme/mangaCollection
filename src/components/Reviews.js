@@ -28,8 +28,6 @@ export default function Reviews() {
     },[id, type])
 
 
-
-
     return (
         <div>
             <FontAwesomeIcon icon={'user'}></FontAwesomeIcon>

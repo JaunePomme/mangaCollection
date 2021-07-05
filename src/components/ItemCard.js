@@ -11,37 +11,61 @@ import firebase from 'firebase';
 export default function ItemCard({ searchDataItem, category }) {
     const [flip, setFlip] = useState(false)
     const urlString = '/manga-profile/' + searchDataItem.title
-    const reviewUrlString='reviews/'+ searchDataItem.title
+    const reviewUrlString = 'reviews/' + searchDataItem.title
     const [show, setShow] = useState(false);
     const [like, setLike] = useState(false);
     const { currentUser } = useAuthentication();
     const [mangaOrNot, setMangaOrNot] = useState(true);
 
-    useEffect(()=>{
-        if(category==='anime') setMangaOrNot(false);
-    },[category])
+    useEffect(() => {
+        if (category === 'anime') setMangaOrNot(false);
+    }, [category])
 
     async function handleMangaLikeClick() {
         setLike(!like);
-        var db = firestore.collection("likedMangas").doc(currentUser.uid);
-        const newItem = {
-            mal_id: searchDataItem.mal_id,
-            title: searchDataItem.title,
-            image_url: searchDataItem.image_url,
-            synopsis: searchDataItem.synopsis,
-            volumes: searchDataItem.volumes,
-            chapters: searchDataItem.chapters,
-            score: searchDataItem.score,
-            members: searchDataItem.members,
-            start_date: searchDataItem.start_date,
-            end_date: searchDataItem.end_date,
+        // var db = firestore.collection("likedMangas").doc(currentUser.uid);
+        var db = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(searchDataItem.title)
+        // const newItem = {
+        //     mal_id: searchDataItem.mal_id,
+        //     title: searchDataItem.title,
+        //     image_url: searchDataItem.image_url,
+        //     synopsis: searchDataItem.synopsis,
+        //     volumes: searchDataItem.volumes,
+        //     chapters: searchDataItem.chapters,
+        //     score: searchDataItem.score,
+        //     members: searchDataItem.members,
+        //     start_date: searchDataItem.start_date,
+        //     end_date: searchDataItem.end_date,
 
-        }
+        // }
+
+        // if (like) {
+        //     return db.update({
+        //         likes: firebase.firestore.FieldValue.arrayRemove(newItem),
+        //     })
+        //         .then(() => {
+        //             console.log("Document removed!");
+
+        //         })
+        //         .catch((error) => {
+        //             console.error("Error updating document: ", error);
+        //         });
+        // }
+
+        // return db.update({
+        //     likes: firebase.firestore.FieldValue.arrayUnion(newItem),
+        // })
+        //     .then(() => {
+        //         console.log("Document added!");
+
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error updating document: ", error);
+        //     });
 
         if (like) {
-            return db.update({
-                likes: firebase.firestore.FieldValue.arrayRemove(newItem),
-            })
+            var dbe = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(searchDataItem.title)
+            return dbe.delete()
                 .then(() => {
                     console.log("Document removed!");
 
@@ -51,8 +75,18 @@ export default function ItemCard({ searchDataItem, category }) {
                 });
         }
 
-        return db.update({
-            likes: firebase.firestore.FieldValue.arrayUnion(newItem),
+        return db.set({
+            mal_id: searchDataItem.mal_id,
+            title: searchDataItem.title,
+            image_url: searchDataItem.image_url,
+            synopsis: searchDataItem.synopsis,
+            volumes: searchDataItem.volumes,
+            chapters: searchDataItem.chapters,
+            score: searchDataItem.score,
+            personalScore: '',
+            members: searchDataItem.members,
+            start_date: searchDataItem.start_date,
+            end_date: searchDataItem.end_date,
         })
             .then(() => {
                 console.log("Document added!");
@@ -69,26 +103,50 @@ export default function ItemCard({ searchDataItem, category }) {
     async function handleAnimeLikeClick() {
         console.log('dans la fonction')
         setLike(!like);
-        var db = firestore.collection("likedAnimes").doc(currentUser.uid);
-        const newItem = {
-            mal_id: searchDataItem.mal_id,
-            title: searchDataItem.title,
-            image_url: searchDataItem.image_url,
-            synopsis: searchDataItem.synopsis,
-            episodes: searchDataItem.episodes,
-            type: searchDataItem.type,
-            score: searchDataItem.score,
-            rated: searchDataItem.rated,
-            members: searchDataItem.members,
-            start_date: searchDataItem.start_date,
-            end_date: searchDataItem.end_date,
+        var db = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(searchDataItem.title)
+        // const newItem = {
+        //     mal_id: searchDataItem.mal_id,
+        //     title: searchDataItem.title,
+        //     image_url: searchDataItem.image_url,
+        //     synopsis: searchDataItem.synopsis,
+        //     episodes: searchDataItem.episodes,
+        //     type: searchDataItem.type,
+        //     score: searchDataItem.score,
+        //     rated: searchDataItem.rated,
+        //     members: searchDataItem.members,
+        //     start_date: searchDataItem.start_date,
+        //     end_date: searchDataItem.end_date,
 
-        }
+        // }
+
+        // if (like) {
+        //     return db.update({
+        //         likes: firebase.firestore.FieldValue.arrayRemove(newItem),
+        //     })
+        //         .then(() => {
+        //             console.log("Document removed!");
+
+        //         })
+        //         .catch((error) => {
+        //             console.error("Error updating document: ", error);
+        //         });
+        // }
+
+        // return db.update({
+        //     likes: firebase.firestore.FieldValue.arrayUnion(newItem),
+        // })
+        //     .then(() => {
+        //         console.log("Document added!");
+
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error updating document: ", error);
+        //     });
+
 
         if (like) {
-            return db.update({
-                likes: firebase.firestore.FieldValue.arrayRemove(newItem),
-            })
+            var dbe = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(searchDataItem.title)
+            return dbe.delete()
                 .then(() => {
                     console.log("Document removed!");
 
@@ -98,16 +156,27 @@ export default function ItemCard({ searchDataItem, category }) {
                 });
         }
 
-        return db.update({
-            likes: firebase.firestore.FieldValue.arrayUnion(newItem),
+        return db.set({
+            mal_id: searchDataItem.mal_id,
+            title: searchDataItem.title,
+            image_url: searchDataItem.image_url,
+            synopsis: searchDataItem.synopsis,
+            episodes: searchDataItem.episodes,
+            type: searchDataItem.type,
+            score: searchDataItem.score,
+            personalScore: '',
+            rated: searchDataItem.rated,
+            members: searchDataItem.members,
+            start_date: searchDataItem.start_date,
+            end_date: searchDataItem.end_date,
         })
             .then(() => {
                 console.log("Document added!");
-
             })
             .catch((error) => {
                 console.error("Error updating document: ", error);
             });
+
     }
 
     function handleSeeMore(searchDataItem) {
@@ -167,7 +236,7 @@ export default function ItemCard({ searchDataItem, category }) {
 
                     <Link to={{
                         pathname: reviewUrlString,
-                        state: { data: searchDataItem, like: like, type: category, id:searchDataItem.mal_id }
+                        state: { data: searchDataItem, like: like, type: category, id: searchDataItem.mal_id }
                     }}>
                         <button className='btn-behind-itemcard'  >
                             Reviews
