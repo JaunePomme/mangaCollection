@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ItemList from './components/ItemList';
 import './App.css'
 import axios from 'axios';
-
+import Menu from './components/Menu';
+import Upcoming from './components/Upcoming';
 
 export default function Content() {
     const CATEGORY_LIST = ['manga', 'anime'];
@@ -85,7 +86,8 @@ export default function Content() {
                 </div>
             </div>
 
-
+                <Menu/>
+                <Upcoming/>
         </div>
     )
 }
