@@ -1,37 +1,43 @@
 import React, {useEffect, useState} from 'react'
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { firestore } from '../firebase';
-import UserList from './UserList';
-
+import SearchBar from './SearchBar';
 
 export default function FirebaseReviews() {
 
     const {currentUser}=useAuthentication();
-    const [inputUsers,setInputUsers]=useState();
+    const [pseudoList,setPseudoList]=useState([]);
 
-    // useEffect(() => {
-    //     function handleUsersRetrieve() {
-    //         var docRef = firestore.collection("users").doc(currentUser.uid);
-    //         docRef.get().then((doc) => {
-    //             if (doc.exists) {
-    //                 console.log("Document data de handleUsersRetrieve:", doc.data());
-                    
-    //                 setInputUsers(doc.data());
+    useEffect(() => {
+        function handleRetrievePseudo(){
+            firestore.collection("users")
+            .get()
+            .then((querySnapshot) => {
+                const newPseudoList = []
+                querySnapshot.forEach((doc) => {
+                    // console.log(doc.id, " => ", doc.data());
+                    newPseudoList.push(doc.data())
+                });
+                setPseudoList(newPseudoList)
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+    
+        }
 
-    //             } else {
-    //                 // console.log("No such document");
-    //             }
-    //         }).catch((error) => {
-    //             console.log("Error getting document:", error);
-    //         });
-    //     }
-    //     handleUsersRetrieve();
-    // }, []);
+        handleRetrievePseudo();
+    }, []);
+
+
+
 
     return (
         <div>
             
-            {/* <UserList data={inputUsers}/> */}
+            <SearchBar  pseudoList={pseudoList} setPseudoList={setPseudoList}/>
+            
+          
 
 
 

@@ -4,40 +4,39 @@ import './Navigation.css'
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuthentication } from '../contexts/AuthenticationContext';
-import FirebaseReviews from './FirebaseReviews';
 
 export default function Navigation() {
 
-    const {currentUser}=useAuthentication();
+    const {currentUser}=useAuthentication(); 
 
     return (
         <div>
             <ul className='nav-list'>
 
-                <NavLink exact activeClassName='current' to={'/'}>
+                <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/'}>
                     <li style={{marginLeft:25}}>
-                    <FontAwesomeIcon icon={faHome} />
+                    <FontAwesomeIcon icon={faHome} />Home
                     </li>
                 </NavLink>
 
-                <NavLink exact activeClassName='current' to={'/firebasereviews'}>
-                    <li style={{ marginLeft: 25 }}> FireBaseReviews</li>
+                <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/firebasereviews'}>
+                    <li style={{ marginLeft: 25 }}> Search for username</li>
                 </NavLink>
-                <NavLink exact activeClassName='current' to={'/profile'}>
-                    <li style={{ marginLeft: 25 }}> Profile</li>
+                <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/profile'}>
+                    <li style={{ marginLeft: 25 }}> My collection</li>
                 </NavLink>
 
             </ul>
             {currentUser? '': 
             <>
             <div>
-            <NavLink exact activeClassName='current' to={'/login'}>
+            <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/login'}>
                     <p style={{ marginLeft: 25 }}> Login </p>
                 </NavLink>
             </div>
 
             <div>
-            <NavLink exact activeClassName='current' to={'/signup'}>
+            <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/signup'}>
                     <p style={{ marginLeft: 25 }}> Sign up</p>
                 </NavLink>
             </div>

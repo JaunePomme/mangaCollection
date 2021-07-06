@@ -4,8 +4,6 @@ import { firestore } from '../firebase';
 
 
 export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnimesData, setLikedMangasData }) {
-    const [notSortedMangaList, setNotSortedMangaList] = useState([]);
-    const [notSortedAnimeList, setNotSortedAnimeList] = useState([]);
 
 
     const {currentUser}=useAuthentication();
@@ -13,7 +11,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
  
     function handleSortByScoreDesc(){
         firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
-        // .where("score", "==", 15)
         .orderBy('score', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -27,7 +24,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('score', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -45,7 +41,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
 
     function handleSortByScore(){
         firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
-        // .where("score", "==", 15)
         .orderBy('score')
         .get()
         .then((querySnapshot) => {
@@ -59,7 +54,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('score')
         .get()
         .then((querySnapshot) => {
@@ -91,7 +85,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('personalScore')
         .get()
         .then((querySnapshot) => {
@@ -108,7 +101,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
 
     function handleSortByPersonalScoreDesc(){
         firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
-        // .where("score", "==", 15)
         .orderBy('personalScore','desc')
         .get()
         .then((querySnapshot) => {
@@ -122,7 +114,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('personalScore', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -139,7 +130,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
 
     function handleSort(){
         firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
-        // .where("score", "==", 15)
         .orderBy('title')
         .get()
         .then((querySnapshot) => {
@@ -153,7 +143,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('title')
         .get()
         .then((querySnapshot) => {
@@ -170,7 +159,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
 
     function handleReverseSort(){
         firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
-        // .where("score", "==", 15)
         .orderBy('title','desc')
         .get()
         .then((querySnapshot) => {
@@ -184,7 +172,6 @@ export default function Sorting({ likedMangasData, likedAnimesData ,setLikedAnim
             console.log("Error getting documents: ", error);
         });
         firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
-        // .where("score", "==", 15)
         .orderBy('title', 'desc')
         .get()
         .then((querySnapshot) => {

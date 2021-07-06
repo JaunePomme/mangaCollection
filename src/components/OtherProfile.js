@@ -4,12 +4,12 @@ import { useAuthentication } from '../contexts/AuthenticationContext';
 import { Link } from 'react-router-dom';
 import LikedList from '../components/LikedList';
 
-export default function Profile() {
+export default function OtherProfile() {
 
     let history = useHistory();
     let {username}=useParams();
     let location = useLocation();
-    // const id=location.state.id
+    const id=location.state.id
     const { currentUser, logout } = useAuthentication();
     const [pseudo, setPseudo] = useState('');
 
@@ -21,6 +21,7 @@ export default function Profile() {
             console.log(error)
             alert(error)
         }
+
     }
 
     useEffect(() => {
@@ -29,15 +30,10 @@ export default function Profile() {
 
     return (
         <div>
-          {/* Je suis:  <strong>{username}</strong> id: {id}et je regarde le compte de:  */}
+          Je suis:  <strong>{username}</strong> id: {id}et je regarde le compte de: 
           <strong>{pseudo}</strong> email: {currentUser.email} id: {currentUser.uid}
-            <div >
-                My profile :
-                {/* Alias(pseudo):<strong > {pseudo}</strong>
-                Email:<strong> {currentUser.email}</strong>
-                UID: <strong> {currentUser.uid}</strong>
-                JSON: <strong> {JSON.stringify(currentUser)}</strong> */}
 
+            <div >
                 <div>
                     <Link to='/update-profile'> Update your profile</Link>
                 </div>
@@ -51,7 +47,7 @@ export default function Profile() {
 
            
             <div>
-                <LikedList />
+                {/* <LikedList /> */}
 
             </div>
 

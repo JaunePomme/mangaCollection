@@ -5,7 +5,6 @@ import { firestore } from '../firebase';
 import MangaLikedList from './MangaLikedList';
 import AnimeLikedList from './AnimeLikedList';
 import Sorting from './Sorting';
-
 export default function LikedList() {
 
     const { currentUser } = useAuthentication();

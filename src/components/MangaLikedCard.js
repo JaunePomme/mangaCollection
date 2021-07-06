@@ -116,27 +116,14 @@ export default function MangaLikedCard({ item }) {
     };
     function handleSave() {
 
-        // var db = firestore.collection("scans").doc(currentUser.uid).collection('manga').doc(item.title);
-        // var dbstatus = firestore.collection('status').doc(currentUser.uid).collection('manga').doc(item.title);
-        // return dbstatus.set({
-        //     'status': status,
-        // })
-        //     .then(() => {
-        //         console.log("Document added!");
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error updating document: ", error);
-        //     });
-
-
         var batch = firestore.batch();
 
         var statusRef = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title);
         batch.update(statusRef, { status: inputStatus });
-        
+
         var scansRef = firestore.collection('scans').doc(currentUser.uid).collection('manga').doc(item.title);
-        if(inputChapter !=null) batch.set(scansRef, { "chapter": inputChapter });
-        if(inputStatus==='Completed') {
+        if (inputChapter != null) batch.set(scansRef, { "chapter": inputChapter });
+        if (inputStatus === 'Completed') {
             setInputChapter(item.chapters);
             batch.set(scansRef, { "chapter": item.chapters });
         }
@@ -157,7 +144,7 @@ export default function MangaLikedCard({ item }) {
         var reviewsRef = firestore.collection("reviews").doc(currentUser.uid).collection('manga').doc(item.title);
         batch.set(reviewsRef, { 'review': inputReview, });
 
-        var scoresRef=firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
+        var scoresRef = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
         batch.update(scoresRef, { 'personalScore': inputScoring });
 
         batch.commit().then(() => {
@@ -188,11 +175,10 @@ export default function MangaLikedCard({ item }) {
 
         function handleScoresRetrieve() {
             // var docRef = firestore.collection("scores").doc(currentUser.uid).collection('manga').doc(item.title);
-            var scoreRef=firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
+            var scoreRef = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(item.title)
             scoreRef.get().then((doc) => {
                 if (doc.exists) {
                     setInputScoring(doc.data().personalScore);
-                    // console.log(doc.data().score);
                 } else {
                     // console.log("No such document!");
                 }
@@ -234,7 +220,7 @@ export default function MangaLikedCard({ item }) {
 
     return (
         <div>
-        
+
             <div key={item.mal_id}>
                 <div className='body-mangacard'>
 
@@ -274,7 +260,7 @@ export default function MangaLikedCard({ item }) {
 
                             <Link to={{
                                 pathname: '/manga-profile/' + item.title,
-                                state: { data: item, like: true, type:'manga' }
+                                state: { data: item, like: true, type: 'manga' }
                             }}>
                                 <button className='btn-behind-mangacard' onClick={() => handleSeeMore(item)} >
                                     See more
@@ -400,8 +386,8 @@ export default function MangaLikedCard({ item }) {
                                                         value={inputScoring}
                                                         onChange={(e) => setInputScoring(e.target.value)}
                                                         helperText="Please select your scoring"
-                                                        variant="outlined"
-                                                    >
+                                                        variant="outlined">
+                                                            
                                                         {valuesForScoring.map((option) => (
                                                             <MenuItem key={option.value} value={option.value}>
                                                                 {option.label}

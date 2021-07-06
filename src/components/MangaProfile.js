@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './MangaProfile.css'
-
+import Reviews from './Reviews';
 
 export default function MangaProfile() {
 
@@ -86,6 +86,7 @@ export default function MangaProfile() {
 
             </div>
 
+                <Reviews/>
 
         </div>
     )

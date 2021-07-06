@@ -12,7 +12,6 @@ export default function SignUp() {
     const { signup, currentUser } = useAuthentication();
     const history = useHistory();
     const [error, setError] = useState('');
-    // const [count,setCount]=useState(0);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -43,18 +42,10 @@ export default function SignUp() {
                     firestore.collection('episodes').doc(uid).set({
                         id:[]
                     });
-                    firestore.collection('status').doc(uid).set({
-                        id:[]
-                    });
-                    firestore.collection('scores').doc(uid).set({
-                        id:[]
-                    });
                     
-                    // firestore.collection('pseudos').doc(count).set({
-                    //     id:[]
-                    // });
 
-                    firestore.collection('users').doc(uid).set({
+                    firestore.collection('users').doc((localStorage.getItem('pseudo')))
+                    .set({
                         pseudo: (localStorage.getItem('pseudo')),
                         email: mail,
                         userId: uid

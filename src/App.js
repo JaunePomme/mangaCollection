@@ -15,6 +15,7 @@ import Remember from './components/Remember';
 import PrivateRoute from './authentication/PrivateRoute';
 import ForgotPassword from './authentication/ForgotPassword'
 import FirebaseReviews from './components/FirebaseReviews';
+import OtherProfile from './components/OtherProfile';
 
 export default function App() {
 
@@ -36,6 +37,7 @@ export default function App() {
             <Route exact path='/reviews/:title' component={Reviews} />
             <Route exact path='/forgot-password' component={ForgotPassword} />
             <Route exact path='/manga-profile/:title' component={MangaProfile} />
+            <Route exact path='/profile/:username' component={OtherProfile} />
 
             {/* Private Routes */}
             <PrivateRoute exact path='/profile' component={Profile} />

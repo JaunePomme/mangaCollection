@@ -67,45 +67,6 @@ export default function ItemCard({ searchDataItem, category }) {
         console.log('dans la fonction')
         setLike(!like);
         var db = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(searchDataItem.title)
-        // const newItem = {
-        //     mal_id: searchDataItem.mal_id,
-        //     title: searchDataItem.title,
-        //     image_url: searchDataItem.image_url,
-        //     synopsis: searchDataItem.synopsis,
-        //     episodes: searchDataItem.episodes,
-        //     type: searchDataItem.type,
-        //     score: searchDataItem.score,
-        //     rated: searchDataItem.rated,
-        //     members: searchDataItem.members,
-        //     start_date: searchDataItem.start_date,
-        //     end_date: searchDataItem.end_date,
-
-        // }
-
-        // if (like) {
-        //     return db.update({
-        //         likes: firebase.firestore.FieldValue.arrayRemove(newItem),
-        //     })
-        //         .then(() => {
-        //             console.log("Document removed!");
-
-        //         })
-        //         .catch((error) => {
-        //             console.error("Error updating document: ", error);
-        //         });
-        // }
-
-        // return db.update({
-        //     likes: firebase.firestore.FieldValue.arrayUnion(newItem),
-        // })
-        //     .then(() => {
-        //         console.log("Document added!");
-
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error updating document: ", error);
-        //     });
-
 
         if (like) {
             var dbe = firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime').doc(searchDataItem.title)
@@ -189,23 +150,23 @@ export default function ItemCard({ searchDataItem, category }) {
                     </div>
 
 
-                    <Link to={{
+                    <Link style={{ textDecoration: 'none' }} to={{
                         pathname: urlString,
-                        state: { data: searchDataItem, like: like }
+                        state: { data: searchDataItem, like: like, type: category, id: searchDataItem.mal_id }
                     }}>
                         <button className='btn-behind-itemcard' onClick={() => handleSeeMore(searchDataItem)} >
                             See more
                         </button>
                     </Link>
 
-                    <Link to={{
+                    {/* <Link style={{ textDecoration: 'none' }} to={{
                         pathname: reviewUrlString,
                         state: { data: searchDataItem, like: like, type: category, id: searchDataItem.mal_id }
                     }}>
                         <button className='btn-behind-itemcard'  >
                             Reviews
                         </button>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>
