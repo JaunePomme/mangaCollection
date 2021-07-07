@@ -16,6 +16,7 @@ import PrivateRoute from './authentication/PrivateRoute';
 import ForgotPassword from './authentication/ForgotPassword'
 import FirebaseReviews from './components/FirebaseReviews';
 import OtherProfile from './components/OtherProfile';
+import Menu from './components/Menu';
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
         <AuthenticationProvider>
 
           <Navigation />
+          <Menu/>
 
           <Switch>
 

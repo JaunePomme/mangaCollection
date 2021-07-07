@@ -8,7 +8,7 @@ import firebase from 'firebase';
 
 
 
-export default function ItemCard({ searchDataItem, category }) {
+export default function ItemCard({ searchDataItem, category, likedMangasRetrieved, likedAnimesRetrieved }) {
     const [flip, setFlip] = useState(false)
     const urlString = '/manga-profile/' + searchDataItem.title
     const reviewUrlString = 'reviews/' + searchDataItem.title
@@ -21,6 +21,12 @@ export default function ItemCard({ searchDataItem, category }) {
         if (category === 'anime') setMangaOrNot(false);
     }, [category])
 
+    useEffect(()=>{
+        if(likedMangasRetrieved.includes(searchDataItem.title)||likedAnimesRetrieved.includes(searchDataItem.title)){
+            setLike(true)
+        }
+    },[])
+    
     async function handleMangaLikeClick() {
         setLike(!like);
         var db = firestore.collection("likedMangas").doc(currentUser.uid).collection('manga').doc(searchDataItem.title)

@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ItemList from './components/ItemList';
 import './App.css'
 import axios from 'axios';
 import Menu from './components/Menu';
 import Upcoming from './components/Upcoming';
+import { firestore } from './firebase';
+import { useAuthentication } from './contexts/AuthenticationContext';
 
 export default function Content() {
     const CATEGORY_LIST = ['manga', 'anime'];
+    const { currentUser } = useAuthentication();
+    // const GENRE_LIST=[1,2,3,4,5,6,7,8,9]
     const [numberOfResults, setNumberOfResults] = useState(30)
     const [inputValue, setInputValue] = useState('')
     const [category, setCategory] = useState(CATEGORY_LIST[0])
+    // const [genre, setGenre]=useState(GENRE_LIST[0]);
+    const [likedMangasRetrieved,setLikedMangasRetrieved]=useState();
+    const [likedAnimesRetrieved,setLikedAnimesRetrieved]=useState();
+
 
     const [searchData, setSearchData] = useState([]);
 
@@ -17,7 +25,7 @@ export default function Content() {
     //     return axios.get(`https://api.jikan.moe/v3/search/${category}?q=${keyword}&limit=${numberOfResults}`)
     //       .then(res => setSearchData(res.data.results))
     //     }
-
+    //https://api.jikan.moe/v3/search/anime?genre=4
 
     async function searchItem(category, keyword, numberOfResults) {
         try {
@@ -32,19 +40,63 @@ export default function Content() {
         }
     }
 
+    useEffect(() => {
+        async function handleRetrieveLikedMangaList() {
+            firestore.collection("likedMangas").doc(currentUser.uid).collection('manga')
+            .get()
+            .then((querySnapshot) => {
+                const newMangaList = []
+                querySnapshot.forEach((doc) => {
+                    newMangaList.push(doc.data().title)
+                });
+                setLikedMangasRetrieved(newMangaList)
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+        }
+        async function handleRetrieveLikedAnimeList() {
+            firestore.collection("likedAnimes").doc(currentUser.uid).collection('anime')
+            .get()
+            .then((querySnapshot) => {
+                const newAnimeList = []
+                querySnapshot.forEach((doc) => {
+                    newAnimeList.push(doc.data().title)
+                });
+                setLikedAnimesRetrieved(newAnimeList)
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+        }
 
+        handleRetrieveLikedMangaList();
+        handleRetrieveLikedAnimeList();
+    }, [])
+
+
+
+    function handlelist(){
+        console.log(likedMangasRetrieved)
+    }
 
     return (
         <div>
+<div>
+    <button onClick={handlelist}>
 
+    </button>
+</div>
             <div className='container-data'>
                 <div className='search-bar'>
-                    <input type='text' 
-                    onChange={e => setInputValue(e.target.value)} 
-                    placeholder='search...'
-                    onKeyDown={(e)=>{if(e.key==='Enter'){
-                    searchItem(category, inputValue, numberOfResults) 
-                    }}} />
+                    <input type='text'
+                        onChange={e => setInputValue(e.target.value)}
+                        placeholder='search...'
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                searchItem(category, inputValue, numberOfResults)
+                            }
+                        }} />
 
                     <form className='form'>
                         <div>
@@ -71,23 +123,29 @@ export default function Content() {
                             onChange={(e) => setNumberOfResults(e.target.value)} />
                     </div>
 
-                    <button className='search-button' 
-                    onClick={() =>
-                        searchItem(category, inputValue, numberOfResults)
-                    }
-                    
+                    <button className='search-button'
+                        onClick={() =>{
+                            handlelist();
+                            searchItem(category, inputValue, numberOfResults);
+                        }
+                        }
+
                     >Search</button>
 
                 </div>
 
-                <ItemList searchData={searchData} category={category} />
+                <ItemList 
+                searchData={searchData} 
+                category={category} 
+                likedMangasRetrieved={likedMangasRetrieved}
+                likedAnimesRetrieved={likedAnimesRetrieved}/>
                 <div className='footer'>
                     Pagination
                 </div>
             </div>
 
-                <Menu/>
-                <Upcoming/>
+            <Menu />
+            <Upcoming />
         </div>
     )
 }

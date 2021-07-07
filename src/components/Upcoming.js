@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UpcomingList from './UpcomingList';
-
+import './Upcoming.css'
 
 export default function Upcoming() {
 
     const [upcomingList, setUpcomingList] = useState('');
 
     useEffect(() => {
-        const search = () => {
-            return axios.get(`https://api.jikan.moe/v3/search/anime?status=upcoming`)
-                .then(res => {
-                    setUpcomingList(res.data.results);
-                })
-                .catch((error) => {
-                    console.log("Error getting document:", error);
-                })
+        async function search() {
+            try {
+                let response = await axios.get(`https://api.jikan.moe/v3/search/anime?status=upcoming`)
+                setUpcomingList(response.data.results);
+                return upcomingList;
+            }
+            catch (e) {
+                console.log("Error getting document:", e);
+            }
         }
         search();
-    },[])
+    }, [])
 
 
     return (
-        <div>
-            <UpcomingList upcomingList={upcomingList} />
-
-            
+        <div className='upcominglist-container'>
+            <div className='upcominglist-grid'>
+                <UpcomingList upcomingList={upcomingList} />
+            </div>
         </div>
     )
 }

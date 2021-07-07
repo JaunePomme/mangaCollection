@@ -11,7 +11,7 @@ export default function Navigation() {
 
     return (
         <div>
-            <ul className='nav-list'>
+            {/* <ul className='nav-list'>
 
                 <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/'}>
                     <li style={{marginLeft:25}}>
@@ -26,7 +26,7 @@ export default function Navigation() {
                     <li style={{ marginLeft: 25 }}> My collection</li>
                 </NavLink>
 
-            </ul>
+            </ul> */}
             {currentUser? '': 
             <>
             <div>
@@ -41,7 +41,7 @@ export default function Navigation() {
                 </NavLink>
             </div>
             </>
-}
+            }
         </div>
     )
 

@@ -2,7 +2,8 @@ import React from 'react'
 import UpcomingCard from './UpcomingCard'
 
 export default function UpcomingList({upcomingList}) {
-    console.log(upcomingList)
+    
+
     return (
         <div>
             <div>
@@ -10,8 +11,6 @@ export default function UpcomingList({upcomingList}) {
                     <UpcomingCard key={item.mal_id} item={item} />
                 )}
             </div>
-
-            
         </div>
     )
 }

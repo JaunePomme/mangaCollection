@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import { useAuthentication } from '../contexts/AuthenticationContext';
+import React, {useEffect, useState} from 'react';
 import { firestore } from '../firebase';
 import SearchBar from './SearchBar';
 
 export default function FirebaseReviews() {
 
-    const {currentUser}=useAuthentication();
     const [pseudoList,setPseudoList]=useState([]);
 
     useEffect(() => {
