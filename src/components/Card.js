@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function UpcomingCard({ item }) {
+export default function Card({ item }) {
     const classes = useStyles();
 
     const openInNewTab = (url) => {
@@ -20,21 +20,18 @@ export default function UpcomingCard({ item }) {
     }
 
     return (
-        <div className='upcomingcard-container'>
-            <div className='upcomingcard'>
+        <div className='card'>
 
-
-                {/* <div>
+            {/* <div>
                     {item.title}
                 </div> */}
+hi
+            <img src={item.image_url}
+                style={{ maxHeight: 500 }}
+                alt={item.title}
+            />
 
-                <div>
-                    <img src={item.image_url}
-                        alt={'hi'}
-                        style={{ maxHeight: 500 }} />
-                </div>
-
-                {/* <div>
+            {/* <div>
                     {item.start_date}
                 </div>
                 <Typography className={classes.root}>
@@ -43,7 +40,7 @@ export default function UpcomingCard({ item }) {
                         Click here to get more information
                     </Link>
                 </Typography> */}
-            </div>
+
         </div>
     )
 }

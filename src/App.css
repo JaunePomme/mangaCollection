@@ -6,21 +6,13 @@
 
 .search-bar{
     display:flex;
-    
 }
 
 .form{
     margin-left : 10px;
 }
 
-.search-button{
-    margin-left: 10px;
-    background-color: hsl(200,100%,50%);
-    color:white;
-    padding: .5em 1em;
-    border-radius: .3em;
-    border: none;
-}
+
 
 .footer{
     background-color:yellow;

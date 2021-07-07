@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import { useAuthentication } from '../contexts/AuthenticationContext';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -31,10 +31,7 @@ export default function Login() {
 
     }
 
-    //todo à modif, cross origin error
-    useEffect(() => {
-        // emailRef.current.value = (JSON.parse(localStorage.getItem('email')))
-    }, [])
+   
 
 
 
@@ -46,7 +43,6 @@ export default function Login() {
                 <div className='form-group'>
                     <label htmlFor='email'> Email:</label>
                     <input name='email' type='email' placeholder='email here..' required ref={emailRef} />
-
                 </div>
                 <div className='form-group'>
                     <label htmlFor='password'>Password:</label>

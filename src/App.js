@@ -15,8 +15,12 @@ import Remember from './components/Remember';
 import PrivateRoute from './authentication/PrivateRoute';
 import ForgotPassword from './authentication/ForgotPassword'
 import FirebaseReviews from './components/FirebaseReviews';
-import OtherProfile from './components/OtherProfile';
 import Menu from './components/Menu';
+import Movie from './components/Movie';
+import Seasonal from './components/Seasonal';
+import About from './components/About';
+import Genre from './components/Genre';
+
 
 export default function App() {
 
@@ -39,7 +43,11 @@ export default function App() {
             <Route exact path='/reviews/:title' component={Reviews} />
             <Route exact path='/forgot-password' component={ForgotPassword} />
             <Route exact path='/manga-profile/:title' component={MangaProfile} />
-            <Route exact path='/profile/:username' component={OtherProfile} />
+            <Route exact path='/profile/:username' component={Profile} />
+            <Route exact path='/movie' component={Movie}/>
+            <Route exact path='/seasonal' component={Seasonal}/>
+            <Route exact path='/about' component={About}/>
+            <Route exact path='/genre' component={Genre}/>
 
             {/* Private Routes */}
             <PrivateRoute exact path='/profile' component={Profile} />

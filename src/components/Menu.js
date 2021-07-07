@@ -5,12 +5,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { faBars, faHeart, faHome, faMoneyBill, faPhone, faQuestion, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCalendar, faFilm, faHeart, faHome, faQuestion, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import './Menu.css';
@@ -44,12 +39,6 @@ export default function Menu() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {/* {['Homepage', 'Search', 'About', 'Contact', 'Donation'].map((text, index) => (
-          <ListItem button key={text}>
-            <MailIcon/>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
 
         <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/'}>
           <li style={{ marginLeft: 25 }}>
@@ -64,17 +53,22 @@ export default function Menu() {
           <li style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faHeart} /> My collection</li>
         </NavLink>
-        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/profile'}>
+        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/movie'}>
           <li style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faPhone} /> Contact</li>
+            <FontAwesomeIcon icon={faFilm} /> Movie</li>
         </NavLink>
-        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/profile'}>
+        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/seasonal'}>
+          <li style={{ marginLeft: 25 }}>
+            <FontAwesomeIcon icon={faCalendar} /> Seasonal</li>
+        </NavLink>
+        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/genre'}>
+          <li style={{ marginLeft: 25 }}>
+            <FontAwesomeIcon icon={faFilm} /> Genre</li>
+        </NavLink>
+        
+        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/about'}>
           <li style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faQuestion} /> About</li>
-        </NavLink>
-        <NavLink style={{ textDecoration: 'none' }} exact activeClassName='current' to={'/profile'}>
-          <li style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faMoneyBill} />Donation</li>
         </NavLink>
       </List>
       <Divider />
