@@ -1,93 +1,54 @@
-import React, {useEffect, useState} from 'react'
-import { useLocation } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './MangaProfile.css'
-import Reviews from './Reviews';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./MangaProfile.css";
+import Reviews from "./Reviews";
 
 export default function MangaProfile() {
+  let location = useLocation();
 
-    
-    let location = useLocation();
+  const { data, like } = location.state;
+  const {
+    mal_id,
+    episodes,
+    chapters,
+    image_url,
+    score,
+    title,
+    url,
+    volumes,
+    synopsis,
+    members,
+  } = data;
 
-    
-    const data = location.state.data;
-    const mal_id=data.mal_id
-    const episodes=data.episodes
-    const chapters = data.chapters;
-    const image_url = data.image_url;
-    const score = data.score;
-    const title = data.title;
-    const url = data.url;
-    const volumes = data.volumes;
-    const synopsis = data.synopsis;
-    const members = data.members;
-    const like=location.state.like;
-
-
-   
-    return (
-        <div className='container'>
-
-            {like &&
-            <div className='profile-liked'>
-                <strong>This item is in your favorite list.</strong>
-            <FontAwesomeIcon icon={'user'}></FontAwesomeIcon> 
-            
-            </div>}
-
-            <div>
-                Title: {title}
-
-            </div>
-
-            <div>
-                <img src={image_url}
-                    alt={title}
-                    style={{ maxHeight: 500 }} />
-            </div>
-
-
-            <div>
-                ID of the item: {mal_id}
-
-            </div>
-
-            <div>
-                Chapters: {chapters}
-
-            </div>
-            <div>
-                Episodes: {episodes}
-
-            </div>
-
-            <div>
-                Score: {score}
-
-            </div>
-
-            <div>
-                Synopsis: {synopsis}
-
-            </div>
-
-            <div>
-                Volumes released: {volumes}
-
-            </div>
-
-            <div>
-               url to myAnimList: {url}
-
-            </div>
-
-            <div>
-                Members on myAnimList: {members}
-
-            </div>
-
-                <Reviews/>
-
+  return (
+    <ul className="container">
+      {like && (
+        <div className="profile-liked">
+          <strong>This item is in your favorite list.</strong>
+          <FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
         </div>
-    )
+      )}
+
+      <img src={image_url} alt={title} style={{ maxHeight: 500 }} />
+
+      <li>Title: {title}</li>
+      <li>ID of the item: {mal_id}</li>
+
+      <li>Chapters: {chapters}</li>
+      <li>Episodes: {episodes}</li>
+
+      <li>Score: {score}</li>
+
+      <li>Synopsis: {synopsis}</li>
+
+      <li>Volumes released: {volumes}</li>
+
+      <li>url to myAnimList: {url}</li>
+
+      <li>Members on myAnimList: {members}</li>
+
+      <Reviews />
+    </ul>
+  );
 }

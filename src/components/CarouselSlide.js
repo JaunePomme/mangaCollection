@@ -1,10 +1,9 @@
-import React from 'react'
-import { Carousel } from 'react-bootstrap'
+import React from "react";
+import { Carousel } from "react-bootstrap";
 
-
-export default function CarouselSlide({mangas}) {
+export default function CarouselSlide({ mangas }) {
   return (
-      <>
+    <>
       <Carousel>
         <Carousel.Item interval={1000}>
           <img
@@ -36,10 +35,12 @@ export default function CarouselSlide({mangas}) {
           />
           <Carousel.Caption>
             <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
     </>
-  )
+  );
 }

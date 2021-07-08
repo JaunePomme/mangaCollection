@@ -1,53 +1,25 @@
-import React from 'react'
+import React from "react";
 
 export default function MemberReviewCard({ review }) {
-
-    return (
-        <div>
-            <div>
-
-                <div>
-                    <img src={review.reviewer.image_url}
-                        alt={'hi'}
-                        style={{ maxHeight: 500 }} />
-                </div>
-                <div>
-                    {review.content}
-                </div>
-                <div>
-                    Helpful counter: {review.helpful_count}
-                </div>
-                <div>
-                    Date: {review.date}
-                </div>
-                <div>
-                    Animations: {review.reviewer.scores.animations}
-                </div>
-                <div>
-                    Character: {review.reviewer.scores.character}
-                </div>
-                <div>
-                    Enjoyment: {review.reviewer.scores.enjoyment}
-                </div>
-                <div>
-                    Overall: {review.reviewer.scores.overall}
-                </div>
-                <div>
-                    Sound: {review.reviewer.scores.Sound}
-                </div>
-                <div>
-                    Story: {review.reviewer.scores.story}
-                </div>
-                <div>
-                    Username: {review.reviewer.username}
-                </div>
-                <div>
-                    URL to the reviewer: {review.reviewer.url}
-                </div>
-
-
-            </div>
-
-        </div>
-    )
+  return (
+    <div>
+      <img
+        src={review.reviewer.image_url}
+        alt={review.reviewer.username}
+        style={{ maxHeight: 500 }}
+      />
+      <ul>
+        <li>{review.content}</li>
+        <li>Helpful counter: {review.helpful_count}</li>
+        <li>Date: {review.date}</li>
+        <li>Animations: {review.reviewer.scores.animations}</li>
+        <li>Character: {review.reviewer.scores.character}</li>
+        <li>Enjoyment: {review.reviewer.scores.enjoyment}</li>
+        <li>Overall: {review.reviewer.scores.overall}</li>
+        <li>Story: {review.reviewer.scores.story}</li>
+        <li>Username: {review.reviewer.username}</li>
+        <li>URL to the reviewer: {review.reviewer.url}</li>
+      </ul>
+    </div>
+  );
 }

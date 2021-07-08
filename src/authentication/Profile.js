@@ -1,60 +1,59 @@
-import React, { useState, useEffect} from 'react'
-import { useHistory, useParams, useLocation } from 'react-router'
-import { useAuthentication } from '../contexts/AuthenticationContext';
-import { Link } from 'react-router-dom';
-import LikedList from '../components/LikedList';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import { useAuthentication } from "../contexts/AuthenticationContext";
+import { Link } from "react-router-dom";
+import LikedList from "../components/LikedList";
+import { firestore } from "../firebase";
 
 export default function Profile() {
+  const { currentUser } = useAuthentication();
+  const [pseudo, setPseudo] = useState("");
+  let { username } = useParams();
+  const [idLookedFor, setIdLookedFor] = useState("");
 
-    let history = useHistory();
-    let {username}=useParams();
-    let location = useLocation();
-    // const id=location.state.id
-    const { currentUser, logout } = useAuthentication();
-    const [pseudo, setPseudo] = useState('');
+  useEffect(() => {
+    const usernameRetrieve = async () => {
+      let docRef = firestore.collection("users").doc(currentUser.uid);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setPseudo(doc.data().pseudo);
+          } else {
+            // console.log("No such document");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    };
+    const idRetrieve = async () => {
+      let docRef = firestore.collection("users").doc(username);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setIdLookedFor(doc.data().userId);
+          } else {
+            // console.log("No such document");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    };
 
-    async function handleLogout() {
-        try {
-            await logout();
-            history.push('/login')
-        } catch(error) {
-            console.log(error)
-            alert(error)
-        }
-    }
+    usernameRetrieve();
+    idRetrieve();
+  }, []);
 
-    useEffect(() => {
-        setPseudo(localStorage.getItem('pseudo'))
-    }, [])
-
-    return (
-        <div>
-          {/* Je suis:  <strong>{username}</strong> id: {id}et je regarde le compte de:  */}
-          <strong>{pseudo}</strong> email: {currentUser.email} id: {currentUser.uid}
-            <div >
-                My profile :
-                {/* Alias(pseudo):<strong > {pseudo}</strong>
-                Email:<strong> {currentUser.email}</strong>
-                UID: <strong> {currentUser.uid}</strong>
-                JSON: <strong> {JSON.stringify(currentUser)}</strong> */}
-
-                <div>
-                    <Link to='/update-profile'> Update your profile</Link>
-                </div>
-
-                <button onClick={() => handleLogout()}>
-                    Logout
-                </button>
-                <button onClick={() => history.push('/')} >Retour à l'Accueil</button>
-
-            </div>
-
-           
-            <div>
-                <LikedList />
-
-            </div>
-
-        </div>
-    )
+  return (
+    <div>
+      username:{username} idlookedfor:{idLookedFor}
+      My profile :<strong>{pseudo}</strong> email: {currentUser.email}
+      current user uid: {currentUser.uid}
+      <Link to="/update-profile"> Update your profile</Link>
+      {idLookedFor && <LikedList idLookedFor={idLookedFor} />}
+    </div>
+  );
 }
