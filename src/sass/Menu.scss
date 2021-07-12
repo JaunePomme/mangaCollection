@@ -1,8 +1,15 @@
-.menu-container{
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.menu-btn{
     position: fixed;
     border-radius: 50%;
     box-shadow: 2px 2px 5px;
     background-color: white;
     left:20px;
     top:10px;
+}
+.drawer-menu{
+    
 }

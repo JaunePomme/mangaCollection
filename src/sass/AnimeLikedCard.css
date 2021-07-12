@@ -1,0 +1,102 @@
+.anime-overlay, .anime-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.animeLikedCard-ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: red;
+}
+
+.animeLikedCard-ul:hover {
+  -webkit-box-shadow: 5px 5px 5px whitesmoke;
+          box-shadow: 5px 5px 5px whitesmoke;
+}
+
+.animeLikedCard-ul.Completed {
+  background-color: #8fbc8f;
+}
+
+.animeLikedCard-ul.Ongoing {
+  background-color: cornsilk;
+}
+
+.anime-review {
+  width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.anime-overlay {
+  list-style-type: none;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background: #12130F;
+  color: #fbfef9;
+  font-family: "Quicksand", sans-serif;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.anime-overlay:hover {
+  opacity: 0.9;
+}
+
+.anime-overlay:hover > * {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.anime-title {
+  font-family: "Quicksand", sans-serif;
+}
+
+.anime-info {
+  line-height: 1.8;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.anime-update-btn {
+  color: black;
+  background-color: white;
+  opacity: 0.7;
+}
+
+.anime-update-btn:hover {
+  -webkit-box-shadow: 2px 2px 5px;
+          box-shadow: 2px 2px 5px;
+}
+/*# sourceMappingURL=AnimeLikedCard.css.map */

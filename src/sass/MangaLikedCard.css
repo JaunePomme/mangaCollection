@@ -1,0 +1,102 @@
+.manga-overlay, .manga-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mangaLikedCard-ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: red;
+}
+
+.mangaLikedCard-ul:hover {
+  -webkit-box-shadow: 5px 5px 5px whitesmoke;
+          box-shadow: 5px 5px 5px whitesmoke;
+}
+
+.mangaLikedCard-ul.Completed {
+  background-color: #8fbc8f;
+}
+
+.mangaLikedCard-ul.Ongoing {
+  background-color: cornsilk;
+}
+
+.manga-review {
+  width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.manga-overlay {
+  list-style-type: none;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background: #12130F;
+  color: #fbfef9;
+  font-family: "Quicksand", sans-serif;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.manga-overlay:hover {
+  opacity: 0.9;
+}
+
+.manga-overlay:hover > * {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.manga-info {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  line-height: 1.8;
+}
+
+.manga-title {
+  font-family: "Quicksand", sans-serif;
+}
+
+.manga-update-btn {
+  color: black;
+  background-color: white;
+  opacity: 0.7;
+}
+
+.manga-update-btn:hover {
+  -webkit-box-shadow: 2px 2px 5px;
+          box-shadow: 2px 2px 5px;
+}
+/*# sourceMappingURL=MangaLikedCard.css.map */

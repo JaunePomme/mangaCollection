@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Reviews from "./components/Reviews";
@@ -18,14 +17,17 @@ import Movie from "./components/Movie";
 import Seasonal from "./components/Seasonal";
 import About from "./components/About";
 import Genre from "./components/Genre";
+import './App.css';
+
 
 export default function App() {
   return (
     <div className="container">
       <Router forceRefresh={true}>
         <AuthenticationProvider>
+        <Menu />
+
           <Navigation />
-          <Menu />
 
           <Switch>
             <Route exact path="/" component={Content} />

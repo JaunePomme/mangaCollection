@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAKA,AAAA,UAAU,CAAA;EACN,WAAW,EAAC,MAAM;EAClB,qBAAqB,EAAG,qCAAqC;EAC7D,GAAG,EAAE,IAAI;CAEZ;;AAED,AAAA,cAAc,CAAA;EACV,OAAO,EAAC,IAAI;EACZ,eAAe,EAAE,YAAY;CAChC",
+    "sources": [
+        "LikedList.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "LikedList.css"
+}

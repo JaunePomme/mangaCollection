@@ -1,0 +1,10 @@
+.likedList {
+  display: -ms-grid;
+  display: grid;
+  background-color: #1b252f;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  position: relative;
+}
+/*# sourceMappingURL=MangaLikedList.css.map */

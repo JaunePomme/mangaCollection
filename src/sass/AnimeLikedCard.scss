@@ -1,0 +1,77 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.animeLikedCard-ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: red;
+  &:hover {
+    box-shadow: 5px 5px 5px whitesmoke;
+  }
+}
+
+.animeLikedCard-ul.Completed {
+  background-color: #8fbc8f;
+}
+
+
+.animeLikedCard-ul.Ongoing {
+  background-color: cornsilk;
+}
+
+
+.anime-review {
+  width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.anime-overlay {
+  list-style-type: none;
+  @extend %flex-center;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background: $fond-sombre;
+  color: $txt-clair;
+  font-family: "Quicksand", sans-serif;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.5s;
+  &:hover {
+    opacity: 0.9;
+  }
+  &:hover > * {
+    transform: translateY(0);
+  }
+}
+
+.anime-title {
+  font-family: "Quicksand", sans-serif;
+}
+
+.anime-info {
+  @extend %flex-center;
+  line-height: 1.8;
+  flex-direction: column;
+}
+
+.anime-update-btn {
+  color: black;
+  background-color: white;
+  opacity: 0.7;
+  &:hover {
+    box-shadow: 2px 2px 5px;
+  }
+}

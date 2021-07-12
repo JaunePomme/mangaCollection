@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
-import "./Menu.css";
+import "../sass/Menu.css";
 import { useHistory } from "react-router";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
@@ -174,8 +174,8 @@ export default function Menu() {
   return (
     <div>
       {
-        <div className="menu-container">
-          <Button className="btn-menu" onClick={toggleDrawer("left", true)}>
+        <div className="menu-btn">
+          <Button  onClick={toggleDrawer("left", true)}>
             <FontAwesomeIcon icon={faBars} />
           </Button>
           <SwipeableDrawer
@@ -184,6 +184,7 @@ export default function Menu() {
             open={state["left"]}
             onClose={toggleDrawer("left", false)}
             onOpen={toggleDrawer("left", true)}
+            swipeAreaWidth={10}
           >
             {list("left")}
           </SwipeableDrawer>

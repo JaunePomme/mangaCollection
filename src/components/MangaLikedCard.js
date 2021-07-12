@@ -13,6 +13,11 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { valuesForScoring } from "./const.js";
+import "../sass/MangaLikedCard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -37,14 +42,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MangaLikedCard({ item, idLookedFor }) {
   const [open, setOpen] = useState(false);
-  const [openbis, setOpenbis] = useState(false);
   const classes = useStyles();
-  const [inputStatus, setInputStatus] = useState("");
+  const [inputStatus, setInputStatus] = useState("Plan");
   const { currentUser } = useAuthentication();
-  const [inputReview, setInputReview] = useState("");
-  const [inputScoring, setInputScoring] = useState("");
-
-  const [inputChapter, setInputChapter] = useState();
+  const [inputReview, setInputReview] = useState("?");
+  const [inputScoring, setInputScoring] = useState("?");
+  const [inputChapter, setInputChapter] = useState(0);
 
   const handleSeeMore = (searchDataItem) => {
     console.log(searchDataItem);
@@ -60,15 +63,9 @@ export default function MangaLikedCard({ item, idLookedFor }) {
     console.log("handle close");
   };
 
-  const handleOpenbis = () => {
-    setOpenbis(true);
-    console.log("handle open reached");
-  };
 
-  const handleClosebis = () => {
-    setOpenbis(false);
-    console.log("handle close");
-  };
+
+  
   const handleSave = () => {
     let batch = firestore.batch();
 
@@ -127,7 +124,6 @@ export default function MangaLikedCard({ item, idLookedFor }) {
       .catch((error) => {
         console.error("Error updating document: ", error);
       });
-    handleClosebis();
   };
 
   useEffect(() => {
@@ -216,190 +212,172 @@ export default function MangaLikedCard({ item, idLookedFor }) {
     handleScoresRetrieve();
   }, [item.title, idLookedFor]);
 
+  
+
   return (
     <div>
-      <div key={item.mal_id}>
-        <div className="body-mangacard">
-          <div>
-            <div className="front">
-              <div>{item.title}</div>
-              <div>
-                <img
-                  src={item.image_url}
-                  alt={item.title}
-                  style={{ maxHeight: 200 }}
-                />
-                {inputReview}
-                <div>
-                  <strong>{inputScoring}</strong>
-                </div>
-              </div>
-              <div>{inputStatus}</div>
-              Score: {item.score}/10
-              <div className="manga-volumes">volumes: {item.volumes}</div>
-              <div className="manga-chapters">
-                chapters I read: {inputChapter}/{item.chapters}
-              </div>
-            </div>
-
-            <div className="back">
-              <div className="manga-synopsis">Synopsis: {item.synopsis}</div>
-
-              <Link
-                to={{
-                  pathname: "/manga-profile/" + item.title,
-                  state: { data: item, like: true, type: "manga" },
-                }}
-              >
-                <button
-                  className="btn-behind-mangacard"
-                  onClick={() => handleSeeMore(item)}
+      <div className="body-mangacard">
+        <div>
+          <ul className=  {`mangaLikedCard-ul ${inputStatus} `}>
+            <li>
+              <img
+                className="manga-img"
+                src={item.image_url}
+                alt={item.title}
+                style={{ height: 150, width: 100 }}
+              />
+              <div className="manga-overlay">
+                <Link
+                  to={{
+                    pathname: "/manga-profile/" + item.title,
+                    state: {
+                      data: item,
+                      like: true,
+                      type: "manga",
+                      review: inputReview,
+                      inputScoring: inputScoring,
+                    },
+                  }}
                 >
-                  See more
-                </button>
-              </Link>
+                  <button
+                    className="btn-manga-seemore"
+                    onClick={() => handleSeeMore(item)}
+                  >
+                    See more
+                  </button>
+                </Link>
+              </div>
+            </li>
+            <div className="manga-info">
+              <li className="manga-title">
+                <strong>{item.title}</strong>
+              </li>
+              <li className="manga-score">MyAnimList score: {item.score}/10</li>
+              <li className="manga-inputscoring">
+                My score:<strong> {inputScoring}/10</strong>
+              </li>
+              <li className="manga-chapters">
+                Reading:
+                <strong>
+                  {inputChapter}/{item.chapters}
+                </strong>
+              </li>
+            </div>
+            <li className="manga-update">
               {currentUser.uid !== idLookedFor ? (
                 ""
               ) : (
-                <div>
-                  <button
-                    type="button"
-                    className="btn-behind-mangacard"
-                    onClick={() => handleOpenbis()}
-                  >
-                    Give review and score
-                  </button>
-
-                  <button
-                    type="button"
-                    className="btn-behind-mangacard"
-                    onClick={handleOpen}
-                  >
-                    Update {item.title}
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="manga-update-btn"
+                  onClick={handleOpen}
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
               )}
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Update: {item.title}</h2>
-                    <p id="transition-modal-description">
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="manga-status">Status</InputLabel>
-                        <Select
-                          native
-                          value={inputStatus}
-                          onChange={(event) => {
-                            setInputStatus(event.target.value);
-                          }}
-                          inputProps={{
-                            name: "status",
-                          }}
-                        >
-                          <option aria-label="None" value="" />
-                          <option value={"OnGoing"}>OnGoing</option>
-                          <option value={"Completed"}>Completed</option>
-                          <option value={"Plan to read"}>Plan to read</option>
-                        </Select>
-                      </FormControl>
-                      <div>
-                        Chapters read:{" "}
-                        {inputStatus === "Completed" ? (
-                          item.chapters
-                        ) : (
-                          <input
-                            type="number"
-                            min="0"
-                            step="1"
-                            value={inputChapter}
-                            onChange={(e) => setInputChapter(e.target.value)}
-                            placeholder={0}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") {
-                                handleSave();
-                              }
-                            }}
-                          ></input>
-                        )}
-                        /{item.chapters}
-                      </div>
-                      <div>
-                        <button type="button" onClick={() => handleSave()}>
-                          Save modifications
-                        </button>
-                      </div>
-                    </p>
-                  </div>
-                </Fade>
-              </Modal>
+            </li>
+          </ul>
 
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={openbis}
-                onClose={handleClosebis}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={openbis}>
-                  <div className={classes.paper}>
-                    <h2 id="transition-modal-title">
-                      Write your review about: {item.title}
-                    </h2>
-                    <p id="transition-modal-description">
-                      <TextareaAutosize
-                        aria-label="minimum height"
-                        rowsMin={6}
-                        rowsMax={10}
-                        onChange={(e) => setInputReview(e.target.value)}
-                        value={inputReview}
-                        placeholder="Write here..."
-                      />
-                      <div>
-                        <TextField
-                          id="outlined-select-scoring"
-                          select
-                          label="Select"
-                          value={inputScoring}
-                          onChange={(e) => setInputScoring(e.target.value)}
-                          helperText="Please select your scoring"
-                          letiant="outlined"
-                        >
-                          {valuesForScoring.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </div>
-                      <div>
-                        <button
-                          type="button"
-                          onClick={() => handleReviewAndScore()}
-                        >
-                          Save the modifications
-                        </button>
-                      </div>
-                    </p>
-                  </div>
-                </Fade>
-              </Modal>
-            </div>
+          <div>
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <h2 id="transition-modal-title">Update: {item.title}</h2>
+                  <p id="transition-modal-description">
+                    <FormControl className={classes.formControl}>
+                      <InputLabel htmlFor="manga-status">Status</InputLabel>
+                      <Select
+                        native
+                        value={inputStatus}
+                        onChange={(event) => {
+                          setInputStatus(event.target.value);
+                        }}
+                        inputProps={{
+                          name: "status",
+                        }}
+                      >
+                        
+                        <option value={"Plan"}>Plan to read</option>
+                        <option value={"Ongoing"}>OnGoing</option>
+                        <option value={"Completed"}>Completed</option>
+                      </Select>
+                    </FormControl>
+                    <div>
+                      Chapters read:{" "}
+                      {inputStatus === "Completed" ? (
+                        item.chapters
+                      ) : (
+                        <input
+                          type="number"
+                          min="0"
+                          step="1"
+                          value={inputChapter}
+                          onChange={(e) => setInputChapter(e.target.value)}
+                          placeholder={0}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleSave();
+                            }
+                          }}
+                        ></input>
+                      )}
+                      /{item.chapters}
+                    </div>
+                  </p>
+
+                  <TextField
+                    id="outlined-select-scoring"
+                    select
+                    label="Select"
+                    value={inputScoring}
+                    onChange={(e) => setInputScoring(e.target.value)}
+                    helperText="Please select your scoring"
+                    letiant="outlined"
+                  >
+                    {valuesForScoring.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+
+                  <h3 id="transition-modal-title">Write your review:</h3>
+                  <p id="transition-modal-description">
+                    <TextareaAutosize
+                      aria-label="minimum height"
+                      rowsMin={3}
+                      rowsMax={5}
+                      onChange={(e) => setInputReview(e.target.value)}
+                      value={inputReview}
+                      placeholder="Write here..."
+                    />
+
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleReviewAndScore();
+                          handleSave();
+                        }}
+                      >
+                        Save modifications
+                      </button>
+                    </div>
+                  </p>
+                </div>
+              </Fade>
+            </Modal>
           </div>
         </div>
       </div>

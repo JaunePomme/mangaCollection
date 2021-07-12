@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./Card";
+import '../sass/List.css';
 
 export default function List({ data }) {
   return (

@@ -1,0 +1,16 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.manga-profile-ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  color: white;
+
+}
+.profile-liked{
+
+    color:pink;
+}
+

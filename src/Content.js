@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ItemList from "./components/ItemList";
 import "./App.css";
 import axios from "axios";
-import Menu from "./components/Menu";
 import MainContent from "./components/MainContent";
 import { firestore } from "./firebase";
 import { useAuthentication } from "./contexts/AuthenticationContext";
@@ -32,7 +31,6 @@ export default function Content() {
   const [searchData, setSearchData] = useState([]);
   const [page, setPage] = useState(1);
   const [firstTime, setFirstTime] = useState(true);
-
 
   const searchItem = async (category, keyword, page) => {
     try {
@@ -95,8 +93,6 @@ export default function Content() {
     searchItem(category, inputValue, page);
   }, [page]);
 
-  
-
   return (
     <div>
       <div className="container-data">
@@ -138,6 +134,18 @@ export default function Content() {
             </Button>
           </form>
         </div>
+
+        <ItemList
+          searchData={searchData}
+          category={category}
+          retrievedLikedMangas={retrievedLikedMangas}
+          retrievedLikedAnimes={retrievedLikedAnimes}
+        />
+      </div>
+
+      <MainContent />
+
+      {searchData.length > 1 && (
         <div>
           {page > 1 && (
             <Button
@@ -163,17 +171,7 @@ export default function Content() {
             Next Page
           </Button>
         </div>
-        <ItemList
-          searchData={searchData}
-          category={category}
-          retrievedLikedMangas={retrievedLikedMangas}
-          retrievedLikedAnimes={retrievedLikedAnimes}
-        />
-        <div className="footer">Pagination</div>
-      </div>
-
-      <Menu />
-      <MainContent />
+      )}
     </div>
   );
 }

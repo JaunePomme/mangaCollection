@@ -49,9 +49,9 @@ export default function Profile() {
 
   return (
     <div>
-      username:{username} idlookedfor:{idLookedFor}
-      My profile :<strong>{pseudo}</strong> email: {currentUser.email}
-      current user uid: {currentUser.uid}
+      username:{username}
+      email: {currentUser.email}
+      
       <Link to="/update-profile"> Update your profile</Link>
       {idLookedFor && <LikedList idLookedFor={idLookedFor} />}
     </div>

@@ -1,19 +1,22 @@
 import React from "react";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faSortAlphaDown,
+  faSortAlphaUp,
+  faSortNumericDownAlt,
+  faSortNumericUpAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
-export default function Sorting({
-  likedMangasData,
-  likedAnimesData,
-  setLikedAnimesData,
-  setLikedMangasData,
-}) {
+export default function Sorting({ setLikedAnimesData, setLikedMangasData, idLookedFor }) {
   const { currentUser } = useAuthentication();
 
   const handleSortByScoreDesc = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       .orderBy("score", "desc")
       .get()
@@ -29,7 +32,7 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("score", "desc")
       .get()
@@ -48,7 +51,7 @@ export default function Sorting({
   const handleSortByScore = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       .orderBy("score")
       .get()
@@ -64,7 +67,7 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("score")
       .get()
@@ -83,7 +86,7 @@ export default function Sorting({
   const handleSortByPersonalScore = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       // .where("score", "==", 15)
       .orderBy("personalScore")
@@ -100,7 +103,7 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("personalScore")
       .get()
@@ -119,7 +122,7 @@ export default function Sorting({
   const handleSortByPersonalScoreDesc = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       .orderBy("personalScore", "desc")
       .get()
@@ -135,7 +138,7 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("personalScore", "desc")
       .get()
@@ -154,7 +157,7 @@ export default function Sorting({
   const handleSort = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       .orderBy("title")
       .get()
@@ -170,7 +173,7 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("title")
       .get()
@@ -189,7 +192,7 @@ export default function Sorting({
   const handleReverseSort = () => {
     firestore
       .collection("likedMangas")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("manga")
       .orderBy("title", "desc")
       .get()
@@ -205,9 +208,44 @@ export default function Sorting({
       });
     firestore
       .collection("likedAnimes")
-      .doc(currentUser.uid)
+      .doc(idLookedFor)
       .collection("anime")
       .orderBy("title", "desc")
+      .get()
+      .then((querySnapshot) => {
+        const newAnimeList = [];
+        querySnapshot.forEach((doc) => {
+          newAnimeList.push(doc.data());
+        });
+        setLikedAnimesData(newAnimeList);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
+
+  const handleCompletedStatus = () => {
+    firestore
+      .collection("likedMangas")
+      .doc(idLookedFor)
+      .collection("manga")
+      .orderBy("status")
+      .get()
+      .then((querySnapshot) => {
+        const newMangaList = [];
+        querySnapshot.forEach((doc) => {
+          newMangaList.push(doc.data());
+        });
+        setLikedMangasData(newMangaList);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+    firestore
+      .collection("likedAnimes")
+      .doc(idLookedFor)
+      .collection("anime")
+      .orderBy("status")
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -224,22 +262,30 @@ export default function Sorting({
   return (
     <div>
       <button type="button" onClick={handleSortByScoreDesc}>
-        Sort by highest score according to MyAnimList
+        MyAnimList score
+        <FontAwesomeIcon icon={faSortNumericDownAlt} />
       </button>
       <button type="button" onClick={handleSortByScore}>
-        Sort by lowest score according to MyAnimList
+        MyAnimeList score
+        <FontAwesomeIcon icon={faSortNumericUpAlt} />
       </button>
       <button type="button" onClick={handleSortByPersonalScoreDesc}>
-        Sort by highest personal score
+        Personal score
+        <FontAwesomeIcon icon={faSortNumericDownAlt} />
       </button>
       <button type="button" onClick={handleSortByPersonalScore}>
-        Sort by lowest personal score
+        Personal score
+        <FontAwesomeIcon icon={faSortNumericUpAlt} />
       </button>
       <button type="button" onClick={handleSort}>
-        Sort by alphabetical order
+        <FontAwesomeIcon icon={faSortAlphaDown} />
       </button>
       <button type="button" onClick={handleReverseSort}>
-        Sort by reverse alphabetical order
+        <FontAwesomeIcon icon={faSortAlphaUp} />
+      </button>
+      <button type="button" onClick={handleCompletedStatus}>
+        Completed
+        <FontAwesomeIcon icon={faCheckSquare} />
       </button>
     </div>
   );

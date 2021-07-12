@@ -13,6 +13,9 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import { valuesForScoring } from "./const.js";
+import "../sass/AnimeLikedCard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,13 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function AnimeLikedCard({ item, idLookedFor }) {
   const [open, setOpen] = useState(false);
-  const [openbis, setOpenbis] = useState(false);
   const classes = useStyles();
-  const [inputStatus, setInputStatus] = useState("");
+  const [inputStatus, setInputStatus] = useState("Plan");
   const { currentUser } = useAuthentication();
-  const [inputReview, setInputReview] = useState("");
-  const [inputScoring, setInputScoring] = useState("");
-  const [inputEpisode, setInputEpisode] = useState();
+  const [inputReview, setInputReview] = useState("?");
+  const [inputScoring, setInputScoring] = useState("?");
+  const [inputEpisode, setInputEpisode] = useState(0);
 
   const handleSeeMore = (searchDataItem) => {
     console.log(searchDataItem);
@@ -58,15 +60,6 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
     console.log("handle close");
   };
 
-  const handleOpenbis = () => {
-    setOpenbis(true);
-    console.log("handle open reached");
-  };
-
-  const handleClosebis = () => {
-    setOpenbis(false);
-    console.log("handle close");
-  };
   const handleSave = () => {
     let batch = firestore.batch();
 
@@ -126,7 +119,6 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
       .catch((error) => {
         console.error("Error updating document: ", error);
       });
-    handleClosebis();
   };
 
   useEffect(() => {
@@ -217,183 +209,164 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
 
   return (
     <div>
-      <div key={item.mal_id}>
-        <div className="body-mangacard">
-          <div>
-            <div className="front">
-              <div>{item.title}</div>
-              <div>
-                <img
-                  src={item.image_url}
-                  alt={item.title}
-                  style={{ maxHeight: 200 }}
-                />
-                {inputReview}
-                <div>
-                  <strong>{inputScoring}</strong>
-                </div>
+      <div>
+        <div>
+          <ul className={`animeLikedCard-ul ${inputStatus} `}>
+            <li>
+              <img
+                className="anime-img"
+                src={item.image_url}
+                alt={item.title}
+                style={{ height: 150, width: 100 }}
+              />
+              <div className="anime-overlay">
+                <Link
+                  to={{
+                    pathname: "/manga-profile/" + item.title,
+                    state: {
+                      data: item,
+                      like: true,
+                      type: "anime",
+                      review: inputReview,
+                      inputScoring: inputScoring,
+                    },
+                  }}
+                >
+                  <button
+                    className="btn-anime-seemore"
+                    onClick={() => handleSeeMore(item)}
+                  >
+                    See more
+                  </button>
+                </Link>
               </div>
-              <div>{inputStatus}</div>
-              <div>{item.rated}</div>
-              Score: {item.score}/10
-              <div className="anime-episodes">
-                episodes I watched: {inputEpisode}/{item.episodes}
-              </div>
+            </li>
+            <div className="anime-info">
+              <li className="anime-title">
+                <strong>{item.title}</strong>
+              </li>
+              <li clasName="anime-inputscoring">
+                My score:<strong>{inputScoring}/10</strong>
+              </li>
+              <li className="anime-score">
+                {" "}
+                MyAnimList score: {item.score}/10
+              </li>
+              <li className="anime-episodes">
+                Watching:{" "}
+                <strong>
+                  {inputEpisode}/{item.episodes}
+                </strong>
+              </li>
             </div>
 
-            <div className="back">
-              <div className="anime-synopsis">Synopsis: {item.synopsis}</div>
-
-              <Link
-                to={{
-                  pathname: "/manga-profile/" + item.title,
-                  state: { data: item, like: true, type: "anime" },
-                }}
-              >
-                <button
-                  className="btn-behind-mangacard"
-                  onClick={() => handleSeeMore(item)}
-                >
-                  See more
-                </button>
-              </Link>
+            <li className="anime-update">
               {currentUser.uid !== idLookedFor ? (
                 ""
               ) : (
-                <div>
-                  <button
-                    type="button"
-                    className="btn-behind-mangacard"
-                    onClick={() => handleOpenbis()}
-                  >
-                    Give review and a score
-                  </button>
-
-                  <button
-                    type="button"
-                    className="btn-behind-mangacard"
-                    onClick={handleOpen}
-                  >
-                    Update {item.title}
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="anime-update-btn"
+                  onClick={handleOpen}
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
               )}
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Update: {item.title}</h2>
-                    <p id="transition-modal-description">
-                      <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="anime-status">Status</InputLabel>
-                        <Select
-                          native
-                          value={inputStatus}
-                          onChange={(event) => {
-                            setInputStatus(event.target.value);
-                          }}
-                          inputProps={{
-                            name: "status",
-                          }}
-                        >
-                          <option aria-label="None" value="" />
-                          <option value={"OnGoing"}>OnGoing</option>
-                          <option value={"Completed"}>Completed</option>
-                          <option value={"Plan to watch"}>Plan to watch</option>
-                        </Select>
-                      </FormControl>
-                      <div>
-                        Episode watched:{" "}
-                        {inputStatus === "Completed" ? (
-                          item.episodes
-                        ) : (
-                          <input
-                            type="number"
-                            min="0"
-                            step="1"
-                            value={inputEpisode}
-                            onChange={(e) => setInputEpisode(e.target.value)}
-                            placeholder={0}
-                          ></input>
-                        )}
-                        /{item.episodes}
-                      </div>
-                      <div>
-                        <button type="button" onClick={() => handleSave()}>
-                          Save modifications
-                        </button>
-                      </div>
-                    </p>
-                  </div>
-                </Fade>
-              </Modal>
+            </li>
+          </ul>
 
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={openbis}
-                onClose={handleClosebis}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={openbis}>
-                  <div className={classes.paper}>
-                    <h2 id="transition-modal-title">
-                      Write your review about: {item.title}
-                    </h2>
-                    <p id="transition-modal-description">
-                      <TextareaAutosize
-                        aria-label="minimum height"
-                        rowsMin={6}
-                        rowsMax={10}
-                        onChange={(e) => setInputReview(e.target.value)}
-                        value={inputReview}
-                        placeholder="Write here..."
-                      />
-                      <div>
-                        <TextField
-                          id="outlined-select-scoring"
-                          select
-                          label="Select"
-                          value={inputScoring}
-                          onChange={(e) => setInputScoring(e.target.value)}
-                          helperText="Please select your scoring"
-                          letiant="outlined"
-                        >
-                          {valuesForScoring.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </div>
-                      <div>
-                        <button
-                          type="button"
-                          onClick={() => handleReviewAndScore()}
-                        >
-                          Save the modifications
-                        </button>
-                      </div>
-                    </p>
-                  </div>
-                </Fade>
-              </Modal>
-            </div>
+          <div>
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <h2 id="transition-modal-title">Update: {item.title}</h2>
+                  <p id="transition-modal-description">
+                    <FormControl className={classes.formControl}>
+                      <InputLabel htmlFor="anime-status">Status</InputLabel>
+                      <Select
+                        native
+                        value={inputStatus}
+                        onChange={(event) => {
+                          setInputStatus(event.target.value);
+                        }}
+                        inputProps={{
+                          name: "status",
+                        }}
+                      >
+                        <option value={"Plan"}>Plan to watch</option>
+                        <option value={"Ongoing"}>OnGoing</option>
+                        <option value={"Completed"}>Completed</option>
+                      </Select>
+                    </FormControl>
+                    <div>
+                      Episode watched:{" "}
+                      {inputStatus === "Completed" ? (
+                        item.episodes
+                      ) : (
+                        <input
+                          type="number"
+                          min="0"
+                          step="1"
+                          value={inputEpisode}
+                          onChange={(e) => setInputEpisode(e.target.value)}
+                          placeholder={0}
+                        ></input>
+                      )}
+                      /{item.episodes}
+                    </div>
+                  </p>
+
+                  <TextField
+                    id="outlined-select-scoring"
+                    select
+                    label="Select"
+                    value={inputScoring}
+                    onChange={(e) => setInputScoring(e.target.value)}
+                    helperText="Please select your scoring"
+                    letiant="outlined"
+                  >
+                    {valuesForScoring.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <h3 id="transition-modal-title">Write your review:</h3>
+                  <p id="transition-modal-description">
+                    <TextareaAutosize
+                      aria-label="minimum height"
+                      rowsMin={6}
+                      rowsMax={10}
+                      onChange={(e) => setInputReview(e.target.value)}
+                      value={inputReview}
+                      placeholder="Write here..."
+                    />
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleSave();
+                          handleReviewAndScore();
+                        }}
+                      >
+                        Save the modifications
+                      </button>
+                    </div>
+                  </p>
+                </div>
+              </Fade>
+            </Modal>
           </div>
         </div>
       </div>

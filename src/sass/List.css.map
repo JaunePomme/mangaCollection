@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAMA,AAAA,KAAK,CAAC;EACF,OAAO,EAAC,IAAI;EACZ,gBAAgB,ECHP,OAAO;EDIhB,qBAAqB,EAAE,qCAAqC;EAC5D,GAAG,EAAE,MAAM;CACZ",
+    "sources": [
+        "List.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "List.css"
+}

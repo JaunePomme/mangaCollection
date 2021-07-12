@@ -1,13 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./MangaProfile.css";
+import "../sass/MangaProfile.css";
 import Reviews from "./Reviews";
 
 export default function MangaProfile() {
   let location = useLocation();
 
-  const { data, like } = location.state;
+  const { data, like, type, review, inputScoring } = location.state;
   const {
     mal_id,
     episodes,
@@ -15,14 +15,13 @@ export default function MangaProfile() {
     image_url,
     score,
     title,
-    url,
     volumes,
     synopsis,
     members,
   } = data;
 
   return (
-    <ul className="container">
+    <ul className="manga-profile-ul">
       {like && (
         <div className="profile-liked">
           <strong>This item is in your favorite list.</strong>
@@ -35,18 +34,21 @@ export default function MangaProfile() {
       <li>Title: {title}</li>
       <li>ID of the item: {mal_id}</li>
 
-      <li>Chapters: {chapters}</li>
-      <li>Episodes: {episodes}</li>
+      {type === "manga" ? (
+        <li>Chapters: {chapters}</li>
+      ) : (
+        <li>Episodes: {episodes}</li>
+      )}
 
-      <li>Score: {score}</li>
+      <li>MyAnimList Score: {score}</li>
+      <li>My personal score: {inputScoring}</li>
 
       <li>Synopsis: {synopsis}</li>
 
       <li>Volumes released: {volumes}</li>
 
-      <li>url to myAnimList: {url}</li>
-
       <li>Members on myAnimList: {members}</li>
+      <li>My review: {review}</li>
 
       <Reviews />
     </ul>

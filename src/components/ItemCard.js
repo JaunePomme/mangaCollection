@@ -66,7 +66,7 @@ export default function ItemCard({
         chapters: searchDataItem.chapters,
         score: searchDataItem.score,
         personalScore: "",
-        status: "",
+        status: "Plan",
         members: searchDataItem.members,
         start_date: searchDataItem.start_date,
         end_date: searchDataItem.end_date,
@@ -114,7 +114,7 @@ export default function ItemCard({
         type: searchDataItem.type,
         score: searchDataItem.score,
         personalScore: "",
-        status: "",
+        status: "Plan",
         rated: searchDataItem.rated,
         members: searchDataItem.members,
         start_date: searchDataItem.start_date,
@@ -147,22 +147,22 @@ export default function ItemCard({
         className={`itemcard ${flip ? "flip" : ""} `}
         onClick={() => setFlip(!flip)}
       >
-        <div className="front">
-          <div>{show ? {} : null}</div>
-          <div>{searchDataItem.title}</div>
-          <div>
+        <ul className="front">
+          <li>{searchDataItem.title}</li>
+          <li>
             <img
               src={searchDataItem.image_url}
               alt={searchDataItem.title}
               style={{ maxHeight: 200 }}
+              loading="lazy"
             />
-          </div>
+          </li>
           Score: {searchDataItem.score}/10
-          <div className="manga-volumes">volumes: {searchDataItem.volumes}</div>
-          <div className="manga-chapters">
+          <li className="manga-volumes">volumes: {searchDataItem.volumes}</li>
+          <li className="manga-chapters">
             chapters: {searchDataItem.chapters}
-          </div>
-        </div>
+          </li>
+        </ul>
 
         <div className="back">
           <div className="manga-synopsis">

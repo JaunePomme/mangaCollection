@@ -4,9 +4,22 @@ import { firestore } from "../firebase";
 import MangaLikedList from "./MangaLikedList";
 import AnimeLikedList from "./AnimeLikedList";
 import Sorting from "./Sorting";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import "../sass/LikedList.css";
+
 export default function LikedList({ idLookedFor }) {
   const [likedMangasData, setLikedMangasData] = useState([]);
   const [likedAnimesData, setLikedAnimesData] = useState([]);
+  const [state, setState] = useState({
+    checkedA: true,
+    checkedB: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   useEffect(() => {
     const handleAnimesRetrieve = () => {
@@ -51,18 +64,53 @@ export default function LikedList({ idLookedFor }) {
 
   return (
     <div>
-      <Sorting
-        likedMangasData={likedMangasData}
-        likedAnimesData={likedAnimesData}
-        setLikedMangasData={setLikedMangasData}
-        setLikedAnimesData={setLikedAnimesData}
-      />
-      List of Liked Animes:
-      <AnimeLikedList likedData={likedAnimesData} idLookedFor={idLookedFor} />
-      <div className="item-grid">
-        List of Liked Mangas:
-        <MangaLikedList likedData={likedMangasData} idLookedFor={idLookedFor} />
+      <div className="likedlist-btn">
+        <Sorting
+        idLookedFor={idLookedFor}
+          likedMangasData={likedMangasData}
+          likedAnimesData={likedAnimesData}
+          setLikedMangasData={setLikedMangasData}
+          setLikedAnimesData={setLikedAnimesData}
+        />
+
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state.checkedA}
+                onChange={handleChange}
+                name="checkedA"
+              />
+            }
+            label="Anime"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state.checkedB}
+                onChange={handleChange}
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Manga"
+          />
+        </FormGroup>
       </div>
+
+      {state.checkedA ? (
+        <AnimeLikedList likedData={likedAnimesData} idLookedFor={idLookedFor} />
+      ) : (
+        ""
+      )}
+      <div>
+        Mangas:
+      </div>
+      {state.checkedB ? (
+        <MangaLikedList likedData={likedMangasData} idLookedFor={idLookedFor} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

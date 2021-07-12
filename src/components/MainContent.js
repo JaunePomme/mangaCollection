@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import List from "./List";
-import "./MainContent.css";
 
 export default function MainContent() {
   const [upcomingList, setUpcomingList] = useState("");
-  const [topAnimeList, setTopAnimeList] = useState();
-  const [topMangaList, setTopMangaList] = useState();
 
   useEffect(() => {
     const search = async () => {
@@ -27,6 +24,7 @@ export default function MainContent() {
 
   return (
     <div>
+      <strong>Coming Soon:</strong>
       <List data={upcomingList} />
     </div>
   );

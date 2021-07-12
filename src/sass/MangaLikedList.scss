@@ -1,0 +1,12 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.likedList{
+    display:grid;   
+    background-color: #1b252f;
+    // flex-direction:column;
+    grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+    position:relative;
+}

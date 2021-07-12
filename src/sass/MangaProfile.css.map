@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,iBAAiB,CAAC;EAChB,eAAe,EAAE,IAAI;EACrB,OAAO,EAAE,GAAG;EACZ,MAAM,EAAE,GAAG;EACX,KAAK,EAAE,KAAK;CAEb;;AACD,AAAA,cAAc,CAAA;EAEV,KAAK,EAAC,IAAI;CACb",
+    "sources": [
+        "MangaProfile.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "MangaProfile.css"
+}

@@ -6,7 +6,7 @@ import { faAt } from "@fortawesome/free-solid-svg-icons";
 export default function About() {
   return (
     <div>
-      <div>
+      
         <strong>
           <p>
             I used HTML, CSS, JS(ES6, REACT) in order to make this website. For
@@ -17,7 +17,7 @@ export default function About() {
           </p>
           <p>Best regards, Alex.</p>
         </strong>
-      </div>
+      
       <a
         style={{ display: "table-cell" }}
         href="https://github.com/JaunePomme/mangaCollection"

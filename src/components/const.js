@@ -17,7 +17,7 @@ export const valuesForScoring = [
   },
   {
     value: +5,
-    label: "it's okay (5-6/10)",
+    label: "It's okay (5-6/10)",
   },
   {
     value: +4,

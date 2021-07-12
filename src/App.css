@@ -1,19 +1,5 @@
-.container{
-    max-width: 900px;  
-    margin: 1rem 2rem;
-
-}
-
-.search-bar{
-    display:flex;
-}
-
-.form{
-    margin-left : 10px;
-}
-
-
-
-.footer{
-    background-color:yellow;
+.container {
+  background-color: #1b252f;
+  min-width: 100%;
+  min-height: 100%;
 }
