@@ -236,6 +236,7 @@ export default function MangaLikedCard({ item, idLookedFor }) {
                       type: "manga",
                       review: inputReview,
                       inputScoring: inputScoring,
+                      id:item.mal_id
                     },
                   }}
                 >

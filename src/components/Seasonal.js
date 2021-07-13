@@ -11,7 +11,7 @@ import List from "./List";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import "./Seasonal.css";
+import "../sass/Seasonal.css";
 import { years } from "./const.js";
 
 const useStyles = makeStyles((theme) => ({

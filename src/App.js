@@ -5,7 +5,6 @@ import Reviews from "./components/Reviews";
 import Profile from "./authentication/Profile";
 import Login from "./authentication/Login";
 import SignUp from "./authentication/SignUp";
-import Content from "./Content";
 import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import MangaProfile from "./components/MangaProfile";
 import UpdateProfile from "./authentication/UpdateProfile";
@@ -17,20 +16,20 @@ import Movie from "./components/Movie";
 import Seasonal from "./components/Seasonal";
 import About from "./components/About";
 import Genre from "./components/Genre";
-import './App.css';
-
+import "./App.css";
+import MainSearch from "./components/MainSearch";
 
 export default function App() {
   return (
     <div className="container">
       <Router forceRefresh={true}>
         <AuthenticationProvider>
-        <Menu />
+          <Menu />
 
           <Navigation />
 
           <Switch>
-            <Route exact path="/" component={Content} />
+            <Route exact path="/" component={MainSearch} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/firebasereviews" component={FirebaseReviews} />
@@ -55,7 +54,10 @@ export default function App() {
             />
 
             {/* ERROR */}
-            <Route path="/" component={() => <div> 404 ERROR Page not found. </div>} />
+            <Route
+              path="/"
+              component={() => <div> 404 ERROR Page not found. </div>}
+            />
           </Switch>
         </AuthenticationProvider>
       </Router>

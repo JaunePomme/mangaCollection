@@ -1,0 +1,16 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.mainsearch-container {
+}
+
+.search-bar {
+  color: snow;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  font-size: 20px;
+}

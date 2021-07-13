@@ -8,7 +8,7 @@ export default function MemberReviewCard({ review }) {
         alt={review.reviewer.username}
         style={{ maxHeight: 500 }}
       />
-      <ul>
+      <ul className='reviewList-container'>
         <li>{review.content}</li>
         <li>Helpful counter: {review.helpful_count}</li>
         <li>Date: {review.date}</li>

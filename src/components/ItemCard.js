@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./ItemCard.css";
+import "../sass/ItemCard.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ItemCard({
   searchDataItem,
@@ -14,7 +14,6 @@ export default function ItemCard({
 }) {
   const [flip, setFlip] = useState(false);
   const urlString = "/manga-profile/" + searchDataItem.title;
-  const [show, setShow] = useState(false);
   const [like, setLike] = useState(false);
   const { currentUser } = useAuthentication();
   const [mangaOrNot, setMangaOrNot] = useState(true);
@@ -139,7 +138,7 @@ export default function ItemCard({
           className={`btn-likable ${like ? "liked" : ""} `}
           onClick={mangaOrNot ? handleMangaLikeClick : handleAnimeLikeClick}
         >
-          <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
         </button>
       )}
 
@@ -147,22 +146,42 @@ export default function ItemCard({
         className={`itemcard ${flip ? "flip" : ""} `}
         onClick={() => setFlip(!flip)}
       >
-        <ul className="front">
-          <li>{searchDataItem.title}</li>
-          <li>
-            <img
-              src={searchDataItem.image_url}
-              alt={searchDataItem.title}
-              style={{ maxHeight: 200 }}
-              loading="lazy"
-            />
-          </li>
-          Score: {searchDataItem.score}/10
-          <li className="manga-volumes">volumes: {searchDataItem.volumes}</li>
-          <li className="manga-chapters">
-            chapters: {searchDataItem.chapters}
-          </li>
-        </ul>
+        {mangaOrNot ? (
+          <ul className="front">
+            <li>{searchDataItem.title}</li>
+            <li>
+              <img
+                src={searchDataItem.image_url}
+                alt={searchDataItem.title}
+                style={{ maxHeight: 200 }}
+                loading="lazy"
+              />
+            </li>
+
+            <li className="item-score">Score: {searchDataItem.score}/10</li>
+            <li className="item-volumes">volumes: {searchDataItem.volumes}</li>
+            <li className="item-chapters">
+              chapters: {searchDataItem.chapters}
+            </li>
+          </ul>
+        ) : (
+          <ul className="front">
+            <li>{searchDataItem.title}</li>
+            <li>
+              <img
+                src={searchDataItem.image_url}
+                alt={searchDataItem.title}
+                style={{ maxHeight: 200 }}
+                loading="lazy"
+              />
+            </li>
+
+            <li className="item-score">Score: {searchDataItem.score}/10</li>
+            <li className="item-episodes">
+              Episodes: {searchDataItem.episodes}
+            </li>
+          </ul>
+        )}
 
         <div className="back">
           <div className="manga-synopsis">

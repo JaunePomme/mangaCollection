@@ -1,0 +1,10 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.profile-container {
+  @extend %flex-center;
+  @extend %ul-nobullet;
+  color: white;
+  gap: 1rem;
+}

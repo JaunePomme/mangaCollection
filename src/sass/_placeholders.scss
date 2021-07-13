@@ -1,5 +1,10 @@
-%flex-center{
-    display:flex;
-    justify-content: center;
-    align-items: center;
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+%ul-nobullet {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
 }

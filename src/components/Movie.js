@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import List from "./List";
-import Button from "@material-ui/core/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import '../sass/Movie.css';
+import NextPreviousPage from "./NextPreviousPage";
 
 export default function Movie() {
   const [movieList, setMovieList] = useState();
@@ -25,27 +24,17 @@ export default function Movie() {
   }, [page, movieList]);
 
   return (
-    <div>
-      {page > 1 && (
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setPage((page) => page - 1)}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-          Previous Page
-        </Button>
-      )}
+    <div >
+      
+      
+        <div className='movie-container'>
 
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => setPage((page) => page + 1)}
-      >
-        <FontAwesomeIcon icon={faArrowRight} />
-        Next Page
-      </Button>
-      <List data={movieList} />
+        
+        <NextPreviousPage page={page} setPage={setPage}/>
+      
+        </div>
+        <List data={movieList} />
+
     </div>
   );
 }

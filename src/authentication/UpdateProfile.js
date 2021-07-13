@@ -47,7 +47,6 @@ export default function UpdateProfile() {
 
   return (
     <div>
-      {/* {error} */}
       <form id="update-form" onSubmit={handleSubmit} placerholder="Type in..">
         <div className="form-group">
           <label htmlFor="pseudo">Alias(pseudo):</label>

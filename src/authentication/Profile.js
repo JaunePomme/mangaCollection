@@ -4,29 +4,14 @@ import { useAuthentication } from "../contexts/AuthenticationContext";
 import { Link } from "react-router-dom";
 import LikedList from "../components/LikedList";
 import { firestore } from "../firebase";
+import "../sass/Profile.css";
 
 export default function Profile() {
   const { currentUser } = useAuthentication();
-  const [pseudo, setPseudo] = useState("");
   let { username } = useParams();
   const [idLookedFor, setIdLookedFor] = useState("");
 
   useEffect(() => {
-    const usernameRetrieve = async () => {
-      let docRef = firestore.collection("users").doc(currentUser.uid);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setPseudo(doc.data().pseudo);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
     const idRetrieve = async () => {
       let docRef = firestore.collection("users").doc(username);
       docRef
@@ -43,16 +28,19 @@ export default function Profile() {
         });
     };
 
-    usernameRetrieve();
     idRetrieve();
   }, []);
 
   return (
     <div>
-      username:{username}
-      email: {currentUser.email}
-      
-      <Link to="/update-profile"> Update your profile</Link>
+      <ul className="profile-container">
+        <li>Username: {username}</li>
+        <li>Email: {currentUser.email}</li>
+        <li>
+          <Link to="/update-profile"> Update your profile</Link>
+        </li>
+      </ul>
+
       {idLookedFor && <LikedList idLookedFor={idLookedFor} />}
     </div>
   );

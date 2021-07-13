@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AGJA,kBHIkB,CGJL;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;CACpB;;AHAD,AGCA,kBHDkB,CGCL;EACX,eAAe,EAAE,IAAI;EACrB,OAAO,EAAE,GAAG;EACZ,MAAM,EAAE,GAAG;CACZ;;AHLD,AAAA,kBAAkB,CAAC;EAGjB,KAAK,EAAE,KAAK;EACZ,GAAG,EAAE,IAAI;CACV",
+    "sources": [
+        "Profile.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "Profile.css"
+}

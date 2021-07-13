@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAKA,AGLA,gBHKgB,CGLH;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;CACpB;;AHCD,AAAA,gBAAgB,CAAA;EAEZ,gBAAgB,ECAJ,OAAO;CDCtB",
+    "sources": [
+        "Movie.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "Movie.css"
+}

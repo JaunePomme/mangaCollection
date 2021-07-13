@@ -229,6 +229,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                       type: "anime",
                       review: inputReview,
                       inputScoring: inputScoring,
+                      id:item.mal_id
                     },
                   }}
                 >

@@ -92,10 +92,10 @@ export default function Menu() {
           activeClassName="current"
           to={"/"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faHome} />
             Home
-          </li>
+          </article>
         </NavLink>
         <NavLink
           style={{ textDecoration: "none" }}
@@ -103,10 +103,10 @@ export default function Menu() {
           activeClassName="current"
           to={"/firebasereviews"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faSearch} />
             Search for username
-          </li>
+          </article>
         </NavLink>
         <NavLink
           style={{ textDecoration: "none" }}
@@ -114,9 +114,9 @@ export default function Menu() {
           activeClassName="current"
           to={"/profile/" + myUsername}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faHeart} /> My collection
-          </li>
+          </article>
         </NavLink>
         <NavLink
           style={{ textDecoration: "none" }}
@@ -124,9 +124,9 @@ export default function Menu() {
           activeClassName="current"
           to={"/movie"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faFilm} /> Movie
-          </li>
+          </article>
         </NavLink>
         <NavLink
           style={{ textDecoration: "none" }}
@@ -134,9 +134,9 @@ export default function Menu() {
           activeClassName="current"
           to={"/seasonal"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faCalendar} /> Seasonal
-          </li>
+          </article>
         </NavLink>
         <NavLink
           style={{ textDecoration: "none" }}
@@ -144,9 +144,9 @@ export default function Menu() {
           activeClassName="current"
           to={"/genre"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faTag} /> Genre
-          </li>
+          </article>
         </NavLink>
 
         <NavLink
@@ -155,9 +155,9 @@ export default function Menu() {
           activeClassName="current"
           to={"/about"}
         >
-          <li style={{ marginLeft: 25 }}>
+          <article style={{ marginLeft: 25 }}>
             <FontAwesomeIcon icon={faQuestion} /> About
-          </li>
+          </article>
         </NavLink>
 
         <Button
@@ -175,7 +175,7 @@ export default function Menu() {
     <div>
       {
         <div className="menu-btn">
-          <Button  onClick={toggleDrawer("left", true)}>
+          <Button onClick={toggleDrawer("left", true)}>
             <FontAwesomeIcon icon={faBars} />
           </Button>
           <SwipeableDrawer

@@ -66,7 +66,7 @@ export default function LikedList({ idLookedFor }) {
     <div>
       <div className="likedlist-btn">
         <Sorting
-        idLookedFor={idLookedFor}
+          idLookedFor={idLookedFor}
           likedMangasData={likedMangasData}
           likedAnimesData={likedAnimesData}
           setLikedMangasData={setLikedMangasData}
@@ -83,6 +83,7 @@ export default function LikedList({ idLookedFor }) {
               />
             }
             label="Anime"
+            classes={{ label: "anime-toggle" }}
           />
           <FormControlLabel
             control={
@@ -94,18 +95,18 @@ export default function LikedList({ idLookedFor }) {
               />
             }
             label="Manga"
+            classes={{ label: "manga-toggle" }}
           />
         </FormGroup>
       </div>
-
+      <p className="anime-label">Animes:</p>
       {state.checkedA ? (
         <AnimeLikedList likedData={likedAnimesData} idLookedFor={idLookedFor} />
       ) : (
         ""
       )}
-      <div>
-        Mangas:
-      </div>
+
+      <p className="manga-label">Mangas:</p>
       {state.checkedB ? (
         <MangaLikedList likedData={likedMangasData} idLookedFor={idLookedFor} />
       ) : (

@@ -7,7 +7,7 @@ import Reviews from "./Reviews";
 export default function MangaProfile() {
   let location = useLocation();
 
-  const { data, like, type, review, inputScoring } = location.state;
+  const { data, like, type, review, inputScoring, id } = location.state;
   const {
     mal_id,
     episodes,
@@ -24,7 +24,7 @@ export default function MangaProfile() {
     <ul className="manga-profile-ul">
       {like && (
         <div className="profile-liked">
-          <strong>This item is in your favorite list.</strong>
+          <strong>This item is in the favorite list.</strong>
           <FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
         </div>
       )}

@@ -1,0 +1,8 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.seasonal-container{
+   background-color: white;
+   @extend %flex-center;
+}

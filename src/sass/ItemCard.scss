@@ -1,0 +1,68 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.body-itemcard {
+  position: relative;
+}
+.itemcard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+  position: relative;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  transform-style: preserve-3d;
+  transition: 150ms;
+  cursor: pointer;
+  transform: perspective(1000px) rotateY(var(--rotate-y, 0));
+  &:hover {
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.itemcard.flip {
+  --rotate-y: 180deg;
+}
+
+.itemcard .front {
+  backface-visibility: hidden;
+  padding: 1rem;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  left: 0;
+}
+
+.itemcard .back {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+}
+
+.btn-behind-itemcard {
+  background-color: hsl(200, 100%, 50%);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(200, 100%, 40%);
+  }
+}
+
+.btn-likable {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 2;
+  &:hover {
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.btn-likable.liked {
+  color: yellowgreen;
+}

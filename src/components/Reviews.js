@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import MemberReviewList from "./MemberReviewList";
 
 export default function Reviews() {
   const [reviewList, setReviewList] = useState("");
-  let { title } = useParams();
   let location = useLocation();
   const type = location.state.type;
   const id = location.state.id;
@@ -26,12 +24,5 @@ export default function Reviews() {
     search(type, id);
   }, [id, type, reviewList]);
 
-  return (
-    <div>
-      <FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
-      <p>Welcome to reviews class dear {title} !</p>
-
-      <MemberReviewList reviewList={reviewList} />
-    </div>
-  );
+  return <MemberReviewList reviewList={reviewList} />;
 }

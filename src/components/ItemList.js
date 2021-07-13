@@ -1,6 +1,6 @@
 import React from "react";
 import ItemCard from "./ItemCard";
-import "./ItemList.css";
+import "../sass/ItemList.css";
 
 export default function ItemList({
   searchData,

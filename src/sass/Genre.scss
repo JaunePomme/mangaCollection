@@ -1,0 +1,8 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.genre-container{
+    background-color: white;
+    @extend %flex-center;
+}

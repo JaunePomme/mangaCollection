@@ -1,3 +1,16 @@
+.manga-label,
+.anime-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .item-grid {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -13,5 +26,17 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+}
+
+.manga-label,
+.anime-label {
+  color: snow;
+  font-size: 20px;
+  gap: 1rem;
+}
+
+.anime-toggle,
+.manga-toggle {
+  color: snow;
 }
 /*# sourceMappingURL=LikedList.css.map */

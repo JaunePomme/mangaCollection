@@ -1,0 +1,84 @@
+.body-itemcard {
+  position: relative;
+}
+
+.itemcard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 0.25rem;
+  position: relative;
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: 150ms;
+  transition: 150ms;
+  cursor: pointer;
+  -webkit-transform: perspective(1000px) rotateY(var(--rotate-y, 0));
+          transform: perspective(1000px) rotateY(var(--rotate-y, 0));
+}
+
+.itemcard:hover {
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.itemcard.flip {
+  --rotate-y: 180deg;
+}
+
+.itemcard .front {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  padding: 1rem;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  left: 0;
+}
+
+.itemcard .back {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+}
+
+.btn-behind-itemcard {
+  background-color: #00aaff;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.3em;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-behind-itemcard:hover {
+  background-color: #0088cc;
+}
+
+.btn-likable {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 2;
+}
+
+.btn-likable:hover {
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-likable.liked {
+  color: yellowgreen;
+}
+/*# sourceMappingURL=ItemCard.css.map */

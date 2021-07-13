@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Navigation.css";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../sass/Navigation.css";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 
 export default function Navigation() {
@@ -20,7 +18,7 @@ export default function Navigation() {
             activeClassName="current"
             to={"/login"}
           >
-            <p style={{ marginLeft: 25 }}> Login </p>
+            <p style={{ marginLeft: 25 }}>Login </p>
           </NavLink>
 
           <NavLink

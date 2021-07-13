@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
-import SearchBar from "./SearchBar";
+import SearchUser from "./SearchUser";
 
 export default function FirebaseReviews() {
   const [pseudoList, setPseudoList] = useState([]);
@@ -26,9 +26,5 @@ export default function FirebaseReviews() {
     handleRetrievePseudo();
   }, []);
 
-  return (
-    <div>
-      <SearchBar pseudoList={pseudoList} setPseudoList={setPseudoList} />
-    </div>
-  );
+  return <SearchUser pseudoList={pseudoList} setPseudoList={setPseudoList} />;
 }

@@ -2,15 +2,25 @@
 @import "./_mixins";
 @import "./_placeholders";
 
+.item-grid {
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
 
-.item-grid{
-    align-items:center;
-    grid-template-columns:  repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    
-} 
-
-.likedlist-btn{
-    display:flex;
-    justify-content: space-around;
+.likedlist-btn {
+  display: flex;
+  justify-content: space-around;
+}
+.manga-label,
+.anime-label {
+  //   color: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  @extend %flex-center;
+  color: snow;
+  font-size: 20px;
+  gap: 1rem;
+}
+.anime-toggle,
+.manga-toggle {
+  color: snow;
 }

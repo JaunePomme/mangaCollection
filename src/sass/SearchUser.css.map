@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;KAqEK",
+    "sources": [
+        "SearchUser.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "SearchUser.css"
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,10 +8,13 @@ import {
   faSortNumericDownAlt,
   faSortNumericUpAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import "../sass/Sorting.css";
 
-export default function Sorting({ setLikedAnimesData, setLikedMangasData, idLookedFor }) {
-  const { currentUser } = useAuthentication();
-
+export default function Sorting({
+  setLikedAnimesData,
+  setLikedMangasData,
+  idLookedFor,
+}) {
   const handleSortByScoreDesc = () => {
     firestore
       .collection("likedMangas")
@@ -260,7 +262,7 @@ export default function Sorting({ setLikedAnimesData, setLikedMangasData, idLook
   };
 
   return (
-    <div>
+    <div className="sorting-container">
       <button type="button" onClick={handleSortByScoreDesc}>
         MyAnimList score
         <FontAwesomeIcon icon={faSortNumericDownAlt} />

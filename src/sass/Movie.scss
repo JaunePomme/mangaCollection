@@ -1,0 +1,10 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+
+.movie-container{
+    @extend %flex-center;
+    background-color: $fond-scrolller;
+}
+

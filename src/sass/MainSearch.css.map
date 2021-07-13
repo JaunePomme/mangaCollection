@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAOA,AAAA,WAAW,CAAC;EACV,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;CACxB;;AAED,AAAA,aAAa,CAAC;EACZ,SAAS,EAAE,IAAI;CAChB",
+    "sources": [
+        "MainSearch.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "MainSearch.css"
+}

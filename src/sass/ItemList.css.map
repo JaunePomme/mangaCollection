@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,WAAW,CAAA;EACP,OAAO,EAAC,IAAI;EACZ,WAAW,EAAC,MAAM;EAClB,qBAAqB,EAAG,qCAAqC;EAC7D,GAAG,EAAE,IAAI;CAEZ",
+    "sources": [
+        "ItemList.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "ItemList.css"
+}

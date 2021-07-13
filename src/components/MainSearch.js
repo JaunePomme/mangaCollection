@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import ItemList from "./components/ItemList";
-import "./App.css";
+import ItemList from "./ItemList";
 import axios from "axios";
-import MainContent from "./components/MainContent";
-import { firestore } from "./firebase";
-import { useAuthentication } from "./contexts/AuthenticationContext";
+import { firestore } from "../firebase";
+import { useAuthentication } from "../contexts/AuthenticationContext";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch,
-  faArrowRight,
-  faArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { makeStyles } from "@material-ui/core/styles";
+import NextPreviousPage from "./NextPreviousPage";
+import TopMangaAnime from "./TopMangaAnime";
+import "../sass/MainSearch.css";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -20,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Content() {
+export default function MainSearch() {
   const CATEGORY_LIST = ["manga", "anime"];
   const [category, setCategory] = useState(CATEGORY_LIST[0]);
   const { currentUser } = useAuthentication();
@@ -94,83 +91,53 @@ export default function Content() {
   }, [page]);
 
   return (
-    <div>
-      <div className="container-data">
-        <div className="search-bar">
-          <input
-            type="text"
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="search 3 letters at least.."
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                searchItem(category, inputValue, page);
-              }
-            }}
-          />
-
-          <form className="form">
-            <div>
-              <label htmlFor="category">Category</label>
-              <select
-                id="category"
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {CATEGORY_LIST.map((category) => (
-                  <option key={category}>{category}</option>
-                ))}
-              </select>
-            </div>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                searchItem(category, inputValue, page);
-              }}
-              className={classes.button}
-            >
-              <FontAwesomeIcon icon={faSearch} />
-              Search
-            </Button>
-          </form>
-        </div>
-
-        <ItemList
-          searchData={searchData}
-          category={category}
-          retrievedLikedMangas={retrievedLikedMangas}
-          retrievedLikedAnimes={retrievedLikedAnimes}
+    <div className="mainsearch-container">
+      <div className="search-bar">
+        <input
+          className="search-input"
+          type="text"
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="search 3 letters at least.."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              searchItem(category, inputValue, page);
+            }
+          }}
         />
-      </div>
 
-      <MainContent />
-
-      {searchData.length > 1 && (
-        <div>
-          {page > 1 && (
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                setPage((page) => page - 1);
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} />
-              Previous Page
-            </Button>
-          )}
+        <form className="form">
+          <label htmlFor="category">Category</label>
+          <select id="category" onChange={(e) => setCategory(e.target.value)}>
+            {CATEGORY_LIST.map((category) => (
+              <option key={category}>{category}</option>
+            ))}
+          </select>
 
           <Button
             variant="contained"
             color="secondary"
             onClick={() => {
-              setPage((page) => page + 1);
+              searchItem(category, inputValue, page);
             }}
+            className={classes.button}
           >
-            <FontAwesomeIcon icon={faArrowRight} />
-            Next Page
+            <FontAwesomeIcon icon={faSearch} />
+            Search
           </Button>
-        </div>
+        </form>
+      </div>
+
+      <ItemList
+        searchData={searchData}
+        category={category}
+        retrievedLikedMangas={retrievedLikedMangas}
+        retrievedLikedAnimes={retrievedLikedAnimes}
+      />
+
+      <TopMangaAnime />
+
+      {searchData.length > 1 && (
+        <NextPreviousPage page={page} setPage={setPage} />
       )}
     </div>
   );
