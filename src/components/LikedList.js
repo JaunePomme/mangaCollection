@@ -22,7 +22,7 @@ export default function LikedList({ idLookedFor }) {
   };
 
   useEffect(() => {
-    const handleAnimesRetrieve = () => {
+    const animesRetrieve = () => {
       firestore
         .collection("likedAnimes")
         .doc(idLookedFor)
@@ -40,7 +40,7 @@ export default function LikedList({ idLookedFor }) {
         });
     };
 
-    const handleMangasRetrieve = () => {
+    const mangasRetrieve = () => {
       firestore
         .collection("likedMangas")
         .doc(idLookedFor)
@@ -58,8 +58,8 @@ export default function LikedList({ idLookedFor }) {
         });
     };
 
-    handleMangasRetrieve();
-    handleAnimesRetrieve();
+    mangasRetrieve();
+    animesRetrieve();
   }, [idLookedFor]);
 
   return (

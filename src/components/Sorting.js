@@ -272,11 +272,11 @@ export default function Sorting({
         <FontAwesomeIcon icon={faSortNumericUpAlt} />
       </button>
       <button type="button" onClick={handleSortByPersonalScoreDesc}>
-        Personal score
+        My score
         <FontAwesomeIcon icon={faSortNumericDownAlt} />
       </button>
       <button type="button" onClick={handleSortByPersonalScore}>
-        Personal score
+        My score
         <FontAwesomeIcon icon={faSortNumericUpAlt} />
       </button>
       <button type="button" onClick={handleSort}>

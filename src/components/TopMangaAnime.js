@@ -4,8 +4,8 @@ import List from "./List";
 import "../sass/TopMangaAnime.css";
 
 export default function TopMangaAnime() {
-  const [likedMangasData, setLikedMangasData] = useState([]);
-  const [likedAnimesData, setLikedAnimesData] = useState([]);
+  const [topMangaList, settopMangaList] = useState([]);
+  const [topAnimeList, settopAnimeList] = useState([]);
   useEffect(() => {
     firestore
       .collection("topManga")
@@ -17,7 +17,7 @@ export default function TopMangaAnime() {
         querySnapshot.forEach((doc) => {
           newMangaList.push(doc.data());
         });
-        setLikedMangasData(newMangaList);
+        settopMangaList(newMangaList);
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
@@ -32,7 +32,7 @@ export default function TopMangaAnime() {
         querySnapshot.forEach((doc) => {
           newAnimeList.push(doc.data());
         });
-        setLikedAnimesData(newAnimeList);
+        settopAnimeList(newAnimeList);
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
@@ -42,10 +42,10 @@ export default function TopMangaAnime() {
   return (
     <div>
       <p className="anime-label-top">Top 20 Animes:</p>
-      <List data={likedAnimesData} type={"anime"} />
+      <List data={topAnimeList} type={"anime"} />
 
       <p className="manga-label-top">Top 20 Mangas:</p>
-      <List data={likedMangasData} type={"manga"} />
+      <List data={topMangaList} type={"manga"} />
     </div>
   );
 }
