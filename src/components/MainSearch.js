@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemList from "./ItemList";
 import axios from "axios";
-import { firestore } from "../firebase";
-import { useAuthentication } from "../contexts/AuthenticationContext";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import NextPreviousPage from "./NextPreviousPage";
 import TopMangaAnime from "./TopMangaAnime";
 import "../sass/MainSearch.css";
+import useRetrieveLikedMangas from "../hooks/useRetrieveLikedMangas";
+import useRetrieveLikedAnimes from "../hooks/useRetrieveLikedAnimes";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -20,14 +20,13 @@ const useStyles = makeStyles((theme) => ({
 export default function MainSearch() {
   const CATEGORY_LIST = ["manga", "anime"];
   const [category, setCategory] = useState(CATEGORY_LIST[0]);
-  const { currentUser } = useAuthentication();
   const [inputValue, setInputValue] = useState("");
-  const [retrievedLikedMangas, setretrievedLikedMangas] = useState([]);
-  const [retrievedLikedAnimes, setretrievedLikedAnimes] = useState([]);
   const classes = useStyles();
   const [searchData, setSearchData] = useState([]);
   const [page, setPage] = useState(1);
   const [firstTime, setFirstTime] = useState(true);
+  const retrievedLikedMangas = useRetrieveLikedMangas();
+  const retrievedLikedAnimes = useRetrieveLikedAnimes();
 
   const searchItem = async (category, keyword, page) => {
     try {
@@ -40,47 +39,6 @@ export default function MainSearch() {
       console.log(e);
     }
   };
-
-  useEffect(() => {
-    if (currentUser) {
-      const retrieveLikedMangaList = async () => {
-        firestore
-          .collection("likedMangas")
-          .doc(currentUser.uid)
-          .collection("manga")
-          .get()
-          .then((querySnapshot) => {
-            const newMangaList = [];
-            querySnapshot.forEach((doc) => {
-              newMangaList.push(doc.data().title);
-            });
-            setretrievedLikedMangas(newMangaList);
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
-      };
-      const retrieveLikedAnimeList = async () => {
-        firestore
-          .collection("likedAnimes")
-          .doc(currentUser.uid)
-          .collection("anime")
-          .get()
-          .then((querySnapshot) => {
-            const newAnimeList = [];
-            querySnapshot.forEach((doc) => {
-              newAnimeList.push(doc.data().title);
-            });
-            setretrievedLikedAnimes(newAnimeList);
-          })
-          .catch((error) => {
-            console.log("Error getting documents: ", error);
-          });
-      };
-      retrieveLikedMangaList();
-      retrieveLikedAnimeList();
-    }
-  }, []);
 
   useEffect(() => {
     if (firstTime) {

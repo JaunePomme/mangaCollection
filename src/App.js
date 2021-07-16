@@ -38,7 +38,7 @@ export default function App() {
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route
               exact
-              path="/manga-profile/:title"
+              path="/manga-profile/:titl/:identi"
               component={MangaProfile}
             />
             <Route exact path="/movie" component={Movie} />

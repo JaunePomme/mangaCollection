@@ -20,11 +20,12 @@ export default function ItemCard({
   retrievedLikedAnimes,
 }) {
   const [flip, setFlip] = useState(false);
-  const urlString = "/manga-profile/" + searchDataItem.title;
+  const urlString =
+    "/manga-profile/" + searchDataItem.title + "/" + searchDataItem.mal_id;
   const [like, setLike] = useState(false);
   const { currentUser } = useAuthentication();
-  const [mangaOrNot, setMangaOrNot] = useState(true);
   const classes = useStyles();
+  const [mangaOrNot, setMangaOrNot] = useState(true);
 
   useEffect(() => {
     if (category === "anime") setMangaOrNot(false);
@@ -32,12 +33,16 @@ export default function ItemCard({
 
   useEffect(() => {
     if (
-      retrievedLikedMangas.includes(searchDataItem.title) ||
-      retrievedLikedAnimes.includes(searchDataItem.title)
-    ) {
+      (category === "manga") &
+      retrievedLikedMangas.includes(searchDataItem.title)
+    )
       setLike(true);
-    }
-  }, []);
+    if (
+      (category === "anime") &
+      retrievedLikedAnimes.includes(searchDataItem.title)
+    )
+      setLike(true);
+  }, [category]);
 
   const handleMangaLikeClick = async () => {
     setLike(!like);
@@ -87,7 +92,6 @@ export default function ItemCard({
   };
 
   const handleAnimeLikeClick = async () => {
-    console.log("dans la fonction");
     setLike(!like);
     let db = firestore
       .collection("likedAnimes")
@@ -215,7 +219,6 @@ export default function ItemCard({
               pathname: urlString,
               state: {
                 data: searchDataItem,
-                like: like,
                 type: category,
                 id: searchDataItem.mal_id,
               },

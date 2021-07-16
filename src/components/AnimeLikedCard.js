@@ -148,7 +148,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
   };
 
   useEffect(() => {
-    const handleReviewsRetrieve = () => {
+    const reviewsRetrieve = () => {
       let docRef = firestore
         .collection("reviews")
         .doc(idLookedFor)
@@ -168,7 +168,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
         });
     };
 
-    const handleScoresRetrieve = () => {
+    const scoresRetrieve = () => {
       let docRef = firestore
         .collection("likedAnimes")
         .doc(idLookedFor)
@@ -187,7 +187,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
           console.log("Error getting document:", error);
         });
     };
-    const handleEpisodesRetrieve = () => {
+    const episodesRetrieve = () => {
       let docRef = firestore
         .collection("episodes")
         .doc(idLookedFor)
@@ -207,7 +207,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
         });
     };
 
-    const handleStatusRetrieve = () => {
+    const statusRetrieve = () => {
       let docRef = firestore
         .collection("likedAnimes")
         .doc(idLookedFor)
@@ -227,10 +227,10 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
         });
     };
 
-    handleStatusRetrieve();
-    handleEpisodesRetrieve();
-    handleReviewsRetrieve();
-    handleScoresRetrieve();
+    statusRetrieve();
+    episodesRetrieve();
+    reviewsRetrieve();
+    scoresRetrieve();
   }, [item.title, idLookedFor]);
 
   const dislike = async () => {
@@ -263,10 +263,10 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
               <div className="anime-overlay">
                 <Link
                   to={{
-                    pathname: "/manga-profile/" + item.title,
+                    pathname:
+                      "/manga-profile/" + item.title + "/" + item.mal_id,
                     state: {
                       data: item,
-                      like: true,
                       type: "anime",
                       review: inputReview,
                       inputScoring: inputScoring,
@@ -415,7 +415,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                         variant="outlined"
                         color="secondary"
                       >
-                        Dislike
+                        Unlike
                       </Button>
                       <Snackbar
                         open={stateAlert.open}

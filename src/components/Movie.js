@@ -3,10 +3,14 @@ import axios from "axios";
 import List from "./List";
 import "../sass/Movie.css";
 import NextPreviousPage from "./NextPreviousPage";
+import useRetrieveLikedMangas from "../hooks/useRetrieveLikedMangas";
+import useRetrieveLikedAnimes from "../hooks/useRetrieveLikedAnimes";
 
 export default function Movie() {
   const [movieList, setMovieList] = useState();
   const [page, setPage] = useState(1);
+  const retrievedLikedMangas = useRetrieveLikedMangas();
+  const retrievedLikedAnimes = useRetrieveLikedAnimes();
 
   useEffect(() => {
     const search = async (page) => {
@@ -28,7 +32,13 @@ export default function Movie() {
       <div className="movie-container">
         <NextPreviousPage page={page} setPage={setPage} />
       </div>
-      <List data={movieList} />
+      <List
+        data={movieList}
+        retrievedLikedMangas={retrievedLikedMangas}
+        retrievedLikedAnimes={retrievedLikedAnimes}
+        movie={true}
+        category={"anime"}
+      />
     </div>
   );
 }
