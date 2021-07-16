@@ -10,5 +10,15 @@
 
 .search-input {
   font-size: 20px;
+  size: 5px;
+}
+
+.category-select {
+  font-size: 20px;
+}
+
+.category-select:hover {
+  -webkit-box-shadow: 2px 2px 2px snow;
+          box-shadow: 2px 2px 2px snow;
 }
 /*# sourceMappingURL=MainSearch.css.map */

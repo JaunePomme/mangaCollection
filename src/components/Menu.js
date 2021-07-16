@@ -3,8 +3,6 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import {
   faBars,
   faCalendar,
@@ -21,13 +19,25 @@ import "../sass/Menu.css";
 import { useHistory } from "react-router";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
-
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 230,
+    height: "100%",
+    fontSize: 20,
+    backgroundColor: "#1b252f",
   },
-  fullList: {
-    width: "auto",
+  button: {
+    fontSize: 20,
+    width: 150,
+    marginTop: 50,
+    marginLeft: 50,
+  },
+  drawer: {},
+  menu: {
+    fontSize: 20,
+    color: "snow",
+    marginTop: 10,
+    position: "fixed",
   },
 });
 
@@ -85,111 +95,108 @@ export default function Menu() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faHome} />
-            Home
-          </article>
-        </NavLink>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/firebasereviews"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faSearch} />
-            Search for username
-          </article>
-        </NavLink>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/profile/" + myUsername}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faHeart} /> My collection
-          </article>
-        </NavLink>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/movie"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faFilm} /> Movie
-          </article>
-        </NavLink>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/seasonal"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faCalendar} /> Seasonal
-          </article>
-        </NavLink>
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/genre"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faTag} /> Genre
-          </article>
-        </NavLink>
+      {myUsername ? (
+        <h4 className="welcome-menu">Welcome: {myUsername}</h4>
+      ) : (
+        ""
+      )}
 
-        <NavLink
-          style={{ textDecoration: "none" }}
-          exact
-          activeClassName="current"
-          to={"/about"}
-        >
-          <article style={{ marginLeft: 25 }}>
-            <FontAwesomeIcon icon={faQuestion} /> About
-          </article>
-        </NavLink>
+      <NavLink className="nav-home" exact activeClassName="current" to={"/"}>
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faHome} />
+          Home
+        </article>
+      </NavLink>
+      <NavLink
+        className="nav-search"
+        exact
+        activeClassName="current"
+        to={"/firebasereviews"}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faSearch} />
+          Search user
+        </article>
+      </NavLink>
+      <NavLink
+        className="nav-mycollection"
+        exact
+        activeClassName="current"
+        to={"/profile/" + myUsername}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faHeart} /> My collection
+        </article>
+      </NavLink>
+      <NavLink
+        className="nav-movie"
+        exact
+        activeClassName="current"
+        to={"/movie"}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faFilm} /> Movie
+        </article>
+      </NavLink>
+      <NavLink
+        className="nav-seasonal"
+        exact
+        activeClassName="current"
+        to={"/seasonal"}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faCalendar} /> Seasonal
+        </article>
+      </NavLink>
+      <NavLink
+        className="nav-genre"
+        exact
+        activeClassName="current"
+        to={"/genre"}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faTag} /> Genre
+        </article>
+      </NavLink>
 
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => handleLogout()}
-        >
-          Logout
-        </Button>
-      </List>
-      <Divider />
+      <NavLink
+        className="nav-about"
+        exact
+        activeClassName="current"
+        to={"/about"}
+      >
+        <article style={{ marginLeft: 25 }}>
+          <FontAwesomeIcon icon={faQuestion} /> About
+        </article>
+      </NavLink>
+
+      <Button
+        className={classes.button}
+        variant="outlined"
+        color="secondary"
+        onClick={() => handleLogout()}
+      >
+        Logout
+      </Button>
     </div>
   );
   return (
     <div>
-      {
-        <div className="menu-btn">
-          <Button onClick={toggleDrawer("left", true)}>
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
-          <SwipeableDrawer
-            className="drawer-menu"
-            anchor="left"
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
-            onOpen={toggleDrawer("left", true)}
-            swipeAreaWidth={10}
-          >
-            {list("left")}
-          </SwipeableDrawer>
-        </div>
-      }
+      <Button className={classes.menu} onClick={toggleDrawer("left", true)}>
+        <FontAwesomeIcon icon={faBars} />
+      </Button>
+
+      <SwipeableDrawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={state["left"]}
+        onClose={toggleDrawer("left", false)}
+        onOpen={toggleDrawer("left", true)}
+        swipeAreaWidth={10}
+      >
+        {list("left")}
+      </SwipeableDrawer>
     </div>
   );
 }

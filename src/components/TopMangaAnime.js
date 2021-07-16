@@ -42,10 +42,10 @@ export default function TopMangaAnime() {
   return (
     <div>
       <p className="anime-label-top">Top 20 Animes:</p>
-      <List data={likedAnimesData} />
+      <List data={likedAnimesData} type={"anime"} />
 
       <p className="manga-label-top">Top 20 Mangas:</p>
-      <List data={likedMangasData} />
+      <List data={likedMangasData} type={"manga"} />
     </div>
   );
 }

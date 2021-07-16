@@ -5,6 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(3),
+  },
+}));
 
 export default function ItemCard({
   searchDataItem,
@@ -17,6 +24,7 @@ export default function ItemCard({
   const [like, setLike] = useState(false);
   const { currentUser } = useAuthentication();
   const [mangaOrNot, setMangaOrNot] = useState(true);
+  const classes = useStyles();
 
   useEffect(() => {
     if (category === "anime") setMangaOrNot(false);
@@ -127,10 +135,6 @@ export default function ItemCard({
       });
   };
 
-  const handleSeeMore = (searchDataItem) => {
-    console.log(searchDataItem);
-  };
-
   return (
     <div className="body-itemcard">
       {currentUser && (
@@ -148,45 +152,62 @@ export default function ItemCard({
       >
         {mangaOrNot ? (
           <ul className="front">
-            <li>{searchDataItem.title}</li>
-            <li>
+            <li className="item-title">{searchDataItem.title}</li>
+            <li className="item-img">
               <img
                 src={searchDataItem.image_url}
                 alt={searchDataItem.title}
-                style={{ maxHeight: 200 }}
+                style={{ height: 200, width: 150 }}
                 loading="lazy"
               />
             </li>
 
             <li className="item-score">Score: {searchDataItem.score}/10</li>
-            <li className="item-volumes">volumes: {searchDataItem.volumes}</li>
-            <li className="item-chapters">
-              chapters: {searchDataItem.chapters}
-            </li>
+            {searchDataItem.volumes !== 0 ? (
+              <li className="item-volumes">
+                Volumes: {searchDataItem.volumes}
+              </li>
+            ) : (
+              <li>Volumes: ?</li>
+            )}
+
+            {searchDataItem.chapters !== 0 ? (
+              <li className="item-chapters">
+                Chapters: {searchDataItem.chapters}
+              </li>
+            ) : (
+              <li>Chapters: ?</li>
+            )}
           </ul>
         ) : (
           <ul className="front">
-            <li>{searchDataItem.title}</li>
-            <li>
+            <li className="item-title">{searchDataItem.title}</li>
+            <li className="item-img">
               <img
                 src={searchDataItem.image_url}
                 alt={searchDataItem.title}
-                style={{ maxHeight: 200 }}
+                style={{ height: 200, width: 150 }}
                 loading="lazy"
               />
             </li>
 
             <li className="item-score">Score: {searchDataItem.score}/10</li>
-            <li className="item-episodes">
-              Episodes: {searchDataItem.episodes}
-            </li>
+            {searchDataItem.episodes !== 0 ? (
+              <li className="item-episodes">
+                Episodes: {searchDataItem.episodes}
+              </li>
+            ) : (
+              <li>Episodes: ?</li>
+            )}
           </ul>
         )}
 
         <div className="back">
-          <div className="manga-synopsis">
-            Synopsis: {searchDataItem.synopsis}
-          </div>
+          {searchDataItem.synopsis ? (
+            <div className="manga-synopsis">{searchDataItem.synopsis}</div>
+          ) : (
+            <h4>Synopsis: No data.</h4>
+          )}
 
           <Link
             style={{ textDecoration: "none" }}
@@ -200,12 +221,13 @@ export default function ItemCard({
               },
             }}
           >
-            <button
-              className="btn-behind-itemcard"
-              onClick={() => handleSeeMore(searchDataItem)}
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
             >
-              See more
-            </button>
+              See More
+            </Button>
           </Link>
         </div>
       </div>

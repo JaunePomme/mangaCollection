@@ -3,28 +3,27 @@ import { firestore } from "../firebase";
 import SearchUser from "./SearchUser";
 
 export default function FirebaseReviews() {
-  const [pseudoList, setPseudoList] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    const handleRetrievePseudo = () => {
+    const retrieveUser = () => {
       firestore
         .collection("users")
         .get()
         .then((querySnapshot) => {
-          const newPseudoList = [];
+          const newUserList = [];
           querySnapshot.forEach((doc) => {
-            // console.log(doc.id, " => ", doc.data());
-            newPseudoList.push(doc.data());
+            newUserList.push(doc.data());
           });
-          setPseudoList(newPseudoList);
+          setUserList(newUserList);
         })
         .catch((error) => {
           console.log("Error getting documents: ", error);
         });
     };
 
-    handleRetrievePseudo();
+    retrieveUser();
   }, []);
 
-  return <SearchUser pseudoList={pseudoList} setPseudoList={setPseudoList} />;
+  return <SearchUser userList={userList} setUserList={setUserList} />;
 }

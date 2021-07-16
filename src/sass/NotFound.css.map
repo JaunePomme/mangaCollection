@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AGJA,mBHImB,CGJN;EACX,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;CACpB;;AHGD,AGIA,aHJa,CGIA;EACX,KAAK,EAAE,IAAI;EACX,SAAS,EAAE,IAAI;CAChB",
+    "sources": [
+        "NotFound.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "NotFound.css"
+}

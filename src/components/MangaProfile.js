@@ -21,36 +21,32 @@ export default function MangaProfile() {
   } = data;
 
   return (
-    <ul className="manga-profile-ul">
+    <ul className="mangaprofile-ul">
       {like && (
         <div className="profile-liked">
           <strong>This item is in the favorite list.</strong>
           <FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
         </div>
       )}
-
       <img src={image_url} alt={title} style={{ maxHeight: 500 }} />
-
       <li>Title: {title}</li>
       <li>ID of the item: {mal_id}</li>
-
       {type === "manga" ? (
         <li>Chapters: {chapters}</li>
       ) : (
         <li>Episodes: {episodes}</li>
       )}
-
       <li>MyAnimList Score: {score}</li>
-      <li>My personal score: {inputScoring}</li>
-
+      {inputScoring ? <li>My personal score: {inputScoring}</li> : ""}
       <li>Synopsis: {synopsis}</li>
-
       <li>Volumes released: {volumes}</li>
-
       <li>Members on myAnimList: {members}</li>
-      <li>My review: {review}</li>
-
-      <Reviews />
+      {review ? (
+        <li className="mangaprofile-myreview">My review: {review}</li>
+      ) : (
+        ""
+      )}
+      MyAnimList reviews: <Reviews />
     </ul>
   );
 }

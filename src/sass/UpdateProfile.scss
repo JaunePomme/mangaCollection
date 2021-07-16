@@ -1,0 +1,12 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.updateprofile-container {
+  @extend %flex-center;
+}
+
+.update-confirmedpassword,
+.update-password {
+  @extend %txt-classic;
+}

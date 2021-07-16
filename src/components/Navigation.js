@@ -7,27 +7,27 @@ export default function Navigation() {
   const { currentUser } = useAuthentication();
 
   return (
-    <div>
+    <div className="navigation-container">
       {currentUser ? (
         ""
       ) : (
-        <div>
+        <div className="nav-body">
           <NavLink
-            style={{ textDecoration: "none" }}
+            className="nav-login"
             exact
             activeClassName="current"
             to={"/login"}
           >
-            <p style={{ marginLeft: 25 }}>Login </p>
+            <p className="nav-login-txt">Login </p>
           </NavLink>
 
           <NavLink
-            style={{ textDecoration: "none" }}
+            className="nav-signup"
             exact
             activeClassName="current"
             to={"/signup"}
           >
-            <p style={{ marginLeft: 25 }}> Sign up</p>
+            <p className="nav-signup-txt"> Sign up</p>
           </NavLink>
         </div>
       )}

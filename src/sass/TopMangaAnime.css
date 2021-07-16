@@ -15,6 +15,14 @@
 .anime-label-top {
   color: snow;
   font-size: 20px;
+}
+
+.manga-label-top,
+.anime-label-top {
   gap: 1rem;
+}
+
+.manga-label-top {
+  background-color: red;
 }
 /*# sourceMappingURL=TopMangaAnime.css.map */

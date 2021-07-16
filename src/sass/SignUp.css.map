@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAcA,AGHA,iBHGiB;AACjB,mBAAmB;AACnB,iBAAiB;AACjB,gBAAgB;AAChB,aAAa;AACb,aAAa,CGRA;EACX,KAAK,EAAE,IAAI;EACX,SAAS,EAAE,IAAI;CAChB;;AHVD,AAAA,WAAW,CAAC;EACV,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,cAAc,EAAE,MAAM;CACvB;;AAED,AAAA,WAAW,CAAC;EACV,SAAS,EAAE,IAAI;CAChB",
+    "sources": [
+        "SignUp.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "SignUp.css"
+}

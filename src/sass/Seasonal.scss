@@ -2,7 +2,7 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.seasonal-container{
-   background-color: white;
-   @extend %flex-center;
+.seasonal-container {
+  background-color: $fond-scrolller;
+  @extend %flex-center;
 }

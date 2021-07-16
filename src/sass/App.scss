@@ -1,0 +1,9 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.container {
+  background-color: $fond-scrolller;
+  min-width: 100%;
+  min-height: 100%;
+}

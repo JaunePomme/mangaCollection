@@ -2,10 +2,25 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.menu-btn{
-    position: fixed;
-    box-shadow: 2px 2px 5px;
-    background-color: white;
-    left:20px;
-    top:10px;
+.nav-home,
+.nav-search,
+.nav-mycollection,
+.nav-movie,
+.nav-seasonal,
+.nav-genre,
+.nav-about {
+  @extend %flex-center;
+  color: snow;
+  &:hover {
+    color: red;
+    background-color: snow;
+  }
+}
+
+.welcome-menu {
+  color: snow;
+}
+
+.current {
+  background-color: gray;
 }

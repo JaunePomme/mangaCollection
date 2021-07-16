@@ -12,12 +12,13 @@ import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../sass/Seasonal.css";
-import { years } from "./const.js";
+import Years from "./Years.json";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    backgroundColor: "snow",
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
       width: "25ch",
+      backgroundColor: "snow",
     },
   },
   button: {
@@ -54,7 +56,7 @@ export default function Seasonal() {
 
   useEffect(() => {
     search(inputYear, inputSeason);
-  }, []);
+  }, [inputYear, inputSeason]);
 
   return (
     <div>
@@ -82,7 +84,7 @@ export default function Seasonal() {
             onChange={(e) => setInputYear(e.target.value)}
             helperText="Please select the year"
           >
-            {years.map((option) => (
+            {Years.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>

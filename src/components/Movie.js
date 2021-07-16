@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import List from "./List";
-import '../sass/Movie.css';
+import "../sass/Movie.css";
 import NextPreviousPage from "./NextPreviousPage";
 
 export default function Movie() {
@@ -24,17 +24,11 @@ export default function Movie() {
   }, [page, movieList]);
 
   return (
-    <div >
-      
-      
-        <div className='movie-container'>
-
-        
-        <NextPreviousPage page={page} setPage={setPage}/>
-      
-        </div>
-        <List data={movieList} />
-
+    <div>
+      <div className="movie-container">
+        <NextPreviousPage page={page} setPage={setPage} />
+      </div>
+      <List data={movieList} />
     </div>
   );
 }

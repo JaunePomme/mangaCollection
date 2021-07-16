@@ -1,0 +1,22 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.login-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-group {
+  font-size: 20px;
+}
+
+.signup-txt-guest,
+.signup-txt-already,
+.signup-confirmed,
+.signup-password,
+.signup-email,
+.signup-alias {
+  @extend %txt-classic;
+}

@@ -1,0 +1,12 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.login-container {
+  @extend %flex-center;
+}
+
+.login-email,
+.login-password {
+  @extend %txt-classic;
+}

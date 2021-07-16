@@ -14,6 +14,9 @@
   list-style-type: none;
   padding: 0px;
   margin: 0px;
+}
+
+.card {
   background-color: #ff4242;
   border-radius: 0.25rem;
   position: relative;
@@ -41,8 +44,8 @@
       -ms-flex-direction: column;
           flex-direction: column;
   opacity: 0;
-  -webkit-transition: opacity 0.50s;
-  transition: opacity 0.50s;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 .card-overlay:hover {

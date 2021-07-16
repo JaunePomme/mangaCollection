@@ -1,0 +1,10 @@
+@import "./_variables";
+@import "./_mixins";
+@import "./_placeholders";
+
+.notfound-container {
+  @extend %flex-center;
+}
+.notfound-txt {
+  @extend %txt-classic;
+}

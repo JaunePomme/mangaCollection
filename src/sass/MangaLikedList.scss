@@ -2,11 +2,10 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.likedList{
-    display:grid;   
-    background-color: $fond-scrolller;
-    // flex-direction:column;
-    grid-template-columns: repeat(3, 1fr);
+.likedList {
+  display: grid;
+  background-color: $fond-scrolller;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
-    position:relative;
+  position: relative;
 }

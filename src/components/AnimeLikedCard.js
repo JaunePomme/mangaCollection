@@ -12,10 +12,17 @@ import { firestore } from "../firebase";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { valuesForScoring } from "./const.js";
+import ValuesForScoring from "./ValuesForScoring.json";
 import "../sass/AnimeLikedCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -45,6 +52,25 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
   const [inputReview, setInputReview] = useState("?");
   const [inputScoring, setInputScoring] = useState("?");
   const [inputEpisode, setInputEpisode] = useState(0);
+  const [stateAlert, setStateAlert] = useState({
+    open: false,
+    Transition: Fade,
+  });
+
+  const handleClickAlert = (Transition) => () => {
+    setStateAlert({
+      open: true,
+      Transition,
+    });
+    dislike();
+  };
+
+  const handleCloseAlert = () => {
+    setStateAlert({
+      ...stateAlert,
+      open: false,
+    });
+  };
 
   const handleSeeMore = (searchDataItem) => {
     console.log(searchDataItem);
@@ -207,6 +233,21 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
     handleScoresRetrieve();
   }, [item.title, idLookedFor]);
 
+  const dislike = async () => {
+    await firestore
+      .collection("likedAnimes")
+      .doc(currentUser.uid)
+      .collection("anime")
+      .doc(item.title)
+      .delete()
+      .then(() => {
+        console.log("Document removed!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
+
   return (
     <div>
       <div>
@@ -229,7 +270,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                       type: "anime",
                       review: inputReview,
                       inputScoring: inputScoring,
-                      id:item.mal_id
+                      id: item.mal_id,
                     },
                   }}
                 >
@@ -337,7 +378,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                     helperText="Please select your scoring"
                     letiant="outlined"
                   >
-                    {valuesForScoring.map((option) => (
+                    {ValuesForScoring.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -354,15 +395,38 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                       placeholder="Write here..."
                     />
                     <div>
-                      <button
+                      <Button
                         type="button"
                         onClick={() => {
-                          handleSave();
                           handleReviewAndScore();
+                          handleSave();
                         }}
+                        className={classes.button}
+                        variant="outlined"
+                        color="primary"
                       >
-                        Save the modifications
-                      </button>
+                        Save modifications
+                      </Button>
+
+                      <Button
+                        type="button"
+                        onClick={handleClickAlert(SlideTransition)}
+                        className={classes.button}
+                        variant="outlined"
+                        color="secondary"
+                      >
+                        Dislike
+                      </Button>
+                      <Snackbar
+                        open={stateAlert.open}
+                        onClose={handleCloseAlert}
+                        TransitionComponent={stateAlert.Transition}
+                        message={
+                          item.title +
+                          " will be removed from your favorite list."
+                        }
+                        key={stateAlert.Transition.name}
+                      />
                     </div>
                   </p>
                 </div>
