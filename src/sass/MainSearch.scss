@@ -2,9 +2,6 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.mainsearch-container {
-}
-
 .search-bar {
   color: snow;
   display: flex;
@@ -13,4 +10,12 @@
 
 .search-input {
   font-size: 20px;
+  size: 5px;
+}
+
+.category-select {
+  font-size: 20px;
+  &:hover {
+    box-shadow: 2px 2px 2px snow;
+  }
 }

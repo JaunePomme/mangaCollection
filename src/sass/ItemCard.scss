@@ -18,7 +18,7 @@
   cursor: pointer;
   transform: perspective(1000px) rotateY(var(--rotate-y, 0));
   &:hover {
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px 2px snow;
   }
 }
 
@@ -27,6 +27,8 @@
 }
 
 .itemcard .front {
+  @extend %flex-center;
+  flex-direction: column;
   backface-visibility: hidden;
   padding: 1rem;
   list-style-type: none;
@@ -39,18 +41,11 @@
   transform: rotateY(180deg);
   backface-visibility: hidden;
   position: absolute;
-}
-
-.btn-behind-itemcard {
-  background-color: hsl(200, 100%, 50%);
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 0.3em;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: hsl(200, 100%, 40%);
-  }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .btn-likable {
@@ -59,10 +54,19 @@
   left: 0%;
   z-index: 2;
   &:hover {
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px 2px yellowgreen;
   }
 }
 
 .btn-likable.liked {
   color: yellowgreen;
+}
+
+.item-title {
+  margin-top: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }

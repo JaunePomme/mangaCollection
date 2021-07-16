@@ -2,16 +2,36 @@ import React, { useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
+import Button from "@material-ui/core/Button";
+import "../sass/SignUp.css";
+
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(3),
+    fontSize: 20,
+    color: "snow",
+    width: 150,
+  },
+  guest: {
+    margin: theme.spacing(3),
+    fontSize: 20,
+    color: "green",
+    width: 300,
+  },
+}));
 
 export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmedPasswordRef = useRef();
-  const pseudoRef = useRef();
-  const [pseudo,setPseudo]=useState();
+  const [pseudo, setPseudo] = useState();
   const { signup, currentUser } = useAuthentication();
   const history = useHistory();
   const [error, setError] = useState("");
+  const { login } = useAuthentication();
+  const classes = useStyles();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,14 +64,13 @@ export default function SignUp() {
           });
 
           firestore.collection("users").doc(pseudo).set({
-            // pseudo: pseudoRef.current.value,
             pseudo: pseudo,
             email: mail,
             userId: uid,
           });
         })
         .then(() => {
-          history.push("/profile/"+pseudo);
+          history.push("/profile/" + pseudo);
         });
     } catch (error) {
       // alert(error)
@@ -60,26 +79,58 @@ export default function SignUp() {
     }
   };
 
+  const handleGuestLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login("guestaccount@guest.fr", "guestaccount");
+      history.push("/");
+    } catch (error) {
+      alert("bug" + error);
+      setError("failed to log in");
+    }
+  };
+
   return (
     <div>
       {currentUser && currentUser.email}
       {error}
-      <form id="login-form" onSubmit={handleSubmit} placerholder="Type in..">
+
+      <form
+        className="login-form"
+        id="login-form"
+        onSubmit={handleSubmit}
+        placerholder="Type in.."
+      >
+        <div className="signup-txt-guest">
+          Use a guest Account? Click here :
+          <Button
+            className={classes.guest}
+            variant="outlined"
+            color="primary"
+            onClick={(e) => handleGuestLogin(e)}
+          >
+            Sign up as a guest
+          </Button>
+        </div>
+
         <div className="form-group">
-          <label htmlFor="pseudo">Alias(username):</label>
+          <label className="signup-alias" htmlFor="pseudo">
+            Alias(username):
+          </label>
           <input
             name="pseudo"
             type="text"
             placeholder="alias here.."
             required
             value={pseudo}
-            onChange={(e)=>setPseudo(e.target.value)}
-            // ref={pseudoRef}
+            onChange={(e) => setPseudo(e.target.value)}
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="email"> Email:</label>
+          <label className="signup-email" htmlFor="email">
+            Email:
+          </label>
           <input
             name="email"
             type="email"
@@ -89,7 +140,9 @@ export default function SignUp() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label className="signup-password" htmlFor="password">
+            Password:
+          </label>
           <input
             name="password"
             type="password"
@@ -99,7 +152,9 @@ export default function SignUp() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmed-password">Confirmed password:</label>
+          <label className="signup-confirmed" htmlFor="confirmed-password">
+            Confirmed password:
+          </label>
           <input
             name="confirmed-password"
             type="password"
@@ -108,12 +163,27 @@ export default function SignUp() {
             ref={confirmedPasswordRef}
           />
         </div>
-        <button type="submit">Sign up</button>
+        <Button
+          className={classes.button}
+          type="submit"
+          variant="outlined"
+          color="primary"
+        >
+          Sign up
+        </Button>
+        <div className="signup-txt-already">
+          Already have an account ?
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+            >
+              Log in
+            </Button>
+          </Link>
+        </div>
       </form>
-
-      <div>
-        Already have an account ? <Link to="/login"> Log in</Link>
-      </div>
     </div>
   );
 }

@@ -3,9 +3,7 @@
 @import "./_placeholders";
 
 .mangaLikedCard-ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
+  @extend %ul-nobullet;
   position: relative;
   display: flex;
   align-items: center;
@@ -19,7 +17,6 @@
 .mangaLikedCard-ul.Completed {
   background-color: #8fbc8f;
 }
-
 
 .mangaLikedCard-ul.Ongoing {
   background-color: cornsilk;

@@ -1,13 +1,25 @@
 import React, { useRef, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuthentication } from "../contexts/AuthenticationContext";
+import Button from "@material-ui/core/Button";
+import "../sass/UpdateProfile.css";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(3),
+    fontSize: 20,
+    color: "snow",
+    width: 150,
+  },
+}));
 
 export default function UpdateProfile() {
   const passwordRef = useRef();
   const confirmedPasswordRef = useRef();
-  const pseudoRef = useRef();
   const { updatePassword, logout } = useAuthentication();
   const { history } = useHistory();
+  const classes = useStyles();
 
   function handleSubmit() {
     if (passwordRef.current.value !== confirmedPasswordRef.current.value) {
@@ -22,7 +34,7 @@ export default function UpdateProfile() {
     if (promises.length > 0) {
       Promise.all(promises)
         .then(() => {
-          history.push("/profile/" + pseudoRef.current.value);
+          history.push("/profile/");
           alert("password modified");
         })
         .catch(() => {
@@ -33,7 +45,6 @@ export default function UpdateProfile() {
 
   const handleLogout = async () => {
     try {
-      console.log("logout");
       await logout();
       history.push("/login");
     } catch {
@@ -41,24 +52,13 @@ export default function UpdateProfile() {
     }
   };
 
-  useEffect(() => {
-    pseudoRef.current.value = localStorage.getItem("pseudo");
-  }, []);
-
   return (
-    <div>
+    <div className="updateprofile-container">
       <form id="update-form" onSubmit={handleSubmit} placerholder="Type in..">
         <div className="form-group">
-          <label htmlFor="pseudo">Alias(pseudo):</label>
-          <input
-            name="pseudo"
-            type="text"
-            placeholder="alias here.."
-            ref={pseudoRef}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label className="update-password" htmlFor="password">
+            Password:
+          </label>
           <input
             type="password"
             placeholder="password here.."
@@ -66,17 +66,44 @@ export default function UpdateProfile() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmed-password">Confirmed password:</label>
+          <label
+            className="update-confirmedpassword"
+            htmlFor="confirmed-password"
+          >
+            Confirmed password:
+          </label>
           <input
             type="password"
             placeholder="password here.."
             ref={confirmedPasswordRef}
           />
         </div>
-        <button type="submit">Update </button>
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+        >
+          Update
+        </Button>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          color="secondary"
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </Button>
+        <Link style={{ textDecoration: "none" }} to="/">
+          <Button
+            className={classes.button}
+            variant="outlined"
+            color="secondary"
+          >
+            Cancel
+          </Button>
+        </Link>
       </form>
-      <button onClick={() => handleLogout()}>Log out</button>
-      <Link to="/profile">Cancel</Link>
     </div>
   );
 }

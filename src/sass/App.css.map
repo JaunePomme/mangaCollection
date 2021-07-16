@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,UAAU,CAAC;EACT,gBAAgB,ECEF,OAAO;EDDrB,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,IAAI;CACjB",
+    "sources": [
+        "App.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "App.css"
+}

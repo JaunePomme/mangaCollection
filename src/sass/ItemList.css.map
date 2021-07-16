@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAIA,AAAA,WAAW,CAAA;EACP,OAAO,EAAC,IAAI;EACZ,WAAW,EAAC,MAAM;EAClB,qBAAqB,EAAG,qCAAqC;EAC7D,GAAG,EAAE,IAAI;CAEZ",
+    "mappings": "AAIA,AAAA,WAAW,CAAC;EACV,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,qBAAqB,EAAE,qCAAqC;EAC5D,GAAG,EAAE,IAAI;CACV",
     "sources": [
         "ItemList.scss",
         "_variables.scss",

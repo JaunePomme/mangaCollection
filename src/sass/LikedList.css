@@ -11,6 +11,12 @@
           align-items: center;
 }
 
+.manga-label,
+.anime-label {
+  color: snow;
+  font-size: 20px;
+}
+
 .item-grid {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -30,8 +36,6 @@
 
 .manga-label,
 .anime-label {
-  color: snow;
-  font-size: 20px;
   gap: 1rem;
 }
 

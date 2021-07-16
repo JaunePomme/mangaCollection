@@ -12,12 +12,17 @@ import { firestore } from "../firebase";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import { valuesForScoring } from "./const.js";
 import "../sass/MangaLikedCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
+import ValuesForScoring from "./ValuesForScoring.json";
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -48,9 +53,24 @@ export default function MangaLikedCard({ item, idLookedFor }) {
   const [inputReview, setInputReview] = useState("?");
   const [inputScoring, setInputScoring] = useState("?");
   const [inputChapter, setInputChapter] = useState(0);
+  const [stateAlert, setStateAlert] = useState({
+    open: false,
+    Transition: Fade,
+  });
 
-  const handleSeeMore = (searchDataItem) => {
-    console.log(searchDataItem);
+  const handleClickAlert = (Transition) => () => {
+    setStateAlert({
+      open: true,
+      Transition,
+    });
+    dislike();
+  };
+
+  const handleCloseAlert = () => {
+    setStateAlert({
+      ...stateAlert,
+      open: false,
+    });
   };
 
   const handleOpen = () => {
@@ -63,9 +83,6 @@ export default function MangaLikedCard({ item, idLookedFor }) {
     console.log("handle close");
   };
 
-
-
-  
   const handleSave = () => {
     let batch = firestore.batch();
 
@@ -212,13 +229,26 @@ export default function MangaLikedCard({ item, idLookedFor }) {
     handleScoresRetrieve();
   }, [item.title, idLookedFor]);
 
-  
+  const dislike = async () => {
+    await firestore
+      .collection("likedMangas")
+      .doc(currentUser.uid)
+      .collection("manga")
+      .doc(item.title)
+      .delete()
+      .then(() => {
+        console.log("Document removed!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
 
   return (
     <div>
       <div className="body-mangacard">
         <div>
-          <ul className=  {`mangaLikedCard-ul ${inputStatus} `}>
+          <ul className={`mangaLikedCard-ul ${inputStatus} `}>
             <li>
               <img
                 className="manga-img"
@@ -236,16 +266,11 @@ export default function MangaLikedCard({ item, idLookedFor }) {
                       type: "manga",
                       review: inputReview,
                       inputScoring: inputScoring,
-                      id:item.mal_id
+                      id: item.mal_id,
                     },
                   }}
                 >
-                  <button
-                    className="btn-manga-seemore"
-                    onClick={() => handleSeeMore(item)}
-                  >
-                    See more
-                  </button>
+                  <button className="btn-manga-seemore">See more</button>
                 </Link>
               </div>
             </li>
@@ -308,7 +333,6 @@ export default function MangaLikedCard({ item, idLookedFor }) {
                           name: "status",
                         }}
                       >
-                        
                         <option value={"Plan"}>Plan to read</option>
                         <option value={"Ongoing"}>OnGoing</option>
                         <option value={"Completed"}>Completed</option>
@@ -346,7 +370,7 @@ export default function MangaLikedCard({ item, idLookedFor }) {
                     helperText="Please select your scoring"
                     letiant="outlined"
                   >
-                    {valuesForScoring.map((option) => (
+                    {ValuesForScoring.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -365,15 +389,38 @@ export default function MangaLikedCard({ item, idLookedFor }) {
                     />
 
                     <div>
-                      <button
+                      <Button
                         type="button"
                         onClick={() => {
                           handleReviewAndScore();
                           handleSave();
                         }}
+                        className={classes.button}
+                        variant="outlined"
+                        color="primary"
                       >
                         Save modifications
-                      </button>
+                      </Button>
+
+                      <Button
+                        type="button"
+                        onClick={handleClickAlert(SlideTransition)}
+                        className={classes.button}
+                        variant="outlined"
+                        color="secondary"
+                      >
+                        Dislike
+                      </Button>
+                      <Snackbar
+                        open={stateAlert.open}
+                        onClose={handleCloseAlert}
+                        TransitionComponent={stateAlert.Transition}
+                        message={
+                          item.title +
+                          " will be removed from your favorite list."
+                        }
+                        key={stateAlert.Transition.name}
+                      />
                     </div>
                   </p>
                 </div>

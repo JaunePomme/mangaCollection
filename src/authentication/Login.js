@@ -2,6 +2,18 @@ import React, { useRef, useState } from "react";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "../sass/Login.css";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(3),
+    fontSize: 20,
+    color: "snow",
+    width: 150,
+  },
+}));
 
 export default function Login() {
   const emailRef = useRef();
@@ -9,7 +21,7 @@ export default function Login() {
   const { login } = useAuthentication();
   const history = useHistory();
   const [error, setError] = useState("");
-
+  const classes = useStyles();
   const [loading, setLoading] = useState(false);
 
   const { currentUser } = useAuthentication();
@@ -28,12 +40,15 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       {currentUser && currentUser.userId}
       {error}
       <form id="login-form" onSubmit={handleSubmit} placerholder="Type in..">
         <div className="form-group">
-          <label htmlFor="email"> Email:</label>
+          <label className="login-email" htmlFor="email">
+            {" "}
+            Email:
+          </label>
           <input
             name="email"
             type="email"
@@ -43,7 +58,9 @@ export default function Login() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label className="login-password" htmlFor="password">
+            Password:
+          </label>
           <input
             name="password"
             type="password"
@@ -52,12 +69,24 @@ export default function Login() {
             ref={passwordRef}
           />
         </div>
-        <button disabled={loading} type="submit">
-          Log in
-        </button>
-      </form>
 
-      <Link to={"/forgot-password"}> Forgot password?</Link>
+        <Button
+          onClick={() => handleSubmit()}
+          type="submit"
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+          disabled={loading}
+        >
+          Log in
+        </Button>
+
+        <Link to="/forgot-password" style={{ textDecoration: "none" }}>
+          <Button className={classes.button} variant="outlined" color="primary">
+            Forgot password?
+          </Button>
+        </Link>
+      </form>
     </div>
   );
 }

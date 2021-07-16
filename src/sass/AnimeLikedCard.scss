@@ -3,9 +3,7 @@
 @import "./_placeholders";
 
 .animeLikedCard-ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
+  @extend %ul-nobullet;
   position: relative;
   display: flex;
   align-items: center;
@@ -20,11 +18,9 @@
   background-color: #8fbc8f;
 }
 
-
 .animeLikedCard-ul.Ongoing {
   background-color: cornsilk;
 }
-
 
 .anime-review {
   width: 250px;

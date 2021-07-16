@@ -2,16 +2,21 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.nav-list{
-    display:flex;
-    background-color: aquamarine;
-    align-items: center;
+.nav-body {
+  @extend %flex-center;
+  justify-content: space-around;
 }
 
+.nav-login,
+.nav-signup {
+  text-decoration: none;
+}
 
-
-
-.current{
-    background-color:blueviolet;
-    
+.nav-login-txt,
+.nav-signup-txt {
+  color: snow;
+  &:hover {
+    color: black;
+    background-color: snow;
+  }
 }

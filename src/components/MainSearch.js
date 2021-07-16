@@ -88,7 +88,7 @@ export default function MainSearch() {
       return;
     }
     searchItem(category, inputValue, page);
-  }, [page]);
+  }, [page, category]);
 
   return (
     <div className="mainsearch-container">
@@ -107,7 +107,11 @@ export default function MainSearch() {
 
         <form className="form">
           <label htmlFor="category">Category</label>
-          <select id="category" onChange={(e) => setCategory(e.target.value)}>
+          <select
+            className="category-select"
+            id="category"
+            onChange={(e) => setCategory(e.target.value)}
+          >
             {CATEGORY_LIST.map((category) => (
               <option key={category}>{category}</option>
             ))}
@@ -133,12 +137,10 @@ export default function MainSearch() {
         retrievedLikedMangas={retrievedLikedMangas}
         retrievedLikedAnimes={retrievedLikedAnimes}
       />
-
-      <TopMangaAnime />
-
       {searchData.length > 1 && (
         <NextPreviousPage page={page} setPage={setPage} />
       )}
+      <TopMangaAnime />
     </div>
   );
 }

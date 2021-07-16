@@ -1,3 +1,15 @@
+.itemcard .front {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .body-itemcard {
   position: relative;
 }
@@ -27,8 +39,8 @@
 }
 
 .itemcard:hover {
-  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 5px 2px snow;
+          box-shadow: 0 0 5px 2px snow;
 }
 
 .itemcard.flip {
@@ -36,6 +48,10 @@
 }
 
 .itemcard .front {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   padding: 1rem;
@@ -51,19 +67,20 @@
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   position: absolute;
-}
-
-.btn-behind-itemcard {
-  background-color: #00aaff;
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 0.3em;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-behind-itemcard:hover {
-  background-color: #0088cc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
 }
 
 .btn-likable {
@@ -74,11 +91,20 @@
 }
 
 .btn-likable:hover {
-  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 5px 2px yellowgreen;
+          box-shadow: 0 0 5px 2px yellowgreen;
 }
 
 .btn-likable.liked {
   color: yellowgreen;
+}
+
+.item-title {
+  margin-top: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 /*# sourceMappingURL=ItemCard.css.map */

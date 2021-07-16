@@ -1,0 +1,34 @@
+[
+    {
+      "value": 10,
+      "label": "Perfect (10/10)"
+    },
+    {
+      "value": 9,
+      "label": "Top-notch quality (9/10)"
+    },
+    {
+      "value": 8,
+      "label": "Excellent (8/10)"
+    },
+    {
+      "value": 7,
+      "label": "Very Good(7/10)"
+    },
+    {
+      "value": 6,
+      "label": "Good (6/10)"
+    },
+    {
+      "value": 5,
+      "label": "It's okay (5/10)"
+    },
+    {
+      "value": 4,
+      "label": "Bad (4/10)"
+    },
+    {
+      "value": 3,
+      "label": "Don't touch it (below 3/10)"
+    }
+  ]

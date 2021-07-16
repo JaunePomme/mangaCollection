@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import "../sass/SearchUser.css";
 import { Link } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-export default function SearchUser({ pseudoList }) {
+export default function SearchUser({ userList }) {
   const [filteredData, setFilteredData] = useState([]);
   const [inputWord, setInputWord] = useState("");
 
   const handleFilter = (e) => {
     setInputWord(e.target.value);
-    const newFilter = pseudoList.filter((value) => {
+    const newFilter = userList.filter((value) => {
       return value.pseudo.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setFilteredData(newFilter);
@@ -23,45 +23,42 @@ export default function SearchUser({ pseudoList }) {
   };
 
   return (
-    <div className="search">
-      <div className="searchInputs">
+    <div className="searchuser-container">
+      <div className="searchuser-bar">
+        <label className="searchuser-label">
+          Type a username to find his profile:
+        </label>
         <input
+          className="searchuser-input"
           type="text"
-          placeholder="search"
+          placeholder="search user.."
           value={inputWord}
           onChange={handleFilter}
         />
+        <CloseIcon className="closeicon" onClick={clearInput} />
 
-        <div className="searchIcon">
-          {filteredData.length === 0 ? (
-            <SearchIcon />
-          ) : (
-            <CloseIcon id="clearBtn" onClick={clearInput} />
-          )}
-        </div>
+        {filteredData.length !== 0 && (
+          <div className="searchuser-data">
+            {filteredData.map((value, key) => {
+              return (
+                <Link
+                  key={key}
+                  style={{ textDecoration: "none" }}
+                  to={{
+                    pathname: "profile/" + value.pseudo,
+                    state: { id: value.userId },
+                  }}
+                >
+                  <button className="searchuser-user" href={value.link}>
+                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    {value.pseudo}
+                  </button>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
-
-      {filteredData.length !== 0 && (
-        <div className="dataResult">
-          {filteredData.map((value, key) => {
-            return (
-              <Link
-                key={key}
-                style={{ textDecoration: "none" }}
-                to={{
-                  pathname: "profile/" + value.pseudo,
-                  state: { id: value.userId },
-                }}
-              >
-                <button className="dataItem" key={key} href={value.link}>
-                  <FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
-                  <p>{value.pseudo} </p>
-                </button>
-              </Link>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 }

@@ -16,8 +16,9 @@ import Movie from "./components/Movie";
 import Seasonal from "./components/Seasonal";
 import About from "./components/About";
 import Genre from "./components/Genre";
-import "./App.css";
+import "./sass/App.css";
 import MainSearch from "./components/MainSearch";
+import NotFound from "./components/NotFound";
 
 export default function App() {
   return (
@@ -54,10 +55,7 @@ export default function App() {
             />
 
             {/* ERROR */}
-            <Route
-              path="/"
-              component={() => <div> 404 ERROR Page not found. </div>}
-            />
+            <Route path="/" component={NotFound} />
           </Switch>
         </AuthenticationProvider>
       </Router>

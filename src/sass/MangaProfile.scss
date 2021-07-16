@@ -2,15 +2,17 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-.manga-profile-ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
+.mangaprofile-ul {
+  @extend %flex-center;
+  flex-direction: column;
+  @extend %ul-nobullet;
   color: white;
-
 }
-.profile-liked{
-
-    color:pink;
+.profile-liked {
+  color: pink;
 }
 
+.mangaprofile-myreview {
+  @extend %txt-classic;
+  background-color: rebeccapurple;
+}
