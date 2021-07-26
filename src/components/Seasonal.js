@@ -8,9 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import List from "./List";
-import Button from "@material-ui/core/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../sass/Seasonal.css";
 import Years from "./Years.json";
 
@@ -42,21 +39,20 @@ export default function Seasonal() {
   const [inputSeason, setInputSeason] = useState(SEASON_LIST[0]);
   const classes = useStyles();
 
-  const search = async (year, season) => {
-    try {
-      let seasonalResponse = await axios.get(
-        `https://api.jikan.moe/v3/season/${year}/${season}`
-      );
-      setSeasonalList(seasonalResponse.data.anime);
-      return seasonalList;
-    } catch (e) {
-      console.log("Error getting document:", e);
-    }
-  };
-
   useEffect(() => {
+    const search = async (year, season) => {
+      try {
+        let seasonalResponse = await axios.get(
+          `https://api.jikan.moe/v3/season/${year}/${season}`
+        );
+        setSeasonalList(seasonalResponse.data.anime);
+        return seasonalList;
+      } catch (e) {
+        console.log("Error getting document:", e);
+      }
+    };
     search(inputYear, inputSeason);
-  }, [inputYear, inputSeason]);
+  }, [inputYear, inputSeason, seasonalList]);
 
   return (
     <div>
@@ -91,18 +87,6 @@ export default function Seasonal() {
             ))}
           </TextField>
         </form>
-
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            search(inputYear, inputSeason);
-          }}
-          className={classes.button}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-          Search
-        </Button>
       </div>
 
       <List data={seasonalList} />

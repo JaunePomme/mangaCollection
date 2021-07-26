@@ -36,9 +36,8 @@
   width: 100%;
   height: 100%;
   background: #12130F;
-  color: #fbfef9;
   font-family: "Quicksand", sans-serif;
-  font-size: large;
+  color: snow;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;

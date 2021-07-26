@@ -135,8 +135,8 @@ export default function Card({
         loading="lazy"
       />
       <div className="card-overlay">
-        <h2>{item.title}</h2>
-        {item.rank ? <h2>Rank: {item.rank}</h2> : ""}
+        <h3>{item.title}</h3>
+        {item.rank ? <h3>Rank: {item.rank}</h3> : ""}
         <h3>Score: {item.score}</h3>
 
         <h4>

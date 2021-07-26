@@ -7,6 +7,12 @@ import { firestore } from "../firebase";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import Snackbar from "@material-ui/core/Snackbar";
+import Slide from "@material-ui/core/Slide";
+import { Fade } from "@material-ui/core";
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
@@ -26,6 +32,26 @@ export default function ItemCard({
   const { currentUser } = useAuthentication();
   const classes = useStyles();
   const [mangaOrNot, setMangaOrNot] = useState(true);
+  const [stateAlert, setStateAlert] = useState({
+    open: false,
+    Transition: Fade,
+  });
+
+  const handleClickAlert = (Transition) => () => {
+    setStateAlert({
+      open: true,
+      Transition,
+    });
+    if (mangaOrNot) return handleMangaLikeClick();
+    handleAnimeLikeClick();
+  };
+
+  const handleCloseAlert = () => {
+    setStateAlert({
+      ...stateAlert,
+      open: false,
+    });
+  };
 
   useEffect(() => {
     if (category === "anime") setMangaOrNot(false);
@@ -142,12 +168,31 @@ export default function ItemCard({
   return (
     <div className="body-itemcard">
       {currentUser && (
-        <button
-          className={`btn-likable ${like ? "liked" : ""} `}
-          onClick={mangaOrNot ? handleMangaLikeClick : handleAnimeLikeClick}
-        >
-          <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-        </button>
+        <div>
+          <button
+            className={`btn-likable ${like ? "liked" : ""} `}
+            onClick={handleClickAlert(SlideTransition)}
+          >
+            <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+          </button>
+          {like ? (
+            <Snackbar
+              open={stateAlert.open}
+              onClose={handleCloseAlert}
+              TransitionComponent={stateAlert.Transition}
+              message={" will be added to your favorite list."}
+              key={stateAlert.Transition.name}
+            />
+          ) : (
+            <Snackbar
+              open={stateAlert.open}
+              onClose={handleCloseAlert}
+              TransitionComponent={stateAlert.Transition}
+              message={" will be removed from your favorite list."}
+              key={stateAlert.Transition.name}
+            />
+          )}
+        </div>
       )}
 
       <div
