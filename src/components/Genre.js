@@ -8,9 +8,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import List from "./List";
-import Button from "@material-ui/core/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../sass/Genre.css";
 import MangaGenre from "./MangaGenre.json";
 import AnimeGenre from "./AnimeGenre.json";
@@ -50,21 +47,20 @@ export default function Genre() {
     setAnimeListGenre(AnimeGenre);
   }, []);
 
-  const search = async (category, genre) => {
-    try {
-      let response = await axios.get(
-        `https://api.jikan.moe/v3/search/${category}?genre=${genre}`
-      );
-      setDataList(response.data.results);
-      return dataList;
-    } catch (e) {
-      console.log("Error getting document:", e);
-    }
-  };
-
   useEffect(() => {
+    const search = async (category, genre) => {
+      try {
+        let response = await axios.get(
+          `https://api.jikan.moe/v3/search/${category}?genre=${genre}`
+        );
+        setDataList(response.data.results);
+        return dataList;
+      } catch (e) {
+        console.log("Error getting document:", e);
+      }
+    };
     search(category, genre);
-  }, [category, genre]);
+  }, [category, genre, dataList]);
 
   return (
     <div>
@@ -115,18 +111,6 @@ export default function Genre() {
             </TextField>
           </form>
         )}
-
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => {
-            search(category, genre);
-          }}
-          className={classes.button}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-          Search
-        </Button>
       </div>
 
       <List data={dataList} />
