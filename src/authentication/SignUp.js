@@ -4,6 +4,7 @@ import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
 import Button from "@material-ui/core/Button";
 import "../sass/SignUp.css";
+import { Collections } from "../components/FirestoreConstant.json";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -47,23 +48,23 @@ export default function SignUp() {
           var uid = userCredential.user.uid;
           var mail = userCredential.user.email;
 
-          firestore.collection("likedAnimes").doc(uid).set({
+          firestore.collection(Collections.likedAnimes).doc(uid).set({
             likes: [],
           });
-          firestore.collection("likedMangas").doc(uid).set({
+          firestore.collection(Collections.likedMangas).doc(uid).set({
             likes: [],
           });
-          firestore.collection("reviews").doc(uid).set({
+          firestore.collection(Collections.reviews).doc(uid).set({
             id: [],
           });
-          firestore.collection("scans").doc(uid).set({
+          firestore.collection(Collections.scans).doc(uid).set({
             id: [],
           });
-          firestore.collection("episodes").doc(uid).set({
+          firestore.collection(Collections.episodes).doc(uid).set({
             id: [],
           });
 
-          firestore.collection("users").doc(pseudo).set({
+          firestore.collection(Collections.users).doc(pseudo).set({
             pseudo: pseudo,
             email: mail,
             userId: uid,
@@ -73,7 +74,6 @@ export default function SignUp() {
           history.push("/profile/" + pseudo);
         });
     } catch (error) {
-      // alert(error)
       console.log(error);
       setError("failed to create an account");
     }

@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Slide from "@material-ui/core/Slide";
 import { Fade } from "@material-ui/core";
+import { Collections } from "./FirestoreConstant.json";
+
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
 }
@@ -64,16 +66,16 @@ export default function MangaProfile() {
   const handleMangaLikeClick = async () => {
     setLike(!like);
     let db = firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(currentUser.uid)
-      .collection("manga")
+      .collection(Collections.manga)
       .doc(title);
 
     if (like) {
       let dbe = firestore
-        .collection("likedMangas")
+        .collection(Collections.likedMangas)
         .doc(currentUser.uid)
-        .collection("manga")
+        .collection(Collections.manga)
         .doc(title);
       return dbe
         .delete()
@@ -109,16 +111,16 @@ export default function MangaProfile() {
   const handleAnimeLikeClick = async () => {
     setLike(!like);
     let db = firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(currentUser.uid)
-      .collection("anime")
+      .collection(Collections.anime)
       .doc(title);
 
     if (like) {
       let dbe = firestore
-        .collection("likedAnimes")
+        .collection(Collections.likedAnimes)
         .doc(currentUser.uid)
-        .collection("anime")
+        .collection(Collections.anime)
         .doc(title);
       return dbe
         .delete()

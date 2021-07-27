@@ -5,6 +5,7 @@ import LikedList from "../components/LikedList";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
 import "../sass/Profile.css";
+import { Collections } from "../components/FirestoreConstant.json";
 
 export default function Profile() {
   let { username } = useParams();
@@ -14,7 +15,7 @@ export default function Profile() {
 
   useEffect(() => {
     const idRetrieve = async () => {
-      let docRef = firestore.collection("users").doc(username);
+      let docRef = firestore.collection(Collections.users).doc(username);
       docRef
         .get()
         .then((doc) => {
@@ -22,7 +23,7 @@ export default function Profile() {
             setIdLookedFor(doc.data().userId);
             setEmailLookedFor(doc.data().email);
           } else {
-            // console.log("No such document");
+            console.log("No such document");
           }
         })
         .catch((error) => {

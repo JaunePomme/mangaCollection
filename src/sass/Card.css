@@ -30,6 +30,10 @@
           box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
 }
 
+.card-img {
+  height: 400px;
+}
+
 .card-overlay {
   position: absolute;
   bottom: 0;
@@ -54,5 +58,16 @@
 .card-overlay:hover > * {
   -webkit-transform: translateY(0);
           transform: translateY(0);
+}
+
+.card-url {
+  display: table-cell;
+  text-decoration: none;
+}
+
+.card-no-url {
+  display: table-cell;
+  text-decoration: none;
+  color: pink;
 }
 /*# sourceMappingURL=Card.css.map */

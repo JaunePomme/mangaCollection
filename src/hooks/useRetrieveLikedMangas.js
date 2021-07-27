@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
+import { Collections } from "../components/FirestoreConstant.json";
 
 export default function useRetrieveLikedMangas() {
   const { currentUser } = useAuthentication();
@@ -10,9 +11,9 @@ export default function useRetrieveLikedMangas() {
     if (currentUser) {
       const retrieveLikedMangaList = async (id) => {
         await firestore
-          .collection("likedMangas")
+          .collection(Collections.likedMangas)
           .doc(id)
-          .collection("manga")
+          .collection(Collections.manga)
           .get()
           .then((querySnapshot) => {
             const newMangaList = [];

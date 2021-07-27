@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
 import SearchUser from "./SearchUser";
+import { Collections } from "./FirestoreConstant.json";
 
 export default function FirebaseReviews() {
   const [userList, setUserList] = useState([]);
@@ -8,7 +9,7 @@ export default function FirebaseReviews() {
   useEffect(() => {
     const retrieveUser = () => {
       firestore
-        .collection("users")
+        .collection(Collections.users)
         .get()
         .then((querySnapshot) => {
           const newUserList = [];

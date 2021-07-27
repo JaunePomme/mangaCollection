@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "@material-ui/core";
 import { Fade } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Backdrop from "@material-ui/core/Backdrop";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/NativeSelect";
 import { useAuthentication } from "../contexts/AuthenticationContext";
-import { firestore } from "../firebase";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import ValuesForScoring from "./ValuesForScoring.json";
 import "../sass/AnimeLikedCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import Slide from "@material-ui/core/Slide";
-
-function SlideTransition(props) {
-  return <Slide {...props} direction="up" />;
-}
+import { Collections } from "./FirestoreConstant.json";
+import useStatusRetrieve from "../hooks/useStatusRetrieve";
+import useEpisodesRetrieve from "../hooks/useEpisodesRetrieve";
+import useScoresRetrieve from "../hooks/useScoresRetrieve";
+import useReviewsRetrieve from "../hooks/useReviewsRetrieve";
+import ModalAnime from "./ModalAnime";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -57,20 +46,52 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
     Transition: Fade,
   });
 
-  const handleClickAlert = (Transition) => () => {
-    setStateAlert({
-      open: true,
-      Transition,
-    });
-    dislike();
+  const modalProps = {
+    open,
+    setOpen,
+    inputStatus,
+    setInputStatus,
+    inputReview,
+    setInputReview,
+    inputScoring,
+    setInputScoring,
+    inputEpisode,
+    setInputEpisode,
+    stateAlert,
+    setStateAlert,
+    currentUser,
+    classes,
+    item,
   };
 
-  const handleCloseAlert = () => {
-    setStateAlert({
-      ...stateAlert,
-      open: false,
-    });
-  };
+  useScoresRetrieve(
+    item.title,
+    idLookedFor,
+    setInputScoring,
+    Collections.likedAnimes,
+    Collections.anime
+  );
+  useEpisodesRetrieve(
+    item.title,
+    idLookedFor,
+    setInputEpisode,
+    Collections.episodes,
+    Collections.anime
+  );
+  useStatusRetrieve(
+    item.title,
+    idLookedFor,
+    setInputStatus,
+    Collections.likedAnimes,
+    Collections.anime
+  );
+  useReviewsRetrieve(
+    item.title,
+    idLookedFor,
+    setInputReview,
+    Collections.reviews,
+    Collections.anime
+  );
 
   const handleSeeMore = (searchDataItem) => {
     console.log(searchDataItem);
@@ -79,173 +100,6 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
   const handleOpen = () => {
     setOpen(true);
     console.log("handle open reached");
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    console.log("handle close");
-  };
-
-  const handleSave = () => {
-    let batch = firestore.batch();
-
-    let statusRef = firestore
-      .collection("likedAnimes")
-      .doc(currentUser.uid)
-      .collection("anime")
-      .doc(item.title);
-    batch.update(statusRef, { status: inputStatus });
-
-    if (inputStatus === "Completed") setInputEpisode(item.episodes);
-
-    let episodesRef = firestore
-      .collection("episodes")
-      .doc(currentUser.uid)
-      .collection("anime")
-      .doc(item.title);
-    if (inputEpisode != null) batch.set(episodesRef, { episode: inputEpisode });
-    if (inputStatus === "Completed") {
-      setInputEpisode(item.episodes);
-      batch.set(episodesRef, { episode: item.episodes });
-    }
-    batch
-      .commit()
-      .then(() => {
-        console.log("Document added!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
-    handleClose();
-  };
-
-  const handleReviewAndScore = () => {
-    console.log("dans handleReview");
-    let batch = firestore.batch();
-
-    let reviewsRef = firestore
-      .collection("reviews")
-      .doc(currentUser.uid)
-      .collection("anime")
-      .doc(item.title);
-    batch.set(reviewsRef, { review: inputReview });
-
-    let scoresRef = firestore
-      .collection("likedAnimes")
-      .doc(currentUser.uid)
-      .collection("anime")
-      .doc(item.title);
-    batch.update(scoresRef, { personalScore: inputScoring });
-
-    batch
-      .commit()
-      .then(() => {
-        console.log("Document added!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
-  };
-
-  useEffect(() => {
-    const reviewsRetrieve = () => {
-      let docRef = firestore
-        .collection("reviews")
-        .doc(idLookedFor)
-        .collection("anime")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputReview(doc.data().review);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    const scoresRetrieve = () => {
-      let docRef = firestore
-        .collection("likedAnimes")
-        .doc(idLookedFor)
-        .collection("anime")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputScoring(doc.data().personalScore);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-    const episodesRetrieve = () => {
-      let docRef = firestore
-        .collection("episodes")
-        .doc(idLookedFor)
-        .collection("anime")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputEpisode(doc.data().episode);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    const statusRetrieve = () => {
-      let docRef = firestore
-        .collection("likedAnimes")
-        .doc(idLookedFor)
-        .collection("anime")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputStatus(doc.data().status);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    statusRetrieve();
-    episodesRetrieve();
-    reviewsRetrieve();
-    scoresRetrieve();
-  }, [item.title, idLookedFor]);
-
-  const dislike = async () => {
-    await firestore
-      .collection("likedAnimes")
-      .doc(currentUser.uid)
-      .collection("anime")
-      .doc(item.title)
-      .delete()
-      .then(() => {
-        console.log("Document removed!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
   };
 
   return (
@@ -258,7 +112,6 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
                 className="anime-img"
                 src={item.image_url}
                 alt={item.title}
-                style={{ height: 150, width: 100 }}
               />
               <div className="anime-overlay">
                 <Link
@@ -316,123 +169,7 @@ export default function AnimeLikedCard({ item, idLookedFor }) {
               )}
             </li>
           </ul>
-
-          <div>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.paper}>
-                  <h2 id="transition-modal-title">Update: {item.title}</h2>
-                  <p id="transition-modal-description">
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="anime-status">Status</InputLabel>
-                      <Select
-                        native
-                        value={inputStatus}
-                        onChange={(event) => {
-                          setInputStatus(event.target.value);
-                        }}
-                        inputProps={{
-                          name: "status",
-                        }}
-                      >
-                        <option value={"Plan"}>Plan to watch</option>
-                        <option value={"Ongoing"}>OnGoing</option>
-                        <option value={"Completed"}>Completed</option>
-                      </Select>
-                    </FormControl>
-                    <div>
-                      Episode watched:{" "}
-                      {inputStatus === "Completed" ? (
-                        item.episodes
-                      ) : (
-                        <input
-                          type="number"
-                          min="0"
-                          step="1"
-                          value={inputEpisode}
-                          onChange={(e) => setInputEpisode(e.target.value)}
-                          placeholder={0}
-                        ></input>
-                      )}
-                      /{item.episodes}
-                    </div>
-                  </p>
-
-                  <TextField
-                    id="outlined-select-scoring"
-                    select
-                    label="Select"
-                    value={inputScoring}
-                    onChange={(e) => setInputScoring(e.target.value)}
-                    helperText="Please select your scoring"
-                    letiant="outlined"
-                  >
-                    {ValuesForScoring.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                  <h3 id="transition-modal-title">Write your review:</h3>
-                  <p id="transition-modal-description">
-                    <TextareaAutosize
-                      aria-label="minimum height"
-                      rowsMin={6}
-                      rowsMax={10}
-                      onChange={(e) => setInputReview(e.target.value)}
-                      value={inputReview}
-                      placeholder="Write here..."
-                    />
-                    <div>
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          handleReviewAndScore();
-                          handleSave();
-                        }}
-                        className={classes.button}
-                        variant="outlined"
-                        color="primary"
-                      >
-                        Save modifications
-                      </Button>
-
-                      <Button
-                        type="button"
-                        onClick={handleClickAlert(SlideTransition)}
-                        className={classes.button}
-                        variant="outlined"
-                        color="secondary"
-                      >
-                        Unlike
-                      </Button>
-                      <Snackbar
-                        open={stateAlert.open}
-                        onClose={handleCloseAlert}
-                        TransitionComponent={stateAlert.Transition}
-                        message={
-                          item.title +
-                          " will be removed from your favorite list."
-                        }
-                        key={stateAlert.Transition.name}
-                      />
-                    </div>
-                  </p>
-                </div>
-              </Fade>
-            </Modal>
-          </div>
+          <ModalAnime {...modalProps} />
         </div>
       </div>
     </div>

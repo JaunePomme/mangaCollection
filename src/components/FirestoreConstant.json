@@ -1,0 +1,25 @@
+{
+    "Collections": {
+      "likedMangas": "likedMangas",
+      "likedAnimes": "likedAnimes",
+      "topManga":"topManga",
+      "topAnime":"topAnime",
+      "manga": "manga",
+      "anime":"anime",
+      "scans": "scans",
+      "reviews":"reviews",
+      "episodes":"episodes",
+      "users":"users"
+    },
+    "OrderBy":{
+        "rank":"rank",
+        "score":"score",
+        "desc":"desc",
+        "personalScore":"personalScore",
+        "title":"title",
+        "status":"status"
+    },
+    "Limits":{
+        "default":20
+    }
+  }

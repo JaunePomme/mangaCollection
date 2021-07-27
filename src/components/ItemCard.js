@@ -10,6 +10,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
 import Slide from "@material-ui/core/Slide";
 import { Fade } from "@material-ui/core";
+import { Collections } from "./FirestoreConstant.json";
+
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
 }
@@ -73,16 +75,16 @@ export default function ItemCard({
   const handleMangaLikeClick = async () => {
     setLike(!like);
     let db = firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(currentUser.uid)
-      .collection("manga")
+      .collection(Collections.manga)
       .doc(searchDataItem.title);
 
     if (like) {
       let dbe = firestore
-        .collection("likedMangas")
+        .collection(Collections.likedMangas)
         .doc(currentUser.uid)
-        .collection("manga")
+        .collection(Collections.manga)
         .doc(searchDataItem.title);
       return dbe
         .delete()
@@ -96,18 +98,9 @@ export default function ItemCard({
 
     return db
       .set({
-        mal_id: searchDataItem.mal_id,
-        title: searchDataItem.title,
-        image_url: searchDataItem.image_url,
-        synopsis: searchDataItem.synopsis,
-        volumes: searchDataItem.volumes,
-        chapters: searchDataItem.chapters,
-        score: searchDataItem.score,
+        ...searchDataItem,
         personalScore: "",
         status: "Plan",
-        members: searchDataItem.members,
-        start_date: searchDataItem.start_date,
-        end_date: searchDataItem.end_date,
       })
       .then(() => {
         console.log("Document added!");
@@ -120,16 +113,16 @@ export default function ItemCard({
   const handleAnimeLikeClick = async () => {
     setLike(!like);
     let db = firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(currentUser.uid)
-      .collection("anime")
+      .collection(Collections.anime)
       .doc(searchDataItem.title);
 
     if (like) {
       let dbe = firestore
-        .collection("likedAnimes")
+        .collection(Collections.likedAnimes)
         .doc(currentUser.uid)
-        .collection("anime")
+        .collection(Collections.anime)
         .doc(searchDataItem.title);
       return dbe
         .delete()
@@ -143,19 +136,9 @@ export default function ItemCard({
 
     return db
       .set({
-        mal_id: searchDataItem.mal_id,
-        title: searchDataItem.title,
-        image_url: searchDataItem.image_url,
-        synopsis: searchDataItem.synopsis,
-        episodes: searchDataItem.episodes,
-        type: searchDataItem.type,
-        score: searchDataItem.score,
+        ...searchDataItem,
         personalScore: "",
         status: "Plan",
-        rated: searchDataItem.rated,
-        members: searchDataItem.members,
-        start_date: searchDataItem.start_date,
-        end_date: searchDataItem.end_date,
       })
       .then(() => {
         console.log("Document added!");

@@ -8,6 +8,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import "../sass/LikedList.css";
+import { Collections } from "./FirestoreConstant.json";
 
 export default function LikedList({ idLookedFor }) {
   const [likedMangasData, setLikedMangasData] = useState([]);
@@ -24,9 +25,9 @@ export default function LikedList({ idLookedFor }) {
   useEffect(() => {
     const animesRetrieve = () => {
       firestore
-        .collection("likedAnimes")
+        .collection(Collections.likedAnimes)
         .doc(idLookedFor)
-        .collection("anime")
+        .collection(Collections.anime)
         .get()
         .then((querySnapshot) => {
           const newAnimeList = [];
@@ -42,9 +43,9 @@ export default function LikedList({ idLookedFor }) {
 
     const mangasRetrieve = () => {
       firestore
-        .collection("likedMangas")
+        .collection(Collections.likedMangas)
         .doc(idLookedFor)
-        .collection("manga")
+        .collection(Collections.manga)
         .get()
         .then((querySnapshot) => {
           const newMangaList = [];
