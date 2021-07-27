@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Modal } from "@material-ui/core";
 import { Fade } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Backdrop from "@material-ui/core/Backdrop";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/NativeSelect";
 import { useAuthentication } from "../contexts/AuthenticationContext";
-import { firestore } from "../firebase";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import "../sass/MangaLikedCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import Slide from "@material-ui/core/Slide";
-import ValuesForScoring from "./ValuesForScoring.json";
-
-function SlideTransition(props) {
-  return <Slide {...props} direction="up" />;
-}
+import { Collections } from "./FirestoreConstant.json";
+import useStatusRetrieve from "../hooks/useStatusRetrieve";
+import useScansRetrieve from "../hooks/useScansRetrieve";
+import useScoresRetrieve from "../hooks/useScoresRetrieve";
+import useReviewsRetrieve from "../hooks/useReviewsRetrieve";
+import ModalManga from "./ModalManga";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -58,190 +47,56 @@ export default function MangaLikedCard({ item, idLookedFor }) {
     Transition: Fade,
   });
 
-  const handleClickAlert = (Transition) => () => {
-    setStateAlert({
-      open: true,
-      Transition,
-    });
-    dislike();
+  const modalProps = {
+    open,
+    setOpen,
+    inputStatus,
+    setInputStatus,
+    inputReview,
+    setInputReview,
+    inputScoring,
+    setInputScoring,
+    inputChapter,
+    setInputChapter,
+    stateAlert,
+    setStateAlert,
+    currentUser,
+    classes,
+    item,
   };
 
-  const handleCloseAlert = () => {
-    setStateAlert({
-      ...stateAlert,
-      open: false,
-    });
-  };
+  useScoresRetrieve(
+    item.title,
+    idLookedFor,
+    setInputScoring,
+    Collections.likedMangas,
+    Collections.manga
+  );
+  useScansRetrieve(
+    item.title,
+    idLookedFor,
+    setInputChapter,
+    Collections.scans,
+    Collections.manga
+  );
+  useStatusRetrieve(
+    item.title,
+    idLookedFor,
+    setInputStatus,
+    Collections.likedMangas,
+    Collections.manga
+  );
+  useReviewsRetrieve(
+    item.title,
+    idLookedFor,
+    setInputReview,
+    Collections.reviews,
+    Collections.manga
+  );
 
   const handleOpen = () => {
     setOpen(true);
     console.log("handle open reached");
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    console.log("handle close");
-  };
-
-  const handleSave = () => {
-    let batch = firestore.batch();
-
-    let statusRef = firestore
-      .collection("likedMangas")
-      .doc(currentUser.uid)
-      .collection("manga")
-      .doc(item.title);
-    batch.update(statusRef, { status: inputStatus });
-
-    let scansRef = firestore
-      .collection("scans")
-      .doc(currentUser.uid)
-      .collection("manga")
-      .doc(item.title);
-    if (inputChapter != null) batch.set(scansRef, { chapter: inputChapter });
-    if (inputStatus === "Completed") {
-      setInputChapter(item.chapters);
-      batch.set(scansRef, { chapter: item.chapters });
-    }
-
-    batch
-      .commit()
-      .then(() => {
-        console.log("Document added!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
-    handleClose();
-  };
-
-  const handleReviewAndScore = () => {
-    console.log("dans handleReview");
-    let batch = firestore.batch();
-
-    let reviewsRef = firestore
-      .collection("reviews")
-      .doc(currentUser.uid)
-      .collection("manga")
-      .doc(item.title);
-    batch.set(reviewsRef, { review: inputReview });
-
-    let scoresRef = firestore
-      .collection("likedMangas")
-      .doc(currentUser.uid)
-      .collection("manga")
-      .doc(item.title);
-    batch.update(scoresRef, { personalScore: inputScoring });
-
-    batch
-      .commit()
-      .then(() => {
-        console.log("Document added!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
-  };
-
-  useEffect(() => {
-    const reviewsRetrieve = () => {
-      let docRef = firestore
-        .collection("reviews")
-        .doc(idLookedFor)
-        .collection("manga")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputReview(doc.data().review);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    const scoresRetrieve = () => {
-      let scoreRef = firestore
-        .collection("likedMangas")
-        .doc(idLookedFor)
-        .collection("manga")
-        .doc(item.title);
-      scoreRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputScoring(doc.data().personalScore);
-          } else {
-            // console.log("No such document!");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-    const scansRetrieve = () => {
-      let docRef = firestore
-        .collection("scans")
-        .doc(idLookedFor)
-        .collection("manga")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputChapter(doc.data().chapter);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    const statusRetrieve = () => {
-      let docRef = firestore
-        .collection("likedMangas")
-        .doc(idLookedFor)
-        .collection("manga")
-        .doc(item.title);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setInputStatus(doc.data().status);
-          } else {
-            // console.log("No such document");
-          }
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    };
-
-    statusRetrieve();
-    scansRetrieve();
-    reviewsRetrieve();
-    scoresRetrieve();
-  }, [item.title, idLookedFor]);
-
-  const dislike = async () => {
-    await firestore
-      .collection("likedMangas")
-      .doc(currentUser.uid)
-      .collection("manga")
-      .doc(item.title)
-      .delete()
-      .then(() => {
-        console.log("Document removed!");
-      })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
   };
 
   return (
@@ -303,130 +158,7 @@ export default function MangaLikedCard({ item, idLookedFor }) {
               )}
             </li>
           </ul>
-
-          <div>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.paper}>
-                  <h2 id="transition-modal-title">Update: {item.title}</h2>
-                  <p id="transition-modal-description">
-                    <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="manga-status">Status</InputLabel>
-                      <Select
-                        native
-                        value={inputStatus}
-                        onChange={(event) => {
-                          setInputStatus(event.target.value);
-                        }}
-                        inputProps={{
-                          name: "status",
-                        }}
-                      >
-                        <option value={"Plan"}>Plan to read</option>
-                        <option value={"Ongoing"}>OnGoing</option>
-                        <option value={"Completed"}>Completed</option>
-                      </Select>
-                    </FormControl>
-                    <div>
-                      Chapters read:{" "}
-                      {inputStatus === "Completed" ? (
-                        item.chapters
-                      ) : (
-                        <input
-                          type="number"
-                          min="0"
-                          step="1"
-                          value={inputChapter}
-                          onChange={(e) => setInputChapter(e.target.value)}
-                          placeholder={0}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              handleSave();
-                            }
-                          }}
-                        ></input>
-                      )}
-                      /{item.chapters}
-                    </div>
-                  </p>
-
-                  <TextField
-                    id="outlined-select-scoring"
-                    select
-                    label="Select"
-                    value={inputScoring}
-                    onChange={(e) => setInputScoring(e.target.value)}
-                    helperText="Please select your scoring"
-                    letiant="outlined"
-                  >
-                    {ValuesForScoring.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <h3 id="transition-modal-title">Write your review:</h3>
-                  <p id="transition-modal-description">
-                    <TextareaAutosize
-                      aria-label="minimum height"
-                      rowsMin={3}
-                      rowsMax={5}
-                      onChange={(e) => setInputReview(e.target.value)}
-                      value={inputReview}
-                      placeholder="Write here..."
-                    />
-
-                    <div>
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          handleReviewAndScore();
-                          handleSave();
-                        }}
-                        className={classes.button}
-                        variant="outlined"
-                        color="primary"
-                      >
-                        Save modifications
-                      </Button>
-
-                      <Button
-                        type="button"
-                        onClick={handleClickAlert(SlideTransition)}
-                        className={classes.button}
-                        variant="outlined"
-                        color="secondary"
-                      >
-                        Unlike
-                      </Button>
-                      <Snackbar
-                        open={stateAlert.open}
-                        onClose={handleCloseAlert}
-                        TransitionComponent={stateAlert.Transition}
-                        message={
-                          item.title +
-                          " will be removed from your favorite list."
-                        }
-                        key={stateAlert.Transition.name}
-                      />
-                    </div>
-                  </p>
-                </div>
-              </Fade>
-            </Modal>
-          </div>
+          <ModalManga {...modalProps} />
         </div>
       </div>
     </div>

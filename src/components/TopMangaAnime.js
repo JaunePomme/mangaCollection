@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
 import List from "./List";
 import "../sass/TopMangaAnime.css";
+import { Collections, OrderBy, Limits } from "./FirestoreConstant.json";
 
 export default function TopMangaAnime() {
   const [topMangaList, settopMangaList] = useState([]);
   const [topAnimeList, settopAnimeList] = useState([]);
   useEffect(() => {
     firestore
-      .collection("topManga")
-      .orderBy("rank")
-      .limit(20)
+      .collection(Collections.topManga)
+      .orderBy(OrderBy.rank)
+      .limit(Limits.default)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -23,9 +24,9 @@ export default function TopMangaAnime() {
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("topAnime")
-      .orderBy("rank")
-      .limit(20)
+      .collection(Collections.topAnime)
+      .orderBy(OrderBy.rank)
+      .limit(Limits.default)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];

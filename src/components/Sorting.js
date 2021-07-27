@@ -9,6 +9,7 @@ import {
   faSortNumericUpAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "../sass/Sorting.css";
+import { Collections, OrderBy } from "./FirestoreConstant.json";
 
 export default function Sorting({
   setLikedAnimesData,
@@ -17,10 +18,10 @@ export default function Sorting({
 }) {
   const handleSortByScoreDesc = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("score", "desc")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.score, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -33,10 +34,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("score", "desc")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.score, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -52,10 +53,10 @@ export default function Sorting({
 
   const handleSortByScore = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("score")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.score)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -68,10 +69,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("score")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.score)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -87,11 +88,10 @@ export default function Sorting({
 
   const handleSortByPersonalScore = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      // .where("score", "==", 15)
-      .orderBy("personalScore")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.personalScore)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -104,10 +104,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("personalScore")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.personalScore)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -123,10 +123,10 @@ export default function Sorting({
 
   const handleSortByPersonalScoreDesc = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("personalScore", "desc")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.personalScore, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -139,10 +139,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("personalScore", "desc")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.personalScore, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -158,10 +158,10 @@ export default function Sorting({
 
   const handleSort = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("title")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.title)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -174,10 +174,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("title")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.title)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -193,10 +193,10 @@ export default function Sorting({
 
   const handleReverseSort = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("title", "desc")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.title, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -209,10 +209,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("title", "desc")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.title, OrderBy.desc)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];
@@ -228,10 +228,10 @@ export default function Sorting({
 
   const handleCompletedStatus = () => {
     firestore
-      .collection("likedMangas")
+      .collection(Collections.likedMangas)
       .doc(idLookedFor)
-      .collection("manga")
-      .orderBy("status")
+      .collection(Collections.manga)
+      .orderBy(OrderBy.status)
       .get()
       .then((querySnapshot) => {
         const newMangaList = [];
@@ -244,10 +244,10 @@ export default function Sorting({
         console.log("Error getting documents: ", error);
       });
     firestore
-      .collection("likedAnimes")
+      .collection(Collections.likedAnimes)
       .doc(idLookedFor)
-      .collection("anime")
-      .orderBy("status")
+      .collection(Collections.anime)
+      .orderBy(OrderBy.status)
       .get()
       .then((querySnapshot) => {
         const newAnimeList = [];

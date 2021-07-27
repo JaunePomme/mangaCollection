@@ -19,6 +19,8 @@ import "../sass/Menu.css";
 import { useHistory } from "react-router";
 import { useAuthentication } from "../contexts/AuthenticationContext";
 import { firestore } from "../firebase";
+import { Collections } from "./FirestoreConstant.json";
+
 const useStyles = makeStyles({
   list: {
     width: 230,
@@ -54,7 +56,7 @@ export default function Menu() {
   useEffect(() => {
     if (currentUser) {
       firestore
-        .collection("users")
+        .collection(Collections.users)
         .where("userId", "==", currentUser.uid)
         .get()
         .then((querySnapshot) => {
