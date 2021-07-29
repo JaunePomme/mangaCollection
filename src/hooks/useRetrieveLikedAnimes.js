@@ -28,6 +28,6 @@ export default function useRetrieveLikedAnimes() {
       };
       retrieveLikedAnimeList(currentUser.uid);
     }
-  }, []);
+  }, [currentUser]);
   return retrievedLikedAnimes;
 }

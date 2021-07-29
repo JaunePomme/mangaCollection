@@ -10,8 +10,28 @@ import TopMangaAnime from "./TopMangaAnime";
 import "../sass/MainSearch.css";
 import useRetrieveLikedMangas from "../hooks/useRetrieveLikedMangas";
 import useRetrieveLikedAnimes from "../hooks/useRetrieveLikedAnimes";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    backgroundColor: "snow",
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+      backgroundColor: "snow",
+    },
+  },
   button: {
     margin: theme.spacing(3),
   },
@@ -51,30 +71,31 @@ export default function MainSearch() {
   return (
     <div className="mainsearch-container">
       <div className="search-bar">
-        <input
-          className="search-input"
-          type="text"
-          onChange={(e) => setInputValue(e.target.value)}
-          placeholder="search 3 letters at least.."
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              searchItem(category, inputValue, page);
-            }
-          }}
-        />
-
         <form className="form">
-          <label htmlFor="category">Category</label>
-          <select
-            className="category-select"
-            id="category"
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {CATEGORY_LIST.map((category) => (
-              <option key={category}>{category}</option>
-            ))}
-          </select>
+          <input
+            className="search-input"
+            type="text"
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="search 3 letters at least.."
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchItem(category, inputValue, page);
+              }
+            }}
+          />
 
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink>Anime/Manga</InputLabel>
+            <Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className={classes.selectEmpty}
+            >
+              <MenuItem value={"anime"}>Anime</MenuItem>
+              <MenuItem value={"manga"}>Manga</MenuItem>
+            </Select>
+            <FormHelperText> Choose between Anime and Manga </FormHelperText>
+          </FormControl>
           <Button
             variant="contained"
             color="secondary"

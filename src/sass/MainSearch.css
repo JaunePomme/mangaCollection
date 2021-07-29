@@ -6,15 +6,9 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.search-input {
-  font-size: 20px;
-  size: 5px;
-}
-
-.category-select {
-  font-size: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .category-select:hover {

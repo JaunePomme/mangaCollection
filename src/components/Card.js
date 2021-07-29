@@ -6,8 +6,6 @@ export default function Card({
   type,
   retrievedLikedAnimes,
   retrievedLikedMangas,
-  movie,
-  category,
 }) {
   const [like, setLike] = useState(false);
 

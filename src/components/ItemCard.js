@@ -70,7 +70,12 @@ export default function ItemCard({
       retrievedLikedAnimes.includes(searchDataItem.title)
     )
       setLike(true);
-  }, [category]);
+  }, [
+    category,
+    retrievedLikedAnimes,
+    retrievedLikedMangas,
+    searchDataItem.title,
+  ]);
 
   const handleMangaLikeClick = async () => {
     setLike(!like);

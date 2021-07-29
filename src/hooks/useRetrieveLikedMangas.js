@@ -29,6 +29,6 @@ export default function useRetrieveLikedMangas() {
 
       retrieveLikedMangaList(currentUser.uid);
     }
-  }, []);
+  }, [currentUser]);
   return retrievedLikedMangas;
 }

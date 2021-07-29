@@ -5,8 +5,15 @@ import { firestore } from "../firebase";
 import Button from "@material-ui/core/Button";
 import "../sass/SignUp.css";
 import { Collections } from "../components/FirestoreConstant.json";
-
+import Avatar from "@material-ui/core/Avatar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -16,10 +23,29 @@ const useStyles = makeStyles((theme) => ({
     width: 150,
   },
   guest: {
-    margin: theme.spacing(3),
-    fontSize: 20,
-    color: "green",
-    width: 300,
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: "green",
+    color: "snow",
+    "&:hover": {
+      backgroundColor: "green",
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%",
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -30,7 +56,6 @@ export default function SignUp() {
   const [pseudo, setPseudo] = useState();
   const { signup, currentUser } = useAuthentication();
   const history = useHistory();
-  const [error, setError] = useState("");
   const { login } = useAuthentication();
   const classes = useStyles();
 
@@ -38,7 +63,7 @@ export default function SignUp() {
     e.preventDefault();
     try {
       if (passwordRef.current.value !== confirmedPasswordRef.current.value) {
-        return setError("passwords are different");
+        return alert("passwords are different");
       }
       localStorage.setItem("pseudo", pseudo);
       localStorage.setItem("email", emailRef.current.value);
@@ -75,7 +100,6 @@ export default function SignUp() {
         });
     } catch (error) {
       console.log(error);
-      setError("failed to create an account");
     }
   };
 
@@ -86,16 +110,14 @@ export default function SignUp() {
       history.push("/");
     } catch (error) {
       alert("bug" + error);
-      setError("failed to log in");
     }
   };
 
   return (
-    <div>
+    <div className="signup-container">
       {currentUser && currentUser.email}
-      {error}
 
-      <form
+      {/* <form
         className="login-form"
         id="login-form"
         onSubmit={handleSubmit}
@@ -183,7 +205,98 @@ export default function SignUp() {
             </Button>
           </Link>
         </div>
-      </form>
+      </form> */}
+
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  name="Username"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Username"
+                  label="Username"
+                  autoFocus
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  inputRef={emailRef}
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  inputRef={passwordRef}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  inputRef={confirmedPasswordRef}
+                  name="confirmedPassword"
+                  label="Confirmed Password"
+                  type="password"
+                  id="confirmedPassword"
+                  autoComplete="current-password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+            <Button
+              className={classes.guest}
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={(e) => handleGuestLogin(e)}
+            >
+              Sign up as a guest
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to="/login" variant="body2">
+                  Already have an account? Log in
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
     </div>
   );
 }
