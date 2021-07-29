@@ -1,6 +1,9 @@
-.container {
+.body {
   background-color: #1b252f;
-  min-width: 100%;
-  min-height: 100%;
+}
+
+.menu {
+  position: absolute;
+  z-index: 2;
 }
 /*# sourceMappingURL=App.css.map */

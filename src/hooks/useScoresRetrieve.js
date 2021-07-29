@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { firestore } from "../firebase";
-import { Collections } from "../components/FirestoreConstant.json";
 
 export default function useScoresRetrieve(
   title,

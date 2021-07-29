@@ -6,15 +6,10 @@
   color: snow;
   display: flex;
   justify-content: center;
-}
-
-.search-input {
-  font-size: 20px;
-  size: 5px;
+  align-items: center;
 }
 
 .category-select {
-  font-size: 20px;
   &:hover {
     box-shadow: 2px 2px 2px snow;
   }

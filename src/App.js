@@ -22,41 +22,52 @@ import NotFound from "./components/NotFound";
 
 export default function App() {
   return (
-    <div className="container">
+    <div className="body">
       <Router forceRefresh={true}>
         <AuthenticationProvider>
-          <Menu />
-
+          <div className="menu">
+            <Menu />
+          </div>
           <Navigation />
+          <div className="central-component">
+            <Switch>
+              <Route exact path="/" component={MainSearch} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={SignUp} />
 
-          <Switch>
-            <Route exact path="/" component={MainSearch} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/firebasereviews" component={FirebaseReviews} />
-            <Route exact path="/reviews/:title" component={Reviews} />
-            <Route exact path="/forgot-password" component={ForgotPassword} />
-            <Route
-              exact
-              path="/manga-profile/:titl/:identi"
-              component={MangaProfile}
-            />
-            <Route exact path="/movie" component={Movie} />
-            <Route exact path="/seasonal" component={Seasonal} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/genre" component={Genre} />
+              <Route
+                exact
+                path="/firebasereviews"
+                component={FirebaseReviews}
+              />
+              <Route exact path="/reviews/:title" component={Reviews} />
+              <Route exact path="/forgot-password" component={ForgotPassword} />
+              <Route
+                exact
+                path="/manga-profile/:titl/:identi"
+                component={MangaProfile}
+              />
+              <Route exact path="/movie" component={Movie} />
+              <Route exact path="/seasonal" component={Seasonal} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/genre" component={Genre} />
 
-            {/* Private Routes */}
-            <PrivateRoute exact path="/profile/:username" component={Profile} />
-            <PrivateRoute
-              exact
-              path="/update-profile"
-              component={UpdateProfile}
-            />
+              {/* Private Routes */}
+              <PrivateRoute
+                exact
+                path="/profile/:username"
+                component={Profile}
+              />
+              <PrivateRoute
+                exact
+                path="/update-profile"
+                component={UpdateProfile}
+              />
 
-            {/* ERROR */}
-            <Route path="/" component={NotFound} />
-          </Switch>
+              {/* ERROR */}
+              <Route path="/" component={NotFound} />
+            </Switch>
+          </div>
         </AuthenticationProvider>
       </Router>
     </div>

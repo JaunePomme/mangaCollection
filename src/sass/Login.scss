@@ -3,10 +3,9 @@
 @import "./_placeholders";
 
 .login-container {
-  @extend %flex-center;
-}
-
-.login-email,
-.login-password {
-  @extend %txt-classic;
+  background-color: snow;
+  border-radius: 5%;
+  border: solid;
+  border-color: red;
+  width: 50%;
 }

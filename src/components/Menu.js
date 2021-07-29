@@ -70,7 +70,8 @@ export default function Menu() {
           console.log("Error getting documents: ", error);
         });
     }
-  }, []);
+  }, [currentUser]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -172,14 +173,16 @@ export default function Menu() {
         </article>
       </NavLink>
 
-      <Button
-        className={classes.button}
-        variant="outlined"
-        color="secondary"
-        onClick={() => handleLogout()}
-      >
-        Logout
-      </Button>
+      {currentUser && (
+        <Button
+          className={classes.button}
+          variant="outlined"
+          color="secondary"
+          onClick={() => handleLogout()}
+        >
+          Logout
+        </Button>
+      )}
     </div>
   );
   return (
@@ -190,7 +193,6 @@ export default function Menu() {
 
       <SwipeableDrawer
         className={classes.drawer}
-        variant="persistent"
         anchor="left"
         open={state["left"]}
         onClose={toggleDrawer("left", false)}
