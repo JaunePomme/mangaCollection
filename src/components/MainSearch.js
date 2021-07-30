@@ -85,7 +85,7 @@ export default function MainSearch() {
           />
 
           <FormControl className={classes.formControl}>
-            <InputLabel shrink>Anime/Manga</InputLabel>
+            <InputLabel shrink>Category</InputLabel>
             <Select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -94,7 +94,7 @@ export default function MainSearch() {
               <MenuItem value={"anime"}>Anime</MenuItem>
               <MenuItem value={"manga"}>Manga</MenuItem>
             </Select>
-            <FormHelperText> Choose between Anime and Manga </FormHelperText>
+            <FormHelperText> Choose Anime or Manga </FormHelperText>
           </FormControl>
           <Button
             variant="contained"

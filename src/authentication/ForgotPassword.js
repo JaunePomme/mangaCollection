@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -71,62 +71,6 @@ export default function ForgotPassword() {
 
   return (
     <div className="forgot-password-container">
-      {/* <form
-        className="form-forgotpassword"
-        id="login-form"
-        placerholder="Type in.."
-      >
-        <div className="form-group">
-          <label className="forgot-email" htmlFor="email">
-            Email:
-          </label>
-          <input
-            type="email"
-            placeholder="email here.."
-            required
-            ref={emailRef}
-          />
-        </div>
-
-        <Button
-          className={classes.button}
-          onClick={() => handleSubmit()}
-          type="submit"
-          variant="outlined"
-          color="primary"
-        >
-          Submit
-        </Button>
-
-        <div className="forgot-already">
-          Already have an account ?{" "}
-          <Link style={{ textDecoration: "none" }} to="/login">
-            <Button
-              onClick={() => handleSubmit()}
-              type="submit"
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-            >
-              Log in
-            </Button>
-          </Link>
-        </div>
-        <div className="forgot-signup">
-          Want to sign up ?{" "}
-          <Link style={{ textDecoration: "none" }} to="/signup">
-            <Button
-              className={classes.button}
-              type="submit"
-              variant="outlined"
-              color="primary"
-            >
-              Sign up
-            </Button>
-          </Link>
-        </div>
-      </form> */}
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -134,7 +78,7 @@ export default function ForgotPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Forgot your password ?
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <TextField
@@ -157,7 +101,7 @@ export default function ForgotPassword() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Submit
             </Button>
             <Grid container>
               <Grid item xs>
