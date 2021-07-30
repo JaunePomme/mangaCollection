@@ -117,95 +117,6 @@ export default function SignUp() {
     <div className="signup-container">
       {currentUser && currentUser.email}
 
-      {/* <form
-        className="login-form"
-        id="login-form"
-        onSubmit={handleSubmit}
-        placerholder="Type in.."
-      >
-        <div className="signup-txt-guest">
-          Use a guest Account? Click here :
-          <Button
-            className={classes.guest}
-            variant="outlined"
-            color="primary"
-            onClick={(e) => handleGuestLogin(e)}
-          >
-            Sign up as a guest
-          </Button>
-        </div>
-
-        <div className="form-group">
-          <label className="signup-alias" htmlFor="pseudo">
-            Alias(username):
-          </label>
-          <input
-            name="pseudo"
-            type="text"
-            placeholder="alias here.."
-            required
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="signup-email" htmlFor="email">
-            Email:
-          </label>
-          <input
-            name="email"
-            type="email"
-            placeholder="email here.."
-            required
-            ref={emailRef}
-          />
-        </div>
-        <div className="form-group">
-          <label className="signup-password" htmlFor="password">
-            Password:
-          </label>
-          <input
-            name="password"
-            type="password"
-            placeholder="(6characters at least)"
-            required
-            ref={passwordRef}
-          />
-        </div>
-        <div className="form-group">
-          <label className="signup-confirmed" htmlFor="confirmed-password">
-            Confirmed password:
-          </label>
-          <input
-            name="confirmed-password"
-            type="password"
-            placeholder="password here.."
-            required
-            ref={confirmedPasswordRef}
-          />
-        </div>
-        <Button
-          className={classes.button}
-          type="submit"
-          variant="outlined"
-          color="primary"
-        >
-          Sign up
-        </Button>
-        <div className="signup-txt-already">
-          Already have an account ?
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <Button
-              className={classes.button}
-              variant="outlined"
-              color="primary"
-            >
-              Log in
-            </Button>
-          </Link>
-        </div>
-      </form> */}
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -227,6 +138,8 @@ export default function SignUp() {
                   id="Username"
                   label="Username"
                   autoFocus
+                  value={pseudo}
+                  onChange={(e) => setPseudo(e.target.value)}
                 />
               </Grid>
 
@@ -296,6 +209,7 @@ export default function SignUp() {
             </Grid>
           </form>
         </div>
+
       </Container>
     </div>
   );

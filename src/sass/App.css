@@ -1,5 +1,9 @@
 .body {
   background-color: #1b252f;
+
+  min-height: 100%;
+  margin: 0 auto;
+
 }
 
 .menu {
