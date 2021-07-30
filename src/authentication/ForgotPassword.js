@@ -78,7 +78,9 @@ export default function ForgotPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
+
             Forgot your password ?
+
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <TextField
@@ -101,7 +103,9 @@ export default function ForgotPassword() {
               color="primary"
               className={classes.submit}
             >
+
               Submit
+
             </Button>
             <Grid container>
               <Grid item xs>
