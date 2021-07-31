@@ -10,7 +10,6 @@ import TopMangaAnime from "./TopMangaAnime";
 import "../sass/MainSearch.css";
 import useRetrieveLikedMangas from "../hooks/useRetrieveLikedMangas";
 import useRetrieveLikedAnimes from "../hooks/useRetrieveLikedAnimes";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";

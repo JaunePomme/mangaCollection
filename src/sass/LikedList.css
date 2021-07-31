@@ -36,7 +36,8 @@
 
 .manga-label,
 .anime-label {
-  gap: 1rem;
+  background-color: #1b252f;
+  margin: 0px;
 }
 
 .anime-toggle,
