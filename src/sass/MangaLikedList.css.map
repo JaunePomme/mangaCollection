@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAIA,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,gBAAgB,ECCF,OAAO;EDArB,qBAAqB,EAAE,cAAc;EACrC,QAAQ,EAAE,GAAG;EACb,QAAQ,EAAE,QAAQ;CACnB",
+    "mappings": "AAIA,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,gBAAgB,ECCD,OAAO;EDAtB,qBAAqB,EAAE,cAAc;EACrC,QAAQ,EAAE,GAAG;EACb,QAAQ,EAAE,QAAQ;CACnB",
     "sources": [
         "MangaLikedList.scss",
         "_variables.scss",

@@ -3,14 +3,16 @@
 @import "./_placeholders";
 
 .search-bar {
-  color: snow;
+  color: #fafafa;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 10px;
+
 }
 
 .category-select {
   &:hover {
-    box-shadow: 2px 2px 2px snow;
+    box-shadow: 2px 2px 2px #fafafa;
   }
 }

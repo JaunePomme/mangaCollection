@@ -2,11 +2,10 @@
 @import "./_mixins";
 @import "./_placeholders";
 
-
-
 .list {
-    display:grid;
-    background-color: $fond-sombre;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 0.1rem;
-  }
+  display: grid;
+  background-color: $fond-scrolller;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.4rem;
+  padding: 20px;
+}

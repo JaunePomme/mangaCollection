@@ -6,9 +6,6 @@
 .anime-label-top {
   @extend %flex-center;
   @extend %txt-classic;
-  gap: 1rem;
-}
-
-.manga-label-top {
-  background-color: red;
+  background-color: #dd2c00;
+  margin: 0px;
 }

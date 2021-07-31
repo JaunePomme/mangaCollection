@@ -31,7 +31,7 @@ export default function SearchUser({ userList }) {
         <input
           className="searchuser-input"
           type="text"
-          placeholder="search user.."
+          placeholder="username.."
           value={inputWord}
           onChange={handleFilter}
         />
@@ -50,8 +50,10 @@ export default function SearchUser({ userList }) {
                   }}
                 >
                   <button className="searchuser-user" href={value.link}>
-                    <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
-                    {value.pseudo}
+                    <p className="searchuser-icon">
+                      <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                    </p>
+                    <p className="searchuser-username">{value.pseudo}</p>
                   </button>
                 </Link>
               );

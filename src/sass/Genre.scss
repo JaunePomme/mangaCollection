@@ -5,4 +5,6 @@
 .genre-container {
   background-color: $fond-scrolller;
   @extend %flex-center;
+  margin-bottom: 10px;
+  padding-top: 10px;
 }

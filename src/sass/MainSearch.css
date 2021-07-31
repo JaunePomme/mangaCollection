@@ -1,5 +1,5 @@
 .search-bar {
-  color: snow;
+  color: #fafafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9,10 +9,12 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-top: 10px;
+
 }
 
 .category-select:hover {
-  -webkit-box-shadow: 2px 2px 2px snow;
-          box-shadow: 2px 2px 2px snow;
+  -webkit-box-shadow: 2px 2px 2px #fafafa;
+          box-shadow: 2px 2px 2px #fafafa;
 }
 /*# sourceMappingURL=MainSearch.css.map */

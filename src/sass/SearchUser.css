@@ -1,5 +1,17 @@
+.searchuser-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .searchuser-label {
-  color: snow;
+  color: #fafafa;
   font-size: 20px;
 }
 
@@ -10,13 +22,14 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding-top: 10px;
 }
 
 .searchuser-input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-color: cornsilk;
+  background-color: #fafafa;
   font-size: 25px;
 }
 
@@ -28,7 +41,7 @@
   font-size: 25px;
   width: 400px;
   height: 300px;
-  background-color: snow;
+  background-color: #fafafa;
   -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
@@ -41,21 +54,26 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: black;
+  color: #212121;
   text-decoration: none;
   border: 0;
 }
 
 .searchuser-user:hover {
-  color: snow;
-  background-color: black;
+  color: #fafafa;
+  background-color: #212121;
 }
 
 .closeicon {
-  color: snow;
+  color: #fafafa;
   cursor: pointer;
+}
+
+.searchuser-icon {
+  margin-left: 10px;
+}
+
+.searchuser-username {
+  margin-left: 10px;
 }
 /*# sourceMappingURL=SearchUser.css.map */

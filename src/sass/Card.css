@@ -23,7 +23,6 @@
   cursor: pointer;
   -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 }
 
 .card:hover {
@@ -40,9 +39,9 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: #12130F;
+  background: #12130f;
   font-family: "Quicksand", sans-serif;
-  color: snow;
+  color: #fafafa;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;

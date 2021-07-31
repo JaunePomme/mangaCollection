@@ -13,22 +13,11 @@ import Years from "./Years.json";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 120,
-    backgroundColor: "snow",
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-      backgroundColor: "snow",
-    },
-  },
-  button: {
-    margin: theme.spacing(3),
+    marginLeft: 10,
+    color: "#fafafa",
   },
 }));
 
@@ -58,7 +47,6 @@ export default function Seasonal() {
     <div>
       <div className="seasonal-container">
         <FormControl className={classes.formControl}>
-          <InputLabel shrink>Season</InputLabel>
           <Select
             value={inputSeason}
             onChange={(e) => setInputSeason(e.target.value)}
@@ -69,23 +57,26 @@ export default function Seasonal() {
             <MenuItem value={"winter"}>Winter</MenuItem>
             <MenuItem value={"spring"}>Spring</MenuItem>
           </Select>
-          <FormHelperText>Choose the season</FormHelperText>
+          <FormHelperText className={classes.selectEmpty}>
+            Choose the season
+          </FormHelperText>
         </FormControl>
 
-        <form className={classes.root} noValidate autoComplete="off">
-          <TextField
-            select
-            label="Select"
+        <form className={classes.formControl} noValidate autoComplete="off">
+          <Select
             value={inputYear}
             onChange={(e) => setInputYear(e.target.value)}
-            helperText="Please select the year"
+            className={classes.selectEmpty}
           >
             {Years.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
-          </TextField>
+          </Select>
+          <FormHelperText className={classes.selectEmpty}>
+            Choose the year
+          </FormHelperText>
         </form>
       </div>
 

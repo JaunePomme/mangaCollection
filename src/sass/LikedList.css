@@ -13,7 +13,7 @@
 
 .manga-label,
 .anime-label {
-  color: snow;
+  color: #fafafa;
   font-size: 20px;
 }
 
@@ -41,6 +41,6 @@
 
 .anime-toggle,
 .manga-toggle {
-  color: snow;
+  color: #fafafa;
 }
 /*# sourceMappingURL=LikedList.css.map */

@@ -13,16 +13,13 @@
 
 .manga-label-top,
 .anime-label-top {
-  color: snow;
+  color: #fafafa;
   font-size: 20px;
 }
 
 .manga-label-top,
 .anime-label-top {
-  gap: 1rem;
-}
-
-.manga-label-top {
-  background-color: red;
+  background-color: #dd2c00;
+  margin: 0px;
 }
 /*# sourceMappingURL=TopMangaAnime.css.map */

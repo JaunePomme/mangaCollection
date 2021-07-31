@@ -23,11 +23,11 @@ export default function Card({
         loading="lazy"
       />
       <div className="card-overlay">
-        <h3>{item.title}</h3>
-        {item.rank ? <h3>Rank: {item.rank}</h3> : ""}
-        <h3>Score: {item.score}</h3>
+        <h4>{item.title}</h4>
+        {item.rank ? <h5>Rank: {item.rank}</h5> : ""}
+        <h5>Score: {item.score}</h5>
 
-        <h4>
+        <h5>
           {item.url ? (
             <a
               className="card-url"
@@ -47,7 +47,7 @@ export default function Card({
               More on myAnimeList..
             </a>
           )}
-        </h4>
+        </h5>
       </div>
     </ul>
   );

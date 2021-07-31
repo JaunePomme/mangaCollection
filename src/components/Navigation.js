@@ -18,7 +18,7 @@ export default function Navigation() {
             activeClassName="current"
             to={"/login"}
           >
-            <p className="nav-login-txt">Login </p>
+            <p className="nav-login-txt">Log in </p>
           </NavLink>
 
           <NavLink

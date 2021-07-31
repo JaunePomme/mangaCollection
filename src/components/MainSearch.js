@@ -18,22 +18,15 @@ import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 120,
-    backgroundColor: "snow",
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-      backgroundColor: "snow",
-    },
+    marginLeft: 10,
+    color: "#fafafa",
+
   },
   button: {
-    margin: theme.spacing(3),
+    marginLeft: 10,
   },
 }));
 
@@ -83,11 +76,7 @@ export default function MainSearch() {
               }
             }}
           />
-
-          <FormControl className={classes.formControl}>
-
-            <InputLabel shrink>Category</InputLabel>
-
+          <FormControl className="form-control-search">
             <Select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -96,8 +85,9 @@ export default function MainSearch() {
               <MenuItem value={"anime"}>Anime</MenuItem>
               <MenuItem value={"manga"}>Manga</MenuItem>
             </Select>
-
-            <FormHelperText> Choose Anime or Manga </FormHelperText>
+            <FormHelperText className={classes.selectEmpty}>
+              Choose Anime or Manga{" "}
+            </FormHelperText>
 
           </FormControl>
           <Button

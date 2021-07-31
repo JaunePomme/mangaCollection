@@ -11,8 +11,10 @@
 }
 
 .nav-body {
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 20px;
 }
 
 .nav-login,
@@ -22,12 +24,13 @@
 
 .nav-login-txt,
 .nav-signup-txt {
-  color: snow;
+  color: #fafafa;
+  font-size: 15px;
+  margin: 5px;
 }
 
 .nav-login-txt:hover,
 .nav-signup-txt:hover {
-  color: black;
-  background-color: snow;
+  text-decoration: underline;
 }
 /*# sourceMappingURL=Navigation.css.map */
