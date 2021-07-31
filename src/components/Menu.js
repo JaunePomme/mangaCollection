@@ -31,8 +31,6 @@ const useStyles = makeStyles({
   button: {
     fontSize: 20,
     width: 150,
-    marginTop: 50,
-    marginLeft: 50,
   },
   drawer: {},
   menu: {
@@ -121,16 +119,22 @@ export default function Menu() {
           Search user
         </article>
       </NavLink>
-      <NavLink
-        className="nav-mycollection"
-        exact
-        activeClassName="current"
-        to={"/profile/" + myUsername}
-      >
-        <article style={{ marginLeft: 25 }}>
-          <FontAwesomeIcon icon={faHeart} /> My collection
-        </article>
-      </NavLink>
+
+      {currentUser ? (
+        <NavLink
+          className="nav-mycollection"
+          exact
+          activeClassName="current"
+          to={"/profile/" + myUsername}
+        >
+          <article style={{ marginLeft: 25 }}>
+            <FontAwesomeIcon icon={faHeart} /> My collection
+          </article>
+        </NavLink>
+      ) : (
+        ""
+      )}
+
       <NavLink
         className="nav-movie"
         exact
@@ -173,16 +177,18 @@ export default function Menu() {
         </article>
       </NavLink>
 
-      {currentUser && (
-        <Button
-          className={classes.button}
-          variant="outlined"
-          color="secondary"
-          onClick={() => handleLogout()}
-        >
-          Logout
-        </Button>
-      )}
+      <div className="menu-btn-container">
+        {currentUser && (
+          <Button
+            className="menu-btn-logout"
+            variant="outlined"
+            color="secondary"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </Button>
+        )}
+      </div>
     </div>
   );
   return (

@@ -2,7 +2,26 @@
 @import "./_mixins";
 @import "./_placeholders";
 
+.about-center {
+  @extend %flex-center;
+  padding-top: 10px;
+}
 .about-container {
-  color: white;
-  margin-left: 200px;
+  color: #fafafa;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #fafafa;
+  padding: 20px;
+  width: 50%;
+}
+
+.about-txt,
+.about-sign,
+.about-github,
+.about-contact {
+  display: flex;
+  justify-content: center;
+}
+.about-link {
+  display: table-cell;
 }

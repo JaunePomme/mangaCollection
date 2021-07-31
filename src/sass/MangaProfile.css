@@ -17,7 +17,7 @@
 }
 
 .mangaprofile-myreview {
-  color: snow;
+  color: #fafafa;
   font-size: 20px;
 }
 
@@ -26,7 +26,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  color: white;
+  color: #fafafa;
 }
 
 .profile-liked {

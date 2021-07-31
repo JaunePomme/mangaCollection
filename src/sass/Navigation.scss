@@ -4,7 +4,8 @@
 
 .nav-body {
   @extend %flex-center;
-  justify-content: space-around;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
 
 .nav-login,
@@ -14,9 +15,10 @@
 
 .nav-login-txt,
 .nav-signup-txt {
-  color: snow;
+  color: #fafafa;
+  font-size: 15px;
+  margin: 5px;
   &:hover {
-    color: black;
-    background-color: snow;
+    text-decoration: underline;
   }
 }

@@ -113,101 +113,103 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup-container">
-      {currentUser && currentUser.email}
+    <div className="center-signup">
+      <div className="signup-container">
+        {currentUser && currentUser.email}
 
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  name="Username"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="Username"
-                  label="Username"
-                  autoFocus
-                  value={pseudo}
-                  onChange={(e) => setPseudo(e.target.value)}
-                />
-              </Grid>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    name="Username"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="Username"
+                    label="Username"
+                    autoFocus
+                    value={pseudo}
+                    onChange={(e) => setPseudo(e.target.value)}
+                  />
+                </Grid>
 
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  inputRef={emailRef}
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    inputRef={emailRef}
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    inputRef={passwordRef}
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    inputRef={confirmedPasswordRef}
+                    name="confirmedPassword"
+                    label="Confirmed Password"
+                    type="password"
+                    id="confirmedPassword"
+                    autoComplete="current-password"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  inputRef={passwordRef}
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+              </Button>
+              <Button
+                className={classes.guest}
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={(e) => handleGuestLogin(e)}
+              >
+                Sign up as a guest
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link to="/login" variant="body2">
+                    Already have an account? Log in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  inputRef={confirmedPasswordRef}
-                  name="confirmedPassword"
-                  label="Confirmed Password"
-                  type="password"
-                  id="confirmedPassword"
-                  autoComplete="current-password"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Button
-              className={classes.guest}
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={(e) => handleGuestLogin(e)}
-            >
-              Sign up as a guest
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/login" variant="body2">
-                  Already have an account? Log in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Container>
+            </form>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,4 @@
-.nav-home,
-.nav-search,
-.nav-mycollection,
-.nav-movie,
-.nav-seasonal,
-.nav-genre,
-.nav-about {
+.welcome-menu, .menu-btn-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -23,7 +17,19 @@
 .nav-seasonal,
 .nav-genre,
 .nav-about {
-  color: snow;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fafafa;
+  text-decoration: none;
+  margin: 10px;
+  padding: 2px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .nav-home:hover,
@@ -33,15 +39,21 @@
 .nav-seasonal:hover,
 .nav-genre:hover,
 .nav-about:hover {
-  color: red;
-  background-color: snow;
+  color: #1b252f;
+  background-color: #fafafa;
+  text-decoration: none;
 }
 
 .welcome-menu {
-  color: snow;
+  color: #fafafa;
 }
 
 .current {
   background-color: gray;
+}
+
+.menu-btn-logout {
+  font-size: 20;
+  width: 150px;
 }
 /*# sourceMappingURL=Menu.css.map */

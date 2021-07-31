@@ -2,11 +2,13 @@
 @import "./_mixins";
 @import "./_placeholders";
 
+.center-signup {
+  @extend %flex-center;
+}
 .signup-container {
-  display: flex;
-  background-color: snow;
+  background-color: #fafafa;
   border-radius: 5%;
   border: solid;
-  border-color: red;
+  border-color: #dd2c00;
   width: 50%;
 }

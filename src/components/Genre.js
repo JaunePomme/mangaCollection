@@ -14,22 +14,11 @@ import AnimeGenre from "./AnimeGenre.json";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 120,
-    backgroundColor: "snow",
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-      backgroundColor: "snow",
-    },
-  },
-  button: {
-    margin: theme.spacing(3),
+    marginLeft: 10,
+    color: "#fafafa",
   },
 }));
 
@@ -66,7 +55,6 @@ export default function Genre() {
     <div>
       <div className="genre-container">
         <FormControl className={classes.formControl}>
-          <InputLabel shrink>Anime/Manga</InputLabel>
           <Select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -75,40 +63,44 @@ export default function Genre() {
             <MenuItem value={"anime"}>Anime</MenuItem>
             <MenuItem value={"manga"}>Manga</MenuItem>
           </Select>
-          <FormHelperText>Choose between Anime and Manga</FormHelperText>
+          <FormHelperText className={classes.selectEmpty}>
+            Choose Anime or Manga
+          </FormHelperText>
         </FormControl>
 
         {category === "manga" ? (
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              select
-              label="Select"
+          <form className={classes.formControl} noValidate autoComplete="off">
+            <Select
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
-              helperText="Select manga genre"
+              className={classes.selectEmpty}
             >
               {mangaListGenre.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
               ))}
-            </TextField>
+            </Select>
+            <FormHelperText className={classes.selectEmpty}>
+              Choose the genre
+            </FormHelperText>
           </form>
         ) : (
           <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              select
-              label="Select"
+            <Select
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
-              helperText="Select anime genre"
+              className={classes.selectEmpty}
             >
               {animeListGenre.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
               ))}
-            </TextField>
+            </Select>
+            <FormHelperText className={classes.selectEmpty}>
+              Choose the genre
+            </FormHelperText>
           </form>
         )}
       </div>

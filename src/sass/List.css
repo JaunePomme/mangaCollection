@@ -1,9 +1,10 @@
 .list {
   display: -ms-grid;
   display: grid;
-  background-color: #12130F;
+  background-color: #1b252f;
   -ms-grid-columns: (minmax(250px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 0.1rem;
+  gap: 0.4rem;
+  padding: 20px;
 }
 /*# sourceMappingURL=List.css.map */
