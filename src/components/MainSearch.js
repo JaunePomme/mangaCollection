@@ -10,6 +10,7 @@ import TopMangaAnime from "./TopMangaAnime";
 import "../sass/MainSearch.css";
 import useRetrieveLikedMangas from "../hooks/useRetrieveLikedMangas";
 import useRetrieveLikedAnimes from "../hooks/useRetrieveLikedAnimes";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginLeft: 10,
     color: "#fafafa",
+
   },
   button: {
     marginLeft: 10,
@@ -87,6 +89,7 @@ export default function MainSearch() {
             <FormHelperText className={classes.selectEmpty}>
               Choose Anime or Manga{" "}
             </FormHelperText>
+
           </FormControl>
           <Button
             variant="contained"

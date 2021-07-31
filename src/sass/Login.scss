@@ -2,6 +2,7 @@
 @import "./_mixins";
 @import "./_placeholders";
 
+
 .center {
   @extend %flex-center;
 }
@@ -10,5 +11,6 @@
   border-radius: 5%;
   border: solid;
   border-color: #dd2c00;
+
   width: 50%;
 }
