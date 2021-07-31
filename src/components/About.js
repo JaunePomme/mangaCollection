@@ -1,7 +1,6 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAt } from "@fortawesome/free-solid-svg-icons";
 import "../sass/About.css";
 
 export default function About() {

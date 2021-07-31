@@ -28,6 +28,7 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: red;
+  margin: 5px;
 }
 
 .animeLikedCard-ul:hover {

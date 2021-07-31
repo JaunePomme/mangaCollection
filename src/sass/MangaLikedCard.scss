@@ -8,8 +8,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // gap: 10rem;
   background-color: red;
+
+  margin: 5px;
   &:hover {
     box-shadow: 5px 5px 5px whitesmoke;
   }

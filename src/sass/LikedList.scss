@@ -15,8 +15,14 @@
 .manga-label,
 .anime-label {
   @extend %flex-center;
+}
+
+.manga-label,
+.anime-label {
+  @extend %flex-center;
   @extend %txt-classic;
-  gap: 1rem;
+  background-color: $fond-scrolller;
+  margin: 0px;
 }
 .anime-toggle,
 .manga-toggle {
