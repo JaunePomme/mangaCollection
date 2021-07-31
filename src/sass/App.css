@@ -1,3 +1,4 @@
+
 #root,
 html,
 body {
@@ -7,6 +8,7 @@ body {
 .body {
   background-color: #1b252f;
   height: 100%;
+
 }
 
 .menu {

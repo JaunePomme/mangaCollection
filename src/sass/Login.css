@@ -1,3 +1,4 @@
+
 .center {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15,6 +16,7 @@
   border-radius: 5%;
   border: solid;
   border-color: #dd2c00;
+
   width: 50%;
 }
 /*# sourceMappingURL=Login.css.map */
