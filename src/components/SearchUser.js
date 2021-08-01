@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../sass/SearchUser.css";
 import { Link } from "react-router-dom";
-import CloseIcon from "@material-ui/icons/Close";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,11 +16,6 @@ export default function SearchUser({ userList }) {
     setFilteredData(newFilter);
   };
 
-  const clearInput = () => {
-    setFilteredData([]);
-    setInputWord("");
-  };
-
   return (
     <div className="searchuser-container">
       <div className="searchuser-bar">
@@ -35,7 +29,6 @@ export default function SearchUser({ userList }) {
           value={inputWord}
           onChange={handleFilter}
         />
-        <CloseIcon className="closeicon" onClick={clearInput} />
 
         {filteredData.length !== 0 && (
           <div className="searchuser-data">

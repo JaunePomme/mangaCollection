@@ -5,4 +5,8 @@
 .btn-page {
   margin-bottom: 10px;
   margin-top: 10px;
+  @extend %flex-center;
+}
+.btn-next-page {
+  margin-left: 10px;
 }

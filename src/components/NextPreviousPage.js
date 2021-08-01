@@ -15,21 +15,22 @@ export default function NextPreviousPage({ page, setPage }) {
             setPage((page) => page - 1);
           }}
         >
-          <FontAwesomeIcon icon={faArrowLeft} />
+          <FontAwesomeIcon style={{ marginRight: 5 }} icon={faArrowLeft} />
           Previous Page
         </Button>
       )}
-
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => {
-          setPage((page) => page + 1);
-        }}
-      >
-        <FontAwesomeIcon icon={faArrowRight} />
-        Next Page
-      </Button>
+      <div className="btn-next-page">
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => {
+            setPage((page) => page + 1);
+          }}
+        >
+          Next Page
+          <FontAwesomeIcon style={{ marginLeft: 5 }} icon={faArrowRight} />
+        </Button>
+      </div>
     </div>
   );
 }

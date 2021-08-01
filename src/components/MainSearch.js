@@ -22,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginLeft: 10,
     color: "#fafafa",
+    "&:before": {
+      borderColor: "#fafafa",
+    },
+    "&:after": {
+      borderColor: "#fafafa",
+    },
+  },
+  icon: {
+    fill: "#fafafa",
   },
   button: {
     marginLeft: 10,
@@ -80,6 +89,11 @@ export default function MainSearch() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className={classes.selectEmpty}
+              inputProps={{
+                classes: {
+                  icon: classes.icon,
+                },
+              }}
             >
               <MenuItem value={"anime"}>Anime</MenuItem>
               <MenuItem value={"manga"}>Manga</MenuItem>

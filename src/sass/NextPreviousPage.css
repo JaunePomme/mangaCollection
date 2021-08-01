@@ -1,5 +1,21 @@
 .btn-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.btn-page {
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.btn-next-page {
+  margin-left: 10px;
 }
 /*# sourceMappingURL=NextPreviousPage.css.map */

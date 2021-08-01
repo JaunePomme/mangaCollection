@@ -15,18 +15,12 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(3),
-    fontSize: 20,
-    color: "snow",
-    width: 150,
-  },
   guest: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "green",
-    color: "snow",
+    backgroundColor: "#689f38",
+    color: "#fafafa",
     "&:hover": {
-      backgroundColor: "green",
+      backgroundColor: "#689f38",
     },
   },
   paper: {

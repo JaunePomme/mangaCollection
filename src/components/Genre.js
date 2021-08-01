@@ -17,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginLeft: 10,
     color: "#fafafa",
+    "&:before": {
+      borderColor: "#fafafa",
+    },
+    "&:after": {
+      borderColor: "#fafafa",
+    },
+  },
+  icon: {
+    fill: "#fafafa",
   },
 }));
 
@@ -57,6 +66,11 @@ export default function Genre() {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className={classes.selectEmpty}
+            inputProps={{
+              classes: {
+                icon: classes.icon,
+              },
+            }}
           >
             <MenuItem value={"anime"}>Anime</MenuItem>
             <MenuItem value={"manga"}>Manga</MenuItem>
@@ -72,6 +86,11 @@ export default function Genre() {
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
               className={classes.selectEmpty}
+              inputProps={{
+                classes: {
+                  icon: classes.icon,
+                },
+              }}
             >
               {mangaListGenre.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -89,6 +108,11 @@ export default function Genre() {
               value={genre}
               onChange={(e) => setGenre(e.target.value)}
               className={classes.selectEmpty}
+              inputProps={{
+                classes: {
+                  icon: classes.icon,
+                },
+              }}
             >
               {animeListGenre.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

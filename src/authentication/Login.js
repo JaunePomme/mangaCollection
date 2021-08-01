@@ -13,17 +13,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(3),
-    fontSize: 20,
-    color: "snow",
-    width: 150,
-  },
-  root: {
-    height: "100vh",
-  },
   paper: {
-    margin: theme.spacing(8, 4),
+    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",

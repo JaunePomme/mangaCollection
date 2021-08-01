@@ -16,6 +16,15 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginLeft: 10,
     color: "#fafafa",
+    "&:before": {
+      borderColor: "#fafafa",
+    },
+    "&:after": {
+      borderColor: "#fafafa",
+    },
+  },
+  icon: {
+    fill: "#fafafa",
   },
 }));
 
@@ -49,6 +58,11 @@ export default function Seasonal() {
             value={inputSeason}
             onChange={(e) => setInputSeason(e.target.value)}
             className={classes.selectEmpty}
+            inputProps={{
+              classes: {
+                icon: classes.icon,
+              },
+            }}
           >
             <MenuItem value={"summer"}>Summer</MenuItem>
             <MenuItem value={"fall"}>Fall</MenuItem>
@@ -65,6 +79,11 @@ export default function Seasonal() {
             value={inputYear}
             onChange={(e) => setInputYear(e.target.value)}
             className={classes.selectEmpty}
+            inputProps={{
+              classes: {
+                icon: classes.icon,
+              },
+            }}
           >
             {Years.map((option) => (
               <MenuItem key={option.value} value={option.value}>
