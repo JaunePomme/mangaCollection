@@ -79,7 +79,6 @@ export default function Genre() {
             Choose Anime or Manga
           </FormHelperText>
         </FormControl>
-
         {category === "manga" ? (
           <form className={classes.formControl} noValidate autoComplete="off">
             <Select

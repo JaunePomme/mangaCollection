@@ -54,7 +54,6 @@ export default function Login() {
     <div className="center">
       <div className="login-container">
         {currentUser && currentUser.userId}
-
         <Container component="main" maxWidth="xs">
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>

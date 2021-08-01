@@ -73,7 +73,6 @@ export default function Seasonal() {
             Choose the season
           </FormHelperText>
         </FormControl>
-
         <form className={classes.formControl} noValidate autoComplete="off">
           <Select
             value={inputYear}

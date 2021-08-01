@@ -110,7 +110,6 @@ export default function SignUp() {
     <div className="center-signup">
       <div className="signup-container">
         {currentUser && currentUser.email}
-
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>

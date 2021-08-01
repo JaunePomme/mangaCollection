@@ -28,7 +28,7 @@ export default function Movie() {
   }, [page, movieList]);
 
   return (
-    <div>
+    <div className="movie-global-container">
       <div className="movie-container">
         <NextPreviousPage page={page} setPage={setPage} />
       </div>
