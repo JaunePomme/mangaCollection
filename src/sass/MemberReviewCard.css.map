@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,qBAAqB,CAAC;EACrB,gBAAgB,ECEA,OAAO;CDDvB",
+    "sources": [
+        "MemberReviewCard.scss",
+        "_variables.scss",
+        "_mixins.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "MemberReviewCard.css"
+}

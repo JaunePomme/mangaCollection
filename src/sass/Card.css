@@ -20,7 +20,6 @@
   background-color: #ff4242;
   border-radius: 0.25rem;
   position: relative;
-  cursor: pointer;
   -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
 }

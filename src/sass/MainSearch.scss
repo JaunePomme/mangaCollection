@@ -3,16 +3,18 @@
 @import "./_placeholders";
 
 .search-bar {
-  color: #fafafa;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 10px;
-
+	color: #fafafa;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 10px;
 }
 
+.mainsearch-container {
+	background-color: $fond-scrolller;
+}
 .category-select {
-  &:hover {
-    box-shadow: 2px 2px 2px #fafafa;
-  }
+	&:hover {
+		box-shadow: 2px 2px 2px #fafafa;
+	}
 }

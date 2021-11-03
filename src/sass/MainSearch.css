@@ -10,7 +10,10 @@
       -ms-flex-align: center;
           align-items: center;
   padding-top: 10px;
+}
 
+.mainsearch-container {
+  background-color: #1b252f;
 }
 
 .category-select:hover {

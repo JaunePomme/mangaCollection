@@ -3,46 +3,46 @@
 @import "./_placeholders";
 
 .card {
-  @extend %ul-nobullet;
-  background-color: $btn-rouge;
-  border-radius: 0.25rem;
-  position: relative;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-  &:hover {
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
-  }
+	@extend %ul-nobullet;
+	background-color: $btn-rouge;
+	border-radius: 0.25rem;
+	position: relative;
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+	&:hover {
+		box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+	}
 }
 .card-img {
-  height: 400px;
+	height: 400px;
 }
 .card-overlay {
-  @extend %flex-center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: $fond-sombre;
-  font-family: "Quicksand", sans-serif;
-  color: #fafafa;
-  flex-direction: column;
-  opacity: 0;
-  transition: opacity 0.5s;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.9;
-  }
-  &:hover > * {
-    transform: translateY(0);
-  }
+	@extend %flex-center;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: $fond-sombre;
+	font-family: "Quicksand", sans-serif;
+	color: #fafafa;
+	flex-direction: column;
+	opacity: 0;
+	transition: opacity 0.5s;
+	cursor: pointer;
+	&:hover {
+		opacity: 0.9;
+	}
+	&:hover > * {
+		transform: translateY(0);
+	}
 }
 
 .card-url {
-  display: table-cell;
-  text-decoration: none;
+	display: table-cell;
+	text-decoration: none;
 }
 
 .card-no-url {
-  display: table-cell;
-  text-decoration: none;
-  color: pink;
+	display: table-cell;
+	text-decoration: none;
+	color: pink;
 }
