@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface ItemStorage {
+	images: any;
 	title: string;
 	image_url: string;
 	rank: number;
@@ -40,16 +41,20 @@ export interface ItemStorage {
 export const Seasonal = () => {
 	const [seasonalList, setSeasonalList] = useState<ItemStorage[]>([]);
 	const SEASON_LIST = ["fall", "summer", "winter", "spring"];
-	const [inputYear, setInputYear] = useState(2021);
+	const [inputYear, setInputYear] = useState(2022);
 	const [inputSeason, setInputSeason] = useState(SEASON_LIST[0]);
 	const classes = useStyles();
 
 	useEffect(() => {
 		const search = async (year: number, season: string) => {
 			try {
-				let seasonalResponse: AxiosResponse<{ anime: ItemStorage[] }> =
-					await axios.get(`https://api.jikan.moe/v3/season/${year}/${season}`);
-				let newSeasonalList: ItemStorage[] = seasonalResponse.data.anime;
+				let seasonalResponse: AxiosResponse<{
+					data: ItemStorage[];
+					anime: ItemStorage[];
+				}> = await axios.get(
+					`https://api.jikan.moe/v4/seasons/${year}/${season}`
+				);
+				let newSeasonalList: ItemStorage[] = seasonalResponse.data.data;
 				setSeasonalList(newSeasonalList);
 				return newSeasonalList;
 			} catch (e) {

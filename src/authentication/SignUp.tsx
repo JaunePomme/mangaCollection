@@ -111,7 +111,8 @@ export const SignUp = () => {
 	const handleGuestLogin = async (e: { preventDefault: () => void }) => {
 		e.preventDefault();
 		try {
-			await login("guestaccount@guest.fr", "guestaccount");
+			// await login("guestaccount@guest.fr", "guestaccount");
+			await login("guestuser@guestuser.guestuser", "guestuser");
 			history.push("/");
 		} catch (error) {
 			alert("bug" + error);

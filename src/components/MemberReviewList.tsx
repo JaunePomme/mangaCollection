@@ -4,14 +4,15 @@ import { Review } from "./Reviews";
 
 interface Props {
 	reviewList: Review[];
+	type: string;
 }
 
-export const MemberReviewList: React.FC<Props> = ({ reviewList }) => {
+export const MemberReviewList: React.FC<Props> = ({ reviewList, type }) => {
 	return (
 		<div className="reviewList">
 			{reviewList &&
 				reviewList.map((item) => (
-					<MemberReviewCard key={item.mal_id} review={item} />
+					<MemberReviewCard key={item.entry.mal_id} review={item} type={type} />
 				))}
 		</div>
 	);

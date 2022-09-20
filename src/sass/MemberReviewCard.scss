@@ -4,4 +4,10 @@
 
 .reviewList-container {
 	background-color: $fond-scrolller;
+	width: max-content;
+}
+
+.reviewList{
+	background-color: $fond-scrolller;
+	width: auto;
 }

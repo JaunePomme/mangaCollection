@@ -107,7 +107,6 @@ export const AnimeLikedCard: React.FC<Props> = ({ item, idLookedFor }) => {
 
 	const handleOpen = () => {
 		setOpen(true);
-		console.log("handle open reached");
 	};
 
 	return (
@@ -118,7 +117,7 @@ export const AnimeLikedCard: React.FC<Props> = ({ item, idLookedFor }) => {
 						<li>
 							<img
 								className="anime-img"
-								src={item.image_url}
+								src={item.images.jpg.image_url}
 								alt={item.title}
 							/>
 							<div className="anime-overlay">

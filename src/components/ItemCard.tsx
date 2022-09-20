@@ -46,7 +46,6 @@ export const ItemCard: React.FC<Props> = ({
 		open: false,
 		Transition: Fade,
 	});
-
 	const handleClickAlert = (Transition: (props: any) => JSX.Element) => () => {
 		setStateAlert({
 			open: true,
@@ -164,7 +163,7 @@ export const ItemCard: React.FC<Props> = ({
 				});
 		}
 	};
-
+	console.log("data : ", searchDataItem);
 	return (
 		<div className="body-itemcard">
 			{currentUser && (
@@ -204,7 +203,7 @@ export const ItemCard: React.FC<Props> = ({
 						<li className="item-title">{searchDataItem.title}</li>
 						<li className="item-img">
 							<img
-								src={searchDataItem.image_url}
+								src={searchDataItem.images.jpg.image_url}
 								alt={searchDataItem.title}
 								style={{ height: 200, width: 150 }}
 								loading="lazy"
@@ -233,7 +232,7 @@ export const ItemCard: React.FC<Props> = ({
 						<li className="item-title">{searchDataItem.title}</li>
 						<li className="item-img">
 							<img
-								src={searchDataItem.image_url}
+								src={searchDataItem.images.jpg.image_url}
 								alt={searchDataItem.title}
 								style={{ height: 200, width: 150 }}
 								loading="lazy"
@@ -252,12 +251,17 @@ export const ItemCard: React.FC<Props> = ({
 				)}
 
 				<div className="back">
-					{searchDataItem.synopsis ? (
-						<div className="manga-synopsis">{searchDataItem.synopsis}</div>
-					) : (
-						<h4>Synopsis: No data.</h4>
-					)}
-
+					Rank :<h4 className="back-rank"> {searchDataItem.rank}</h4>
+					Author :
+					<p>
+						{searchDataItem.authors &&
+							searchDataItem.authors[0] &&
+							searchDataItem.authors[0].name}
+					</p>
+					{searchDataItem.genres &&
+						searchDataItem.genres
+							.slice(0, 3)
+							.map((genre) => genre && <li>{genre.name}</li>)}
 					<Link
 						style={{ textDecoration: "none" }}
 						to={{

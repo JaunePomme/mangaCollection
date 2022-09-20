@@ -1,6 +1,5 @@
 #root,
-html,
-body {
+html, body {
   height: 100%;
 }
 
@@ -12,5 +11,9 @@ body {
 .menu {
   position: absolute;
   z-index: 2;
+}
+
+.central-component {
+  background-color: #1b252f;
 }
 /*# sourceMappingURL=App.css.map */

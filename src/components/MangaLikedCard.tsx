@@ -52,7 +52,6 @@ export const MangaLikedCard: React.FC<Props> = ({ item, idLookedFor }) => {
 		open: false,
 		Transition: Fade,
 	});
-
 	const modalProps = {
 		open,
 		setOpen,
@@ -102,7 +101,6 @@ export const MangaLikedCard: React.FC<Props> = ({ item, idLookedFor }) => {
 
 	const handleOpen = () => {
 		setOpen(true);
-		console.log("handle open reached");
 	};
 
 	return (
@@ -113,7 +111,7 @@ export const MangaLikedCard: React.FC<Props> = ({ item, idLookedFor }) => {
 						<li>
 							<img
 								className="manga-img"
-								src={item.image_url}
+								src={item.images.jpg.image_url}
 								alt={item.title}
 								style={{ height: 150, width: 100 }}
 							/>

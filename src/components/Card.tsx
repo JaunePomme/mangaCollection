@@ -26,7 +26,7 @@ export const Card: React.FC<Props> = ({
 		<ul className="card">
 			<img
 				className="card-img"
-				src={item.image_url}
+				src={item.image_url ? item.image_url : item.images.jpg.image_url}
 				alt={item.title}
 				loading="lazy"
 			/>

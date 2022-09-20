@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../sass/MangaProfile.css";
 import { Reviews } from "./Reviews";
 import { useAuthentication } from "../contexts/AuthenticationContext";
@@ -13,6 +12,7 @@ import Slide, { SlideProps } from "@material-ui/core/Slide";
 import { Fade } from "@material-ui/core";
 import { Collections } from "./FirestoreConstant.json";
 import { LikedDataStorage } from "./LikedList";
+import { blue } from "@material-ui/core/colors";
 
 const SlideTransition = (props: JSX.IntrinsicAttributes & SlideProps) => {
 	return <Slide {...props} direction="up" />;
@@ -31,18 +31,23 @@ export const MangaProfile = () => {
 	const { data, type, review, inputScoring } = location.state;
 	const retrievedLikedAnimes: string[] = useRetrieveLikedAnimes();
 	const retrievedLikedMangas: string[] = useRetrieveLikedMangas();
-
 	const [like, setLike] = useState<boolean>(false);
+	const image_url = data.images.jpg.image_url;
 	const {
 		mal_id,
 		episodes,
 		chapters,
-		image_url,
 		score,
 		title,
 		volumes,
 		synopsis,
 		members,
+		rank,
+		popularity,
+		authors,
+		title_japanese,
+		background,
+		genres,
 	} = data;
 
 	const [stateAlert, setStateAlert] = useState({
@@ -69,7 +74,6 @@ export const MangaProfile = () => {
 			open: false,
 		});
 	};
-
 	useEffect(() => {
 		if (retrievedLikedMangas?.includes(title)) setLike(true);
 		if (retrievedLikedAnimes?.includes(title)) setLike(true);
@@ -102,16 +106,9 @@ export const MangaProfile = () => {
 
 			return db
 				.set({
-					mal_id: mal_id,
-					title: title,
-					image_url: image_url,
-					synopsis: synopsis,
-					volumes: volumes,
-					chapters: chapters,
-					score: score,
+					...data,
 					personalScore: "",
 					status: "Plan",
-					members: members,
 				})
 				.then(() => {
 					console.log("Document added!");
@@ -149,16 +146,9 @@ export const MangaProfile = () => {
 
 			return db
 				.set({
-					mal_id: mal_id,
-					title: title,
-					image_url: image_url,
-					synopsis: synopsis,
-					episodes: episodes,
-					type: type,
-					score: score,
+					...data,
 					personalScore: "",
 					status: "Plan",
-					members: members,
 				})
 				.then(() => {
 					console.log("Document added!");
@@ -174,36 +164,64 @@ export const MangaProfile = () => {
 			{like && (
 				<div className="profile-liked">
 					<strong>This item is in the favorite list.</strong>
-					<FontAwesomeIcon icon={"user"}></FontAwesomeIcon>
 				</div>
 			)}
 			<img src={image_url} alt={title} style={{ maxHeight: 500 }} />
-			<li>Title: {title}</li>
-			<li>ID of the item: {mal_id}</li>
+			<li style={{ fontSize: "40px" }}> {title}</li>
+			<li style={{ color: "blanchedalmond" }}>ID of the item: {mal_id}</li>
 			{type === "manga" ? (
-				<li>Chapters: {chapters}</li>
+				<li style={{ fontSize: "25px" }}>
+					Chapters: {chapters} Volumes released: {volumes}
+				</li>
 			) : (
-				<li>Episodes: {episodes}</li>
+				<li style={{ fontSize: "25px" }}>Episodes: {episodes}</li>
 			)}
-			<li>MyAnimList Score: {score}</li>
-			{inputScoring ? <li>My personal score: {inputScoring}</li> : ""}
-			<li>Synopsis: {synopsis}</li>
-			<li>Volumes released: {volumes}</li>
-			<li>Members on myAnimList: {members}</li>
-			{review ? (
-				<li className="mangaprofile-myreview">My review: {review}</li>
+			<li style={{ fontSize: "25px", color: "blanchedalmond" }}>
+				MyAnimList Score: {score}
+			</li>
+			{inputScoring ? (
+				<li style={{ fontSize: "30px" }}>My personal score: {inputScoring}</li>
 			) : (
 				""
 			)}
-			<Button
-				type="button"
-				onClick={handleClickAlert(SlideTransition)}
-				variant="outlined"
-				color="secondary"
-			>
-				{like ? "Unlike: " : "Like: "}
-				{title}
-			</Button>
+			<li style={{ fontSize: "20px", margin: "5px" }}>Storyline: {synopsis}</li>
+			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
+				Author:{authors && authors[0] && authors[0].name}
+			</li>
+			<li style={{ fontSize: "20px" }}>
+				Genre:
+				{genres &&
+					genres.map((genre) => <ol key={genre.name}>{genre.name}</ol>)}
+			</li>
+			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
+				Rank: {rank}
+			</li>
+			<li style={{ fontSize: "20px" }}>Popularity : {popularity}</li>
+			<li style={{ fontSize: "20px", margin: "5px" }}>
+				Background : {background}
+			</li>
+			<li style={{ fontSize: "20px" }}>Japanese title: {title_japanese}</li>
+			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
+				{members} followers on myAnimList
+			</li>
+			{review ? (
+				<li className="mangaprofile-myreview">My review:{review}</li>
+			) : (
+				""
+			)}
+			{currentUser ? (
+				<Button
+					type="button"
+					onClick={handleClickAlert(SlideTransition)}
+					variant="outlined"
+					color="secondary"
+				>
+					{like ? "Unlike: " : "Like: "}
+					{title}
+				</Button>
+			) : (
+				""
+			)}
 			{like ? (
 				<Snackbar
 					open={stateAlert.open}
@@ -221,7 +239,7 @@ export const MangaProfile = () => {
 					key={stateAlert.Transition.name}
 				/>
 			)}
-			MyAnimList reviews: <Reviews />
+			Recommendations: <Reviews />
 		</ul>
 	);
 };

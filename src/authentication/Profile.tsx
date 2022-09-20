@@ -44,15 +44,15 @@ export const Profile = () => {
 	return (
 		<div>
 			<ul className="profile-container">
-				<li>Profile of: {username}</li>
-				<li>Email: {emailLookedFor}</li>
-				{currentUser.uid === idLookedFor ? (
+				<li style={{ fontSize: 20 }}>Profile of: {username}</li>
+				<li style={{ fontSize: 20 }}>Email: {emailLookedFor}</li>
+				{/* {currentUser.uid === idLookedFor ? (
 					<li>
 						<Link to="/update-profile"> Update your profile</Link>
 					</li>
 				) : (
 					""
-				)}
+				)} */}
 			</ul>
 
 			{idLookedFor && <LikedList idLookedFor={idLookedFor} />}

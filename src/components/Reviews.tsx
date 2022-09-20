@@ -4,22 +4,9 @@ import axios, { AxiosResponse } from "axios";
 import { MemberReviewList } from "./MemberReviewList";
 
 export interface Review {
-	reviewer: {
-		image_url: string;
-		username: string;
-		url: string;
-		scores: {
-			animations: number;
-			character: number;
-			enjoyment: number;
-			overall: number;
-			story: number;
-		};
-	};
-	content: string;
-	helpful_count: number;
-	date: Date;
-	mal_id: number;
+	url: string;
+	entry: any;
+	votes: number;
 }
 interface LocationState {
 	type: string;
@@ -34,17 +21,21 @@ export const Reviews = () => {
 	useEffect(() => {
 		const search = async (type: string, id: number) => {
 			try {
-				let response: AxiosResponse<{ reviews: Review[] }> = await axios.get(
-					`https://api.jikan.moe/v3/${type}/${id}/reviews`
+				let response: AxiosResponse<{
+					data: any;
+				}> = await axios.get(
+					`https://api.jikan.moe/v4/${type}/${id}/recommendations`
 				);
-				setReviewList(response.data.reviews);
+				// const responseList = response.data.data.slice(0, 5);
+				const responseList = response.data.data.slice(0, 2);
+				setReviewList(responseList);
 				return reviewList;
 			} catch (error) {
 				console.log("Error getting document:", error);
 			}
 		};
 		search(type, id);
-	}, [id, type, reviewList]);
+	}, []);
 
-	return <MemberReviewList reviewList={reviewList} />;
+	return <MemberReviewList reviewList={reviewList} type={type} />;
 };

@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAIA,AAAA,qBAAqB,CAAC;EACrB,gBAAgB,ECEA,OAAO;CDDvB",
+    "mappings": "AAIA,AAAA,qBAAqB,CAAC;EACrB,gBAAgB,ECEA,OAAO;EDDvB,KAAK,EAAE,WAAW;CAClB;;AAED,AAAA,WAAW,CAAA;EACV,gBAAgB,ECHA,OAAO;EDIvB,KAAK,EAAE,IAAI;CACX",
     "sources": [
         "MemberReviewCard.scss",
         "_variables.scss",

@@ -28,7 +28,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedMangas)
 			.doc(idLookedFor)
 			.collection(Collections.manga)
-			.orderBy(OrderBy.score)
+			.orderBy(OrderBy.score, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newMangaList: LikedDataStorage[] = [];
@@ -44,7 +44,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedAnimes)
 			.doc(idLookedFor)
 			.collection(Collections.anime)
-			.orderBy(OrderBy.score)
+			.orderBy(OrderBy.score, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newAnimeList: LikedDataStorage[] = [];
@@ -133,7 +133,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedMangas)
 			.doc(idLookedFor)
 			.collection(Collections.manga)
-			.orderBy(OrderBy.personalScore)
+			.orderBy(OrderBy.personalScore, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newMangaList: LikedDataStorage[] = [];
@@ -149,7 +149,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedAnimes)
 			.doc(idLookedFor)
 			.collection(Collections.anime)
-			.orderBy(OrderBy.personalScore)
+			.orderBy(OrderBy.personalScore, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newAnimeList: LikedDataStorage[] = [];
@@ -203,7 +203,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedMangas)
 			.doc(idLookedFor)
 			.collection(Collections.manga)
-			.orderBy(OrderBy.title)
+			.orderBy(OrderBy.title, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newMangaList: LikedDataStorage[] = [];
@@ -219,7 +219,7 @@ export const Sorting: React.FC<Props> = ({
 			.collection(Collections.likedAnimes)
 			.doc(idLookedFor)
 			.collection(Collections.anime)
-			.orderBy(OrderBy.title)
+			.orderBy(OrderBy.title, "desc")
 			.get()
 			.then((querySnapshot) => {
 				const newAnimeList: LikedDataStorage[] = [];

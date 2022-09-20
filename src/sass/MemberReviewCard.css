@@ -1,4 +1,12 @@
 .reviewList-container {
   background-color: #1b252f;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.reviewList {
+  background-color: #1b252f;
+  width: auto;
 }
 /*# sourceMappingURL=MemberReviewCard.css.map */

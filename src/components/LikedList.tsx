@@ -9,12 +9,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import "../sass/LikedList.css";
 import { Collections } from "./FirestoreConstant.json";
+import { Genre, Name } from "./MainSearch";
 
 interface Props {
 	idLookedFor: string;
 }
 
 export interface LikedDataStorage {
+	images: { jpg: { image_url: string } };
 	title: string;
 	mal_id: number;
 	image_url: string;
@@ -25,6 +27,12 @@ export interface LikedDataStorage {
 	synopsis?: string;
 	desc?: string;
 	members?: number;
+	rank?: number;
+	popularity?: number;
+	authors?: Array<Name>;
+	title_japanese?: string;
+	background?: string;
+	genres?: Array<Genre>;
 }
 
 interface MangaState {
