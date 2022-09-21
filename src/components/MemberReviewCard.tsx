@@ -58,7 +58,10 @@ export const MemberReviewCard: React.FC<Props> = ({ review, type }) => {
 				<li style={{ fontSize: "30px", listStyle: "none" }}>{title}</li>
 				<li style={{ fontSize: "20px" }}>ID on myAnimList: {mal_id}</li>
 				<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
-					URL: {url}
+					URL:
+					<a href={url} target="_blank" rel="noopener noreferrer">
+						{url}
+					</a>
 				</li>
 				<li style={{ fontSize: "20px" }}>Votes: {votes}</li>
 			</ul>

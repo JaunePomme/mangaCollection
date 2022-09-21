@@ -60,16 +60,19 @@ export const SignUp = () => {
 
 	const handleSubmit = async (e: { preventDefault: () => void }) => {
 		e.preventDefault();
+		if (pseudo == null) return alert("Pseudo required");
 		try {
 			if (
 				passwordRef.current == null ||
 				confirmedPasswordRef.current == null ||
 				emailRef.current == null
 			)
-				throw new Error("bug ref password ou confirmed");
+				// throw new Error("bug ref password or confirmed");
+				return alert("Dont leave empty space");
 			if (passwordRef.current.value !== confirmedPasswordRef.current.value) {
 				return alert("passwords are different");
 			}
+
 			localStorage.setItem("pseudo", pseudo);
 			localStorage.setItem("email", emailRef.current.value);
 
@@ -100,11 +103,11 @@ export const SignUp = () => {
 				email: mail,
 				userId: uid,
 			});
-			console.log("normalement cest bon");
-			console.log(pseudo + mail);
+
 			history.push("/profile/" + pseudo);
 		} catch (error) {
 			console.log(error);
+			alert(error);
 		}
 	};
 
@@ -133,7 +136,7 @@ export const SignUp = () => {
 						<Typography component="h1" variant="h5">
 							Sign up
 						</Typography>
-						<form className={classes.form} onSubmit={handleSubmit} noValidate>
+						<form className={classes.form} onSubmit={handleSubmit}>
 							<Grid container spacing={2}>
 								<Grid item xs={12}>
 									<TextField

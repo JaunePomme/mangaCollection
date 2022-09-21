@@ -54,7 +54,7 @@ export const Genre = () => {
 				let response: AxiosResponse<{ results: [] }> = await axios.get(
 					`https://api.jikan.moe/v3/search/${category}?genre=${genre}`
 				);
-				const newDataList = response.data.results;
+				const newDataList = response.data.results.slice(0, 20);
 				setDataList(newDataList);
 				return newDataList;
 			} catch (e) {
