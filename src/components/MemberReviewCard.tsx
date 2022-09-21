@@ -63,7 +63,13 @@ export const MemberReviewCard: React.FC<Props> = ({ review, type }) => {
 						{url}
 					</a>
 				</li>
-				<li style={{ fontSize: "20px" }}>Votes: {votes}</li>
+				<li
+					style={{
+						fontSize: "20px",
+					}}
+				>
+					Votes: {votes}
+				</li>
 			</ul>
 		</div>
 	);

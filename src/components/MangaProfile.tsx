@@ -166,62 +166,94 @@ export const MangaProfile = () => {
 					<strong>This item is in the favorite list.</strong>
 				</div>
 			)}
-			<img src={image_url} alt={title} style={{ maxHeight: 500 }} />
-			<li style={{ fontSize: "40px" }}> {title}</li>
-			<li style={{ color: "blanchedalmond" }}>ID of the item: {mal_id}</li>
-			{type === "manga" ? (
-				<li style={{ fontSize: "25px" }}>
-					Chapters: {chapters} Volumes released: {volumes}
-				</li>
-			) : (
-				<li style={{ fontSize: "25px" }}>Episodes: {episodes}</li>
-			)}
-			<li style={{ fontSize: "25px", color: "blanchedalmond" }}>
-				MyAnimList Score: {score}
+			<div style={{ display: "flex", width: "800px" }}>
+				<img src={image_url} alt={title} style={{ maxHeight: 500 }} />
+				<article style={{ fontSize: "30px", marginLeft: "5px" }}>
+					{title}
+
+					<li
+						style={{
+							fontSize: "20px",
+							color: "blanchedalmond",
+							marginLeft: "5px",
+						}}
+					>
+						{authors && authors[0] && authors[0].name}
+					</li>
+					<li>
+						{currentUser ? (
+							<Button
+								type="button"
+								onClick={handleClickAlert(SlideTransition)}
+								variant="outlined"
+								color="secondary"
+							>
+								{like ? "Unlike: " : "Like: "}
+								{title}
+							</Button>
+						) : (
+							""
+						)}
+					</li>
+					<li style={{ fontSize: "20px", marginLeft: "5px" }}>
+						MyAnimList Score: {score}
+					</li>
+					<li style={{ fontSize: "20px", marginLeft: "5px" }}>Rank: {rank}</li>
+					<li style={{ fontSize: "20px", marginLeft: "5px" }}>
+						Popularity : {popularity}
+					</li>
+					<li style={{ fontSize: "20px", marginLeft: "5px" }}>
+						Genre:
+						{genres &&
+							genres.map((genre) => <ol key={genre.name}>{genre.name}</ol>)}
+					</li>
+					{type === "manga" ? (
+						<li style={{ fontSize: "20px", marginLeft: "5px" }}>
+							Chapters: {chapters} Volumes released: {volumes}
+						</li>
+					) : (
+						<li style={{ fontSize: "20px", marginLeft: "5px" }}>
+							Episodes: {episodes}
+						</li>
+					)}
+					{/* <li style={{ fontSize: "20px", marginLeft: "5px" }}>
+						{members} followers
+					</li> */}
+					{inputScoring ? (
+						<li style={{ fontSize: "30px" }}>
+							My personal score: {inputScoring}
+						</li>
+					) : (
+						""
+					)}
+				</article>
+			</div>
+			<li
+				style={{
+					fontSize: "15px",
+					margin: "5px",
+					width: "800px",
+					// borderWidth: " 1px",
+					// borderColor: "white",
+					// borderStyle: "solid",
+				}}
+			>
+				{synopsis}
 			</li>
-			{inputScoring ? (
-				<li style={{ fontSize: "30px" }}>My personal score: {inputScoring}</li>
-			) : (
-				""
-			)}
-			<li style={{ fontSize: "20px", margin: "5px" }}>Storyline: {synopsis}</li>
-			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
-				Author:{authors && authors[0] && authors[0].name}
-			</li>
-			<li style={{ fontSize: "20px" }}>
-				Genre:
-				{genres &&
-					genres.map((genre) => <ol key={genre.name}>{genre.name}</ol>)}
-			</li>
-			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
-				Rank: {rank}
-			</li>
-			<li style={{ fontSize: "20px" }}>Popularity : {popularity}</li>
-			<li style={{ fontSize: "20px", margin: "5px" }}>
+			<li style={{ fontSize: "15px", margin: "5px", width: "800px" }}>
 				Background : {background}
 			</li>
-			<li style={{ fontSize: "20px" }}>Japanese title: {title_japanese}</li>
-			<li style={{ fontSize: "20px", color: "blanchedalmond" }}>
-				{members} followers on myAnimList
-			</li>
 			{review ? (
-				<li className="mangaprofile-myreview">My review:{review}</li>
-			) : (
-				""
-			)}
-			{currentUser ? (
-				<Button
-					type="button"
-					onClick={handleClickAlert(SlideTransition)}
-					variant="outlined"
-					color="secondary"
+				<li
+					className="mangaprofile-myreview"
+					style={{ fontSize: "20px", margin: "5px", width: "800px" }}
 				>
-					{like ? "Unlike: " : "Like: "}
-					{title}
-				</Button>
+					My review: {review}
+				</li>
 			) : (
 				""
 			)}
+			<li style={{ fontSize: "20px" }}>Japanese title: {title_japanese}</li>
 			{like ? (
 				<Snackbar
 					open={stateAlert.open}
