@@ -106,8 +106,6 @@ export const LikedList: React.FC<Props> = ({ idLookedFor }) => {
 			<div className="likedlist-btn">
 				<Sorting
 					idLookedFor={idLookedFor}
-					// likedMangasData={likedMangasData}
-					// likedAnimesData={likedAnimesData}
 					setLikedMangasData={setLikedMangasData}
 					setLikedAnimesData={setLikedAnimesData}
 				/>

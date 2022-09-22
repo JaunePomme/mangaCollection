@@ -46,13 +46,6 @@ export const Profile = () => {
 			<ul className="profile-container">
 				<li style={{ fontSize: 20 }}>Profile of: {username}</li>
 				<li style={{ fontSize: 20 }}>Email: {emailLookedFor}</li>
-				{/* {currentUser.uid === idLookedFor ? (
-					<li>
-						<Link to="/update-profile"> Update your profile</Link>
-					</li>
-				) : (
-					""
-				)} */}
 			</ul>
 
 			{idLookedFor && <LikedList idLookedFor={idLookedFor} />}

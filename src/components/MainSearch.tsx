@@ -68,22 +68,12 @@ export const MainSearch = () => {
 	const retrievedLikedMangas = useRetrieveLikedMangas();
 	const retrievedLikedAnimes = useRetrieveLikedAnimes();
 
-	const searchItem = async (
-		category: string,
-		keyword: string | number
-		// page: number
-	) => {
+	const searchItem = async (category: string, keyword: string | number) => {
 		try {
 			let response: AxiosResponse<{
 				data: SetStateAction<SearchedData[]>;
 				results: SearchedData[];
-			}> = await axios.get(
-				// `https://api.jikan.moe/v3/search/${category}?q=${keyword}&page=${page}`
-				// `https://api.jikan.moe/v3/search/${category}?q=${keyword}`
-				`https://api.jikan.moe/v4/${category}?q=${keyword}`
-			);
-			// console.log("data : ", response.data);
-			// setSearchData(response.data.results);
+			}> = await axios.get(`https://api.jikan.moe/v4/${category}?q=${keyword}`);
 			setSearchData(response.data.data);
 			return searchData;
 		} catch (e) {
@@ -96,7 +86,6 @@ export const MainSearch = () => {
 			setFirstTime(false);
 			return;
 		}
-		// searchItem(category, inputValue, page);
 		searchItem(category, inputValue);
 	}, [category]);
 
@@ -114,7 +103,6 @@ export const MainSearch = () => {
 						placeholder="search 3 letters at least.."
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
-								// searchItem(category, inputValue, page);
 								searchItem(category, inputValue);
 							}
 						}}
@@ -145,7 +133,6 @@ export const MainSearch = () => {
 						variant="contained"
 						color="secondary"
 						onClick={() => {
-							// searchItem(category, inputValue, page);
 							searchItem(category, inputValue);
 						}}
 						className={classes.button}
@@ -162,9 +149,6 @@ export const MainSearch = () => {
 				retrievedLikedMangas={retrievedLikedMangas}
 				retrievedLikedAnimes={retrievedLikedAnimes}
 			/>
-			{/* {searchData.length > 1 && (
-				<NextPreviousPage page={page} setPage={setPage} />
-			)} */}
 			<TopMangaAnime />
 		</div>
 	);

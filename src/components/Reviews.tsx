@@ -26,7 +26,6 @@ export const Reviews = () => {
 				}> = await axios.get(
 					`https://api.jikan.moe/v4/${type}/${id}/recommendations`
 				);
-				// const responseList = response.data.data.slice(0, 5);
 				const responseList = response.data.data.slice(0, 2);
 				setReviewList(responseList);
 				return reviewList;

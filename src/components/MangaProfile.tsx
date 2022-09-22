@@ -216,9 +216,6 @@ export const MangaProfile = () => {
 							Episodes: {episodes}
 						</li>
 					)}
-					{/* <li style={{ fontSize: "20px", marginLeft: "5px" }}>
-						{members} followers
-					</li> */}
 					{inputScoring ? (
 						<li style={{ fontSize: "30px" }}>
 							My personal score: {inputScoring}
@@ -233,9 +230,6 @@ export const MangaProfile = () => {
 					fontSize: "15px",
 					margin: "5px",
 					width: "800px",
-					// borderWidth: " 1px",
-					// borderColor: "white",
-					// borderStyle: "solid",
 				}}
 			>
 				{synopsis}

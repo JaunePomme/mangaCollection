@@ -46,11 +46,7 @@ export const MemberReviewCard: React.FC<Props> = ({ review, type }) => {
 					},
 				}}
 			>
-				<Button
-					variant="contained"
-					color="secondary"
-					// className={classes.button}
-				>
+				<Button variant="contained" color="secondary">
 					See More here
 				</Button>
 			</Link>
